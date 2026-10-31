@@ -1,12 +1,12 @@
 
 {
-    "id": "/rovixa-pos/Management/",
+    "id": "/",
     "name": "Rovixa Management",
     "short_name": "Management",
     "description": "Aplikasi manajemen Rovixa POS",
     "lang": "id-ID",
-    "start_url": "/rovixa-pos/Management/",
-    "scope": "/rovixa-pos/Management/",
+    "start_url": "/",
+    "scope": "/",
     "display": "standalone",
     "orientation": "any",
     "background_color": "#f8fbfa",

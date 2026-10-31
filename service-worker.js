@@ -15,7 +15,7 @@ const CACHE_PREFIX =
     "rovixa-management-pwa";
 
 const CACHE_VERSION =
-    "v2";
+    "v3";
 
 const STATIC_CACHE =
     `${CACHE_PREFIX}-static-${CACHE_VERSION}`;
