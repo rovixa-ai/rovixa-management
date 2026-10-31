@@ -1,0 +1,1376 @@
+/* ======================================
+   TREEHOUSE POS
+   PEMBELIAN LAPORAN MODAL
+   DESKTOP
+   EMERALD PREMIUM DESIGN SYSTEM
+====================================== */
+
+
+/* ======================================
+   OVERLAY
+====================================== */
+
+.pembelian-laporan-modal-overlay {
+
+    position: fixed;
+    inset: 0;
+
+    z-index: 30000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background:
+        rgba(15, 23, 42, 0.38);
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+
+/* ======================================
+   MODAL CONTAINER
+====================================== */
+
+.pembelian-laporan-modal-container {
+
+    position: relative;
+
+    width: 100%;
+    max-width: 1180px;
+    max-height: calc(100vh - 48px);
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+    box-shadow:
+        0 24px 60px rgba(15, 23, 42, 0.14),
+        0 4px 12px rgba(15, 23, 42, 0.055);
+}
+
+
+/* ======================================
+   HEADER
+====================================== */
+
+.pembelian-laporan-modal-header {
+
+    position: relative;
+
+    width: 100%;
+    min-height: 68px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 20px;
+
+    border-bottom: 1px solid #e5ece9;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+    overflow: hidden;
+}
+
+
+/* ======================================
+   HEADER ACCENT
+====================================== */
+
+.pembelian-laporan-modal-header::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #10b981,
+            rgba(16, 185, 129, 0.08)
+        );
+}
+
+
+/* ======================================
+   HEADER AMBIENT GLOW
+====================================== */
+
+.pembelian-laporan-modal-header::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    top: -130px;
+    right: -45px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(16, 185, 129, 0.13) 0%,
+            rgba(16, 185, 129, 0.045) 40%,
+            transparent 72%
+        );
+
+    pointer-events: none;
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+/* ======================================
+   TITLE
+====================================== */
+
+.pembelian-laporan-modal-label {
+
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    color: #17221e;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    letter-spacing: -0.015em;
+}
+
+
+/* ======================================
+   TITLE INDICATOR
+====================================== */
+
+.pembelian-laporan-modal-label::before {
+
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    flex: 0 0 7px;
+
+    border-radius: 50%;
+
+    background: #10b981;
+
+    box-shadow:
+        0 0 0 4px rgba(16, 185, 129, 0.08);
+}
+
+
+/* ======================================
+   CLOSE BUTTON
+====================================== */
+
+.pembelian-laporan-modal-close {
+
+    position: relative;
+    z-index: 2;
+
+    width: 34px;
+    height: 34px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f8fbfa
+        );
+
+    color: #68766f;
+
+    font-size: 21px;
+    line-height: 1;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.pembelian-laporan-modal-close:hover {
+
+    transform: translateY(-2px);
+
+    border-color: #b9d8ca;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #eefaf5
+        );
+
+    color: #059669;
+
+    box-shadow:
+        0 8px 18px rgba(15, 23, 42, 0.055),
+        0 3px 8px rgba(16, 185, 129, 0.06);
+}
+
+
+/* ======================================
+   BODY
+====================================== */
+
+.pembelian-laporan-modal-body {
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+
+    padding: 18px 20px 20px;
+
+    overflow-y: auto;
+}
+
+
+/* ======================================
+   FILTER CARD
+====================================== */
+
+.pembelian-laporan-modal-filter-card {
+
+    position: relative;
+
+    width: 100%;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 18px;
+
+    padding: 16px;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.055),
+        0 2px 5px rgba(15, 23, 42, 0.035);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.pembelian-laporan-modal-filter-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #10b981,
+            rgba(16, 185, 129, 0.08)
+        );
+}
+
+.pembelian-laporan-modal-filter-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 190px;
+    height: 190px;
+
+    top: -120px;
+    right: -35px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(16, 185, 129, 0.13) 0%,
+            rgba(16, 185, 129, 0.045) 40%,
+            transparent 72%
+        );
+
+    pointer-events: none;
+
+    transition:
+        transform 0.3s ease;
+}
+
+.pembelian-laporan-modal-filter-card:hover {
+
+    transform: translateY(-2px);
+
+    border-color: #c9ddd4;
+
+    box-shadow:
+        0 18px 36px rgba(15, 23, 42, 0.075),
+        0 4px 10px rgba(16, 185, 129, 0.06);
+}
+
+.pembelian-laporan-modal-filter-card:hover::after {
+
+    transform: scale(1.18);
+}
+
+
+/* ======================================
+   FILTER GRID
+====================================== */
+
+.pembelian-laporan-modal-filter-grid {
+
+    position: relative;
+    z-index: 1;
+
+    flex: 1;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(190px, 0.65fr)
+        minmax(250px, 1fr);
+
+    gap: 16px;
+}
+
+
+/* ======================================
+   FILTER GROUP
+====================================== */
+
+.pembelian-laporan-modal-filter-group {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+
+    min-width: 0;
+}
+
+.pembelian-laporan-modal-filter-group label {
+
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    color: #68766f;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.pembelian-laporan-modal-filter-group label::before {
+
+    content: "";
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #10b981;
+
+    box-shadow:
+        0 0 0 3px rgba(16, 185, 129, 0.08);
+}
+
+
+/* ======================================
+   FILTER INPUT
+====================================== */
+
+.pembelian-laporan-modal-filter-group input,
+.pembelian-laporan-modal-filter-group select {
+
+    width: 100%;
+    height: 40px;
+
+    padding: 0 12px;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 9px;
+
+    outline: none;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f8fbfa
+        );
+
+    color: #17221e;
+
+    font-size: 11px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.pembelian-laporan-modal-filter-group input:focus,
+.pembelian-laporan-modal-filter-group select:focus {
+
+    border-color: #8bd9b8;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(16, 185, 129, 0.08);
+}
+
+
+/* ======================================
+   FILTER ACTION
+====================================== */
+
+.pembelian-laporan-modal-filter-actions {
+
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+}
+
+.pembelian-laporan-modal-filter-actions button {
+
+    height: 40px;
+    min-width: 82px;
+
+    padding: 0 15px;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f8fbfa
+        );
+
+    color: #68766f;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    box-shadow:
+        0 2px 5px rgba(15, 23, 42, 0.035);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.pembelian-laporan-modal-filter-actions button:hover {
+
+    transform: translateY(-2px);
+
+    border-color: #b9d8ca;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #eefaf5
+        );
+
+    color: #059669;
+
+    box-shadow:
+        0 8px 18px rgba(15, 23, 42, 0.055),
+        0 3px 8px rgba(16, 185, 129, 0.06);
+}
+
+
+/* ======================================
+   SUMMARY
+====================================== */
+
+.pembelian-laporan-modal-summary {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+    gap: 11px;
+}
+
+
+/* ======================================
+   SUMMARY CARD
+====================================== */
+
+.pembelian-laporan-modal-summary-card {
+
+    position: relative;
+
+    min-width: 0;
+    min-height: 82px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 13px 14px;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.055),
+        0 2px 5px rgba(15, 23, 42, 0.035);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* ======================================
+   SUMMARY ACCENT
+====================================== */
+
+.pembelian-laporan-modal-summary-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #10b981,
+            rgba(16, 185, 129, 0.08)
+        );
+}
+
+
+/* ======================================
+   SUMMARY GLOW
+====================================== */
+
+.pembelian-laporan-modal-summary-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    top: -75px;
+    right: -25px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(16, 185, 129, 0.13) 0%,
+            rgba(16, 185, 129, 0.045) 40%,
+            transparent 72%
+        );
+
+    pointer-events: none;
+
+    transition:
+        transform 0.3s ease;
+}
+
+.pembelian-laporan-modal-summary-card:hover {
+
+    transform: translateY(-3px);
+
+    border-color: #c9ddd4;
+
+    box-shadow:
+        0 18px 36px rgba(15, 23, 42, 0.075),
+        0 4px 10px rgba(16, 185, 129, 0.06);
+}
+
+.pembelian-laporan-modal-summary-card:hover::after {
+
+    transform: scale(1.18);
+}
+
+
+/* ======================================
+   SUMMARY LABEL
+====================================== */
+
+.pembelian-laporan-modal-summary-card span {
+
+    position: relative;
+    z-index: 1;
+
+    color: #68766f;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+/* ======================================
+   SUMMARY VALUE
+====================================== */
+
+.pembelian-laporan-modal-summary-card strong {
+
+    position: relative;
+    z-index: 1;
+
+    color: #17221e;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    letter-spacing: -0.035em;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pembelian-laporan-modal-summary-card strong::after {
+
+    content: "";
+
+    display: block;
+
+    width: 32px;
+    height: 2px;
+
+    margin-top: 5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #10b981,
+            rgba(16, 185, 129, 0)
+        );
+}
+
+
+/* ======================================
+   RESULT CARD
+====================================== */
+
+.pembelian-laporan-modal-result-card {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 250px;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.055),
+        0 2px 5px rgba(15, 23, 42, 0.035);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.pembelian-laporan-modal-result-card:hover {
+
+    border-color: #c9ddd4;
+
+    box-shadow:
+        0 18px 36px rgba(15, 23, 42, 0.075),
+        0 4px 10px rgba(16, 185, 129, 0.06);
+}
+
+
+/* ======================================
+   RESULT ACCENT
+====================================== */
+
+.pembelian-laporan-modal-result-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #10b981,
+            rgba(16, 185, 129, 0.08)
+        );
+}
+
+
+/* ======================================
+   RESULT HEADER
+====================================== */
+
+.pembelian-laporan-modal-result-header {
+
+    min-height: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 0 15px;
+
+    border-bottom: 1px solid #e5ece9;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+}
+
+.pembelian-laporan-modal-result-header > div {
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    color: #17221e;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.pembelian-laporan-modal-result-header > div::before {
+
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #10b981;
+
+    box-shadow:
+        0 0 0 4px rgba(16, 185, 129, 0.08);
+}
+
+.pembelian-laporan-modal-result-header span {
+
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 26px;
+
+    padding: 0 10px;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 8px;
+
+    background: #f8fbfa;
+
+    color: #68766f;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+/* ======================================
+   TABLE WRAPPER
+====================================== */
+
+.pembelian-laporan-modal-table-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: auto;
+
+    max-height: 390px;
+}
+
+
+/* ======================================
+   TABLE
+====================================== */
+
+.pembelian-laporan-modal-table {
+
+    width: 100%;
+
+    min-width: 900px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.pembelian-laporan-modal-table th {
+
+    position: sticky;
+    top: 0;
+
+    z-index: 3;
+
+    height: 40px;
+
+    padding: 0 10px;
+
+    border-bottom: 1px solid #d6e2dd;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f8fbfa 0%,
+            #f2f7f4 100%
+        );
+
+    color: #68766f;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+.pembelian-laporan-modal-table td {
+
+    height: 44px;
+
+    padding: 7px 10px;
+
+    border-bottom: 1px solid #edf2f0;
+
+    color: #425149;
+
+    font-size: 10px;
+
+    white-space: nowrap;
+}
+
+.pembelian-laporan-modal-table tbody tr {
+
+    transition:
+        background 0.18s ease;
+}
+
+.pembelian-laporan-modal-table tbody tr:hover {
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(16, 185, 129, 0.035),
+            rgba(16, 185, 129, 0.01)
+        );
+}
+
+.pembelian-laporan-modal-table tbody tr:last-child td {
+
+    border-bottom: 0;
+}
+
+.pembelian-laporan-modal-detail-button {
+    display: inline-flex;
+    
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    min-height: 36px;
+    padding: 8px 14px;
+
+    font-family: inherit;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 0,5;
+    white-space: nowrap;
+
+    color: #07573c;
+
+    background: transparent;
+
+    border: 0px;
+    border-radius: 9px;
+    box-shadow:
+        0 2px 5px rgba(5, 150, 105, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
+
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.pembelian-laporan-modal-detail-button:hover {
+    background: linear-gradient(
+        135deg,
+        #0596681a 0%,
+        #0478572f 50%
+    );
+
+    border-color: #047857;
+
+    box-shadow:
+        0 4px 10px rgba(5, 150, 105, 0.22);
+
+    transform: translateY(-1px);
+}
+
+.pembelian-laporan-modal-detail-button:active {
+
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(5, 150, 105, 0.15);
+}
+
+.pembelian-laporan-modal-detail-button:focus-visible {
+    outline: 3px solid rgba(16, 185, 129, 0.25);
+    outline-offset: 3px;
+}
+
+.pembelian-laporan-modal-detail-button:disabled {
+    color: #9ca3af;
+    background: #f3f4f6;
+    border-color: #e5e7eb;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+    opacity: 0.7;
+}
+
+
+/* ======================================
+   EMPTY
+====================================== */
+
+.pembelian-laporan-modal-empty {
+
+    height: 150px !important;
+
+    color: #68766f !important;
+
+    text-align: center !important;
+
+    font-size: 11px !important;
+}
+
+
+/* ======================================
+   LARGE DESKTOP
+====================================== */
+
+@media (min-width: 1400px) {
+
+    .pembelian-laporan-modal-container {
+        max-width: 1260px;
+    }
+
+    .pembelian-laporan-modal-body {
+        gap: 18px;
+        padding: 20px 22px 22px;
+    }
+
+    .pembelian-laporan-modal-summary-card {
+        min-height: 86px;
+    }
+
+    .pembelian-laporan-modal-summary-card strong {
+        font-size: 19px;
+    }
+}
+
+/* ======================================
+   TREEHOUSE POS
+   PEMBELIAN LAPORAN MODAL
+   DESKTOP - LIMITED HEIGHT
+====================================== */
+
+@media (min-width: 769px) and (max-height: 800px) {
+
+    /* ==================================
+       OVERLAY
+    ================================== */
+
+    .pembelian-laporan-modal-overlay {
+        align-items: flex-start;
+        justify-content: center;
+
+        padding: 24px;
+
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+
+    /* ==================================
+       MODAL CONTAINER
+    ================================== */
+
+    .pembelian-laporan-modal-container {
+        position: relative;
+
+        width: 100%;
+        max-width: 1180px;
+
+        height: auto;
+        max-height: calc(100dvh - 48px);
+
+        min-height: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        overflow: hidden;
+
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+
+    /* ==================================
+       HEADER
+    ================================== */
+
+    .pembelian-laporan-modal-header {
+        flex: 0 0 60px;
+
+        min-height: 60px;
+
+        padding: 0 18px;
+    }
+
+
+    /* ==================================
+       BODY
+    ================================== */
+
+    .pembelian-laporan-modal-body {
+        flex: 1 1 auto;
+
+        min-height: 0;
+        width: 100%;
+
+        gap: 12px;
+
+        padding: 14px 18px 18px;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        overscroll-behavior: contain;
+
+        scrollbar-width: thin;
+        scrollbar-color: #cbd5d1 transparent;
+    }
+
+    .pembelian-laporan-modal-body::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .pembelian-laporan-modal-body::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .pembelian-laporan-modal-body::-webkit-scrollbar-thumb {
+        background: #cbd5d1;
+        border-radius: 10px;
+    }
+
+
+    /* ==================================
+       FILTER CARD
+    ================================== */
+
+    .pembelian-laporan-modal-filter-card {
+        flex: 0 0 auto;
+
+        gap: 12px;
+        padding: 13px;
+    }
+
+    .pembelian-laporan-modal-filter-grid {
+        gap: 12px;
+
+        grid-template-columns:
+            minmax(170px, 0.65fr)
+            minmax(220px, 1fr);
+    }
+
+    .pembelian-laporan-modal-filter-group {
+        gap: 5px;
+    }
+
+    .pembelian-laporan-modal-filter-group input,
+    .pembelian-laporan-modal-filter-group select {
+        height: 36px;
+    }
+
+    .pembelian-laporan-modal-filter-actions button {
+        height: 36px;
+    }
+
+
+    /* ==================================
+       SUMMARY
+    ================================== */
+
+    .pembelian-laporan-modal-summary {
+        flex: 0 0 auto;
+
+        gap: 9px;
+    }
+
+    .pembelian-laporan-modal-summary-card {
+        min-height: 68px;
+
+        gap: 5px;
+
+        padding: 10px 12px;
+    }
+
+    .pembelian-laporan-modal-summary-card span {
+        font-size: 9px;
+    }
+
+    .pembelian-laporan-modal-summary-card strong {
+        font-size: 16px;
+    }
+
+
+    /* ==================================
+       RESULT CARD
+    ================================== */
+
+    .pembelian-laporan-modal-result-card {
+        flex: 0 0 auto;
+
+        min-height: 0;
+    }
+
+    .pembelian-laporan-modal-result-header {
+        flex: 0 0 46px;
+
+        min-height: 46px;
+
+        padding: 0 13px;
+    }
+
+
+    /* ==================================
+       TABLE WRAPPER
+    ================================== */
+
+    .pembelian-laporan-modal-table-wrapper {
+        width: 100%;
+
+        max-height: 300px;
+
+        overflow-x: auto;
+        overflow-y: auto;
+
+        overscroll-behavior: contain;
+    }
+
+    .pembelian-laporan-modal-table th {
+        height: 36px;
+    }
+
+    .pembelian-laporan-modal-table td {
+        height: 38px;
+
+        padding: 6px 10px;
+    }
+
+
+    /* ==================================
+       LARGE DESKTOP - LIMITED HEIGHT
+    ================================== */
+
+    @media (min-width: 1400px) {
+
+        .pembelian-laporan-modal-container {
+            max-width: 1260px;
+        }
+
+        .pembelian-laporan-modal-body {
+            gap: 13px;
+            padding: 15px 20px 18px;
+        }
+
+    }
+
+}
+
+
+/* ======================================
+   EXTRA SHORT DESKTOP
+====================================== */
+
+@media (min-width: 769px) and (max-height: 600px) {
+
+    .pembelian-laporan-modal-overlay {
+        padding: 16px;
+    }
+
+    .pembelian-laporan-modal-container {
+        max-height: calc(100dvh - 32px);
+    }
+
+    .pembelian-laporan-modal-header {
+        flex-basis: 52px;
+        min-height: 52px;
+    }
+
+    .pembelian-laporan-modal-body {
+        gap: 10px;
+        padding: 10px 16px 14px;
+    }
+
+    .pembelian-laporan-modal-filter-card {
+        padding: 10px;
+    }
+
+    .pembelian-laporan-modal-summary-card {
+        min-height: 60px;
+        padding: 8px 10px;
+    }
+
+    .pembelian-laporan-modal-summary-card strong {
+        font-size: 14px;
+    }
+
+    .pembelian-laporan-modal-table-wrapper {
+        max-height: 240px;
+    }
+
+    .pembelian-laporan-modal-result-header {
+        flex-basis: 42px;
+        min-height: 42px;
+    }
+
+}

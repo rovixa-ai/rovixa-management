@@ -1,0 +1,1391 @@
+
+/* ======================================
+   TREEHOUSE POS
+   LAPORAN PENJUALAN MODAL
+   DESKTOP
+   EMERALD PREMIUM DESIGN SYSTEM
+====================================== */
+
+
+/* ======================================
+   OVERLAY
+====================================== */
+
+.penjualan-laporan-modal-overlay {
+
+    position: fixed;
+    inset: 0;
+
+    z-index: 30000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background: rgba(15, 23, 42, 0.38);
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+
+/* ======================================
+   MODAL CONTAINER
+====================================== */
+
+.penjualan-laporan-modal-dialog {
+
+    position: relative;
+
+    width: 100%;
+    max-width: 1180px;
+    max-height: calc(100vh - 48px);
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 16px;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #f8fbfa 100%
+    );
+
+    box-shadow:
+        0 24px 60px rgba(15, 23, 42, 0.14),
+        0 4px 12px rgba(15, 23, 42, 0.055);
+}
+
+
+/* ======================================
+   HEADER
+====================================== */
+
+.penjualan-laporan-modal-header {
+
+    position: relative;
+
+    width: 100%;
+    min-height: 68px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    padding: 0 20px;
+
+    border-bottom: 1px solid #e5ece9;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #f8fbfa 100%
+    );
+
+    overflow: hidden;
+}
+
+
+/* ======================================
+   HEADER ACCENT
+====================================== */
+
+.penjualan-laporan-modal-header::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: linear-gradient(
+        90deg,
+        #059669,
+        #10b981,
+        rgba(16, 185, 129, 0.08)
+    );
+}
+
+
+/* ======================================
+   HEADER AMBIENT GLOW
+====================================== */
+
+.penjualan-laporan-modal-header::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    top: -130px;
+    right: -45px;
+
+    background: radial-gradient(
+        circle,
+        rgba(16, 185, 129, 0.13) 0%,
+        rgba(16, 185, 129, 0.045) 40%,
+        transparent 72%
+    );
+
+    pointer-events: none;
+
+    transition: transform 0.3s ease;
+}
+
+
+/* ======================================
+   TITLE
+====================================== */
+
+.penjualan-laporan-modal-label {
+
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    margin: 0;
+
+    color: #17221e;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    letter-spacing: -0.015em;
+}
+
+.penjualan-laporan-modal-label::before {
+
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    flex: 0 0 7px;
+
+    border-radius: 50%;
+
+    background: #10b981;
+
+    box-shadow:
+        0 0 0 4px rgba(16, 185, 129, 0.08);
+}
+
+
+/* ======================================
+   HEADER TITLE CONTENT
+====================================== */
+
+.penjualan-laporan-modal-header > div {
+
+    position: relative;
+    z-index: 1;
+
+    min-width: 0;
+}
+
+.penjualan-laporan-modal-header h3 {
+
+    margin: 0;
+
+    color: #17221e;
+
+    font-size: 16px;
+    line-height: 1.3;
+    font-weight: 700;
+
+    letter-spacing: -0.015em;
+}
+
+.penjualan-laporan-modal-header p {
+
+    margin: 5px 0 0;
+
+    color: #68766f;
+
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+
+/* ======================================
+   CLOSE BUTTON
+====================================== */
+
+.penjualan-laporan-modal-close {
+
+    position: relative;
+    z-index: 2;
+
+    flex: 0 0 34px;
+
+    width: 34px;
+    height: 34px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 9px;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff,
+        #f8fbfa
+    );
+
+    color: #68766f;
+
+    font-size: 21px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.penjualan-laporan-modal-close:hover {
+
+    transform: translateY(-2px);
+
+    border-color: #b9d8ca;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff,
+        #eefaf5
+    );
+
+    color: #059669;
+
+    box-shadow:
+        0 8px 18px rgba(15, 23, 42, 0.055),
+        0 3px 8px rgba(16, 185, 129, 0.06);
+}
+
+.penjualan-laporan-modal-close:active {
+
+    transform: scale(0.96);
+}
+
+
+/* ======================================
+   BODY
+====================================== */
+
+.penjualan-laporan-modal-body {
+
+    width: 100%;
+
+    flex: 1 1 auto;
+
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+
+    padding: 18px 20px 20px;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    scrollbar-width: thin;
+    scrollbar-color: #a7c8ba #f1f6f4;
+}
+
+
+/* ======================================
+   CARD
+====================================== */
+
+.penjualan-laporan-modal-card {
+
+    position: relative;
+
+    width: 100%;
+
+    min-width: 0;
+    min-height: fit-content;
+    padding: 16px;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 13px;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #f8fbfa 100%
+    );
+
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.055),
+        0 2px 5px rgba(15, 23, 42, 0.035);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.penjualan-laporan-modal-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: linear-gradient(
+        90deg,
+        #059669,
+        #10b981,
+        rgba(16, 185, 129, 0.08)
+    );
+
+    pointer-events: none;
+}
+
+
+/* ======================================
+   CARD HEADER
+====================================== */
+
+.penjualan-laporan-modal-card-header {
+
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+
+    margin-bottom: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+}
+
+.penjualan-laporan-modal-card-header h3 {
+
+    position: relative;
+
+    margin: 0;
+
+    padding-left: 13px;
+
+    color: #17221e;
+
+    font-size: 14px;
+    line-height: 1.3;
+    font-weight: 700;
+
+    letter-spacing: -0.01em;
+}
+
+.penjualan-laporan-modal-card-header h3::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 50%;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #10b981;
+
+    box-shadow:
+        0 0 0 4px rgba(16, 185, 129, 0.08);
+
+    transform: translateY(-50%);
+}
+
+
+/* ======================================
+   FORM
+====================================== */
+
+.penjualan-laporan-modal-form-grid {
+
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(190px, 0.65fr)
+        minmax(250px, 1fr)
+        minmax(25px, 0.2fr);
+
+    gap: 16px;
+}
+
+.penjualan-laporan-modal-form-group {
+
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+.penjualan-laporan-modal-form-group label {
+
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    color: #68766f;
+
+    font-size: 11px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.penjualan-laporan-modal-form-group label::before {
+
+    content: "";
+
+    width: 5px;
+    height: 5px;
+
+    flex: 0 0 5px;
+
+    border-radius: 50%;
+
+    background: #10b981;
+
+    box-shadow:
+        0 0 0 3px rgba(16, 185, 129, 0.08);
+}
+
+
+/* ======================================
+   FORM INPUT
+====================================== */
+
+.penjualan-laporan-modal-form-group input,
+.penjualan-laporan-modal-form-group select {
+
+    width: 100%;
+    height: 40px;
+
+    min-width: 0;
+
+    padding: 0 12px;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 9px;
+
+    outline: none;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff,
+        #f8fbfa
+    );
+
+    color: #17221e;
+
+    font-family: inherit;
+    font-size: 11px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.penjualan-laporan-modal-form-group input:hover,
+.penjualan-laporan-modal-form-group select:hover {
+
+    border-color: #b9d8ca;
+}
+
+.penjualan-laporan-modal-form-group input:focus,
+.penjualan-laporan-modal-form-group select:focus {
+
+    border-color: #8bd9b8;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(16, 185, 129, 0.08);
+}
+
+
+/* ======================================
+   FILTER ACTION
+====================================== */
+
+.penjualan-laporan-modal-filter-action {
+
+    position: relative;
+    z-index: 1;
+
+    margin-top: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.penjualan-laporan-modal-reset-button {
+
+    height: 40px;
+    min-width: 82px;
+
+    padding: 0 15px;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 9px;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff,
+        #f8fbfa
+    );
+
+    color: #68766f;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 2px 5px rgba(15, 23, 42, 0.035);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.penjualan-laporan-modal-reset-button:hover {
+
+    transform: translateY(-2px);
+
+    border-color: #b9d8ca;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff,
+        #eefaf5
+    );
+
+    color: #059669;
+
+    box-shadow:
+        0 8px 18px rgba(15, 23, 42, 0.055),
+        0 3px 8px rgba(16, 185, 129, 0.06);
+}
+
+.penjualan-laporan-modal-reset-button:active {
+
+    transform: scale(0.97);
+}
+
+
+/* ======================================
+   SUMMARY GRID
+====================================== */
+
+.penjualan-laporan-modal-summary-grid {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+    gap: 11px;
+    padding: 5px;
+}
+
+
+/* ======================================
+   SUMMARY ITEM
+====================================== */
+
+.penjualan-laporan-modal-summary-item {
+
+    position: relative;
+
+    min-width: 0;
+    min-height: 82px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 13px 14px;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 12px;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #f8fbfa 100%
+    );
+
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.055),
+        0 2px 5px rgba(15, 23, 42, 0.035);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* ======================================
+   SUMMARY ACCENT
+====================================== */
+
+.penjualan-laporan-modal-summary-item::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: linear-gradient(
+        90deg,
+        #059669,
+        #10b981,
+        rgba(16, 185, 129, 0.08)
+    );
+}
+
+
+/* ======================================
+   SUMMARY GLOW
+====================================== */
+
+.penjualan-laporan-modal-summary-item::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    top: -75px;
+    right: -25px;
+
+    background: radial-gradient(
+        circle,
+        rgba(16, 185, 129, 0.13) 0%,
+        rgba(16, 185, 129, 0.045) 40%,
+        transparent 72%
+    );
+
+    pointer-events: none;
+
+    transition: transform 0.3s ease;
+}
+
+.penjualan-laporan-modal-summary-item:hover {
+
+    transform: translateY(-3px);
+
+    border-color: #c9ddd4;
+
+    box-shadow:
+        0 18px 36px rgba(15, 23, 42, 0.075),
+        0 4px 10px rgba(16, 185, 129, 0.06);
+}
+
+.penjualan-laporan-modal-summary-item:hover::after {
+
+    transform: scale(1.18);
+}
+
+
+/* ======================================
+   SUMMARY LABEL
+====================================== */
+
+.penjualan-laporan-modal-summary-item span {
+
+    position: relative;
+    z-index: 1;
+
+    color: #68766f;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+/* ======================================
+   SUMMARY VALUE
+====================================== */
+
+.penjualan-laporan-modal-summary-item strong {
+
+    position: relative;
+    z-index: 1;
+
+    min-width: 0;
+
+    color: #17221e;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    letter-spacing: -0.035em;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* ======================================
+   TOTAL SUMMARY
+====================================== */
+
+.penjualan-laporan-modal-summary-total {
+
+    border-color: rgba(16, 185, 129, 0.20);
+
+    background: linear-gradient(
+        145deg,
+        #f9fffc 0%,
+        #effaf5 100%
+    );
+
+    box-shadow:
+        0 6px 16px rgba(16, 185, 129, 0.055);
+}
+
+.penjualan-laporan-modal-summary-total::before {
+
+    background: linear-gradient(
+        90deg,
+        #059669,
+        #10b981,
+        #34d399
+    );
+}
+
+.penjualan-laporan-modal-summary-total strong {
+
+    color: #047857;
+}
+
+
+/* ======================================
+   RESULT CARD
+====================================== */
+
+.penjualan-laporan-modal-result-card {
+
+    position: relative;
+
+    width: 100%;
+
+    min-width: 0;
+    min-height: 250px;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 13px;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #f8fbfa 100%
+    );
+
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.055),
+        0 2px 5px rgba(15, 23, 42, 0.035);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.penjualan-laporan-modal-result-card:hover {
+
+    border-color: #c9ddd4;
+
+    box-shadow:
+        0 18px 36px rgba(15, 23, 42, 0.075),
+        0 4px 10px rgba(16, 185, 129, 0.06);
+}
+
+
+/* ======================================
+   RESULT ACCENT
+====================================== */
+
+.penjualan-laporan-modal-result-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: linear-gradient(
+        90deg,
+        #059669,
+        #10b981,
+        rgba(16, 185, 129, 0.08)
+    );
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+
+/* ======================================
+   RESULT HEADER
+====================================== */
+
+.penjualan-laporan-modal-result-header {
+
+    position: relative;
+    z-index: 2;
+
+    min-height: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin: 0;
+    padding: 0 15px;
+
+    border-bottom: 1px solid #e5ece9;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #f8fbfa 100%
+    );
+}
+
+.penjualan-laporan-modal-result-header > div {
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    color: #17221e;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.penjualan-laporan-modal-result-header > div::before {
+
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    flex: 0 0 7px;
+
+    border-radius: 50%;
+
+    background: #10b981;
+
+    box-shadow:
+        0 0 0 4px rgba(16, 185, 129, 0.08);
+}
+
+.penjualan-laporan-modal-result-header span {
+
+    display: inline-flex;
+    align-items: center;
+
+    flex-shrink: 0;
+
+    min-height: 26px;
+
+    padding: 0 10px;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 8px;
+
+    background: #f8fbfa;
+
+    color: #68766f;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+/* ======================================
+   TABLE WRAPPER
+====================================== */
+
+.penjualan-laporan-modal-table-wrapper {
+
+    position: relative;
+
+    display: block;
+
+    width: 100%;
+    max-width: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    max-height: 390px;
+
+    overflow-x: auto;
+    overflow-y: auto;
+
+    border: 1px solid #e2e9e5;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+
+    scrollbar-width: thin;
+    scrollbar-color: #a7c8ba #f1f6f4;
+}
+
+
+/* ======================================
+   TABLE
+====================================== */
+
+.penjualan-laporan-modal-table {
+
+    width: 100%;
+    min-width: 900px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    color: #26332e;
+
+    font-size: 11px;
+}
+
+
+/* ======================================
+   TABLE HEADER
+====================================== */
+
+.penjualan-laporan-modal-table thead th {
+
+    position: sticky;
+    top: 0;
+
+    z-index: 5;
+
+    height: 40px;
+
+    padding: 0 12px;
+
+    border-bottom: 1px solid #d6e2dd;
+
+    background: linear-gradient(
+        145deg,
+        #f8fbfa 0%,
+        #f2f7f4 100%
+    );
+
+    color: #68766f;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+
+/* ======================================
+   TABLE BODY
+====================================== */
+
+.penjualan-laporan-modal-table tbody td {
+
+    height: 44px;
+
+    padding: 7px 12px;
+
+    border-bottom: 1px solid #edf2f0;
+
+    color: #425149;
+
+    font-size: 10px;
+
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.penjualan-laporan-modal-table tbody tr {
+
+    transition: background 0.18s ease;
+}
+
+.penjualan-laporan-modal-table tbody tr:hover {
+
+    background: linear-gradient(
+        90deg,
+        rgba(16, 185, 129, 0.035),
+        rgba(16, 185, 129, 0.01)
+    );
+}
+
+.penjualan-laporan-modal-table tbody tr:last-child td {
+
+    border-bottom: 0;
+}
+
+
+/* ======================================
+   SCROLLBAR CHROME / EDGE
+====================================== */
+
+.penjualan-laporan-modal-table-wrapper::-webkit-scrollbar {
+
+    width: 7px;
+    height: 7px;
+}
+
+.penjualan-laporan-modal-table-wrapper::-webkit-scrollbar-track {
+
+    background: #f1f6f4;
+
+    border-radius: 10px;
+}
+
+.penjualan-laporan-modal-table-wrapper::-webkit-scrollbar-thumb {
+
+    background: #a7c8ba;
+
+    border-radius: 10px;
+}
+
+.penjualan-laporan-modal-table-wrapper::-webkit-scrollbar-thumb:hover {
+
+    background: #6fa991;
+}
+
+
+/* ======================================
+   DETAIL BUTTON
+====================================== */
+
+.penjualan-laporan-modal-detail-button {
+
+    display: inline-flex;
+    
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    min-height: 36px;
+    padding: 8px 14px;
+
+    font-family: inherit;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 0,5;
+    white-space: nowrap;
+
+    color: #07573c;
+
+    background: transparent;
+
+    border: 0px;
+    border-radius: 9px;
+    box-shadow:
+        0 2px 5px rgba(5, 150, 105, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
+
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.penjualan-laporan-modal-detail-button:hover {
+    background: linear-gradient(
+        135deg,
+        #0596681a 0%,
+        #0478572f 50%
+    );
+
+    border-color: #047857;
+
+    box-shadow:
+        0 4px 10px rgba(5, 150, 105, 0.22);
+
+    transform: translateY(-1px);
+}
+
+.penjualan-laporan-modal-detail-button:active {
+
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(5, 150, 105, 0.15);
+}
+
+.penjualan-laporan-modal-detail-button:focus-visible {
+    outline: 3px solid rgba(16, 185, 129, 0.25);
+    outline-offset: 3px;
+}
+
+.penjualan-laporan-modal-detail-button:disabled {
+    color: #9ca3af;
+    background: #f3f4f6;
+    border-color: #e5e7eb;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+    opacity: 0.7;
+}
+
+
+/* ======================================
+   EMPTY
+====================================== */
+
+.penjualan-laporan-modal-empty {
+
+    height: 150px !important;
+
+    color: #68766f !important;
+
+    text-align: center !important;
+
+    font-size: 11px !important;
+}
+
+
+/* ======================================
+   FOOTER
+====================================== */
+
+.penjualan-laporan-modal-footer {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 18px;
+
+    padding: 14px 20px;
+
+    border-top: 1px solid #e5ece9;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #f8fbfa 100%
+    );
+
+    box-shadow:
+        0 -5px 15px rgba(15, 23, 42, 0.025);
+}
+
+.penjualan-laporan-modal-footer-total {
+
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+.penjualan-laporan-modal-footer-total span {
+
+    color: #68766f;
+
+    font-size: 10px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.penjualan-laporan-modal-footer-total strong {
+
+    color: #047857;
+
+    font-size: 19px;
+    line-height: 1.2;
+    font-weight: 700;
+
+    letter-spacing: -0.025em;
+}
+
+.penjualan-laporan-modal-footer-button {
+
+    flex-shrink: 0;
+
+    height: 36px;
+    min-width: 72px;
+
+    padding: 0 15px;
+
+    border: 1px solid rgba(5, 150, 105, 0.18);
+    border-radius: 9px;
+
+    background: linear-gradient(
+        145deg,
+        #10b981,
+        #059669
+    );
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+
+    box-shadow:
+        0 6px 14px rgba(5, 150, 105, 0.17);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.penjualan-laporan-modal-footer-button:hover {
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 20px rgba(5, 150, 105, 0.20);
+}
+
+.penjualan-laporan-modal-footer-button:active {
+
+    transform: scale(0.97);
+}
+
+
+/* ======================================
+   LARGE DESKTOP
+====================================== */
+
+@media (min-width: 1400px) {
+
+    .penjualan-laporan-modal-dialog {
+
+        max-width: 1260px;
+    }
+
+    .penjualan-laporan-modal-body {
+
+        gap: 18px;
+
+        padding: 20px 22px 22px;
+    }
+
+    .penjualan-laporan-modal-summary-grid {
+
+        gap: 11px;
+    }
+
+    .penjualan-laporan-modal-summary-item {
+
+        min-height: 86px;
+    }
+
+    .penjualan-laporan-modal-summary-item strong {
+
+        font-size: 19px;
+    }
+}

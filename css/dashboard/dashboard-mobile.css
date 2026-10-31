@@ -1,0 +1,1305 @@
+/* ======================================
+   TREEHOUSE POS
+   DASHBOARD MOBILE
+   PREMIUM MODERN
+====================================== */
+
+
+/* ======================================
+   PAGE
+====================================== */
+@media (max-width: 768px) {
+.dashboard-mobile-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+    gap: 14px;
+}
+
+
+/* ======================================
+   WELCOME
+====================================== */
+
+.dashboard-mobile-content .dashboard-welcome {
+    position: relative;
+
+    width: 100%;
+    padding: 18px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 92% 10%,
+            rgba(16, 185, 129, 0.13),
+            transparent 32%
+        ),
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f7faf9 100%
+        );
+
+    border: 1px solid rgba(16, 185, 129, 0.12);
+    border-radius: 15px;
+
+    box-shadow:
+        0 9px 24px rgba(15, 23, 42, 0.05),
+        0 2px 5px rgba(15, 23, 42, 0.03);
+}
+
+.dashboard-mobile-content .dashboard-welcome::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 3px;
+
+    background: linear-gradient(
+        90deg,
+        #059669 0%,
+        #10b981 48%,
+        rgba(16, 185, 129, 0.08) 100%
+    );
+
+    pointer-events: none;
+}
+
+/* Pastikan elemen filter berada di atas dekorasi */
+.dashboard-mobile-content .dashboard-welcome > * {
+    position: relative;
+    z-index: 1;
+}
+
+.dashboard-mobile-content .dashboard-welcome::after {
+    content: "";
+
+    position: absolute;
+
+    width: 130px;
+    height: 130px;
+
+    right: -58px;
+    top: -62px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(16, 185, 129, 0.14) 0%,
+            rgba(16, 185, 129, 0.04) 45%,
+            transparent 72%
+        );
+
+    pointer-events: none;
+}
+
+.dashboard-mobile-content .dashboard-welcome h2 {
+    position: relative;
+    z-index: 1;
+
+    margin: 0;
+
+    font-size: 17px;
+    line-height: 1.3;
+    font-weight: 700;
+    text-align: center;
+    
+    color: #074e34;
+}
+
+.dashboard-mobile-content .dashboard-welcome p {
+    position: relative;
+    z-index: 1;
+
+    margin: 5px 0 0;
+
+    font-size: 11px;
+    line-height: 1.5;
+    text-align: center;
+
+    color: #718078;
+}
+
+
+/* ======================================
+   FILTER
+====================================== */
+
+.dashboard-mobile-content .dashboard-filter {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #fafcfb 100%
+        );
+
+    border: 1px solid #e2eae7;
+    border-radius: 13px;
+
+    box-shadow:
+        0 7px 20px rgba(15, 23, 42, 0.04);
+}
+
+.dashboard-mobile-content .dashboard-filter-group {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dashboard-mobile-content .dashboard-filter-group label {
+    font-size: 10px;
+    font-weight: 700;
+
+    color: #68766f;
+
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.dashboard-mobile-content .dashboard-filter-group input {
+    width: 100%;
+    height: 38px;
+
+    padding: 0 11px;
+
+    border: 1px solid #dce5e1;
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #25322d;
+    font-size: 12px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.dashboard-mobile-content .dashboard-filter-group input:focus {
+    border-color: rgba(16, 185, 129, 0.55);
+
+    box-shadow:
+        0 0 0 3px rgba(16, 185, 129, 0.09);
+}
+
+
+/* ======================================
+   CARDS
+====================================== */
+
+.dashboard-mobile-content .dashboard-cards {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 11px;
+}
+
+
+/* ======================================
+   CARD BASE
+====================================== */
+
+.dashboard-mobile-content .dashboard-card {
+    position: relative;
+
+    min-width: 0;
+    min-height: 116px;
+
+    padding: 15px 14px 14px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+    border: 1px solid rgba(214, 226, 221, 0.95);
+    border-radius: 15px;
+
+    box-shadow:
+        0 9px 22px rgba(15, 23, 42, 0.05),
+        0 2px 5px rgba(15, 23, 42, 0.03);
+
+    isolation: isolate;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+/* ======================================
+   CARD TOP ACCENT
+====================================== */
+
+.dashboard-mobile-content .dashboard-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #10b981,
+            rgba(16, 185, 129, 0.08)
+        );
+
+    opacity: 0.9;
+}
+
+
+/* ======================================
+   CARD DECORATIVE GLOW
+====================================== */
+
+.dashboard-mobile-content .dashboard-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 105px;
+    height: 105px;
+
+    right: -47px;
+    top: -48px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(16, 185, 129, 0.13) 0%,
+            rgba(16, 185, 129, 0.04) 42%,
+            transparent 72%
+        );
+
+    pointer-events: none;
+
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+}
+
+.dashboard-mobile-content .dashboard-card:active {
+    transform: scale(0.985);
+
+    box-shadow:
+        0 5px 14px rgba(15, 23, 42, 0.06);
+}
+
+.dashboard-mobile-content .dashboard-card:active::after {
+    transform: scale(1.08);
+}
+
+
+/* ======================================
+   CARD CONTENT
+====================================== */
+
+.dashboard-mobile-content .dashboard-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* ======================================
+   CARD LABEL
+====================================== */
+
+.dashboard-mobile-content .dashboard-card-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    margin-bottom: 11px;
+
+    color: #68766f;
+
+    font-size: 10px;
+    line-height: 1.3;
+    font-weight: 600;
+}
+
+.dashboard-mobile-content .dashboard-card-label::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    flex: 0 0 6px;
+
+    border-radius: 50%;
+
+    background: #10b981;
+
+    box-shadow:
+        0 0 0 3px rgba(16, 185, 129, 0.08);
+}
+
+
+/* ======================================
+   CARD VALUE
+====================================== */
+
+.dashboard-mobile-content .dashboard-card-value {
+    max-width: 100%;
+
+    overflow: hidden;
+
+    font-size: 21px;
+    line-height: 1.15;
+
+    font-weight: 700;
+
+    letter-spacing: -0.035em;
+
+    color: #17221e;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dashboard-mobile-content .dashboard-card-value::after {
+    content: "";
+
+    display: block;
+
+    width: 25px;
+    height: 2px;
+
+    margin-top: 9px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #10b981,
+            rgba(16, 185, 129, 0)
+        );
+}
+
+
+/* ======================================
+   CARD ACCENTS
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-card:nth-child(1)::before {
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #34d399
+        );
+}
+
+.dashboard-mobile-content
+.dashboard-card:nth-child(2)::before {
+    background:
+        linear-gradient(
+            90deg,
+            #d97706,
+            #fbbf24
+        );
+}
+
+.dashboard-mobile-content
+.dashboard-card:nth-child(2)
+.dashboard-card-label::before {
+    background: #f59e0b;
+
+    box-shadow:
+        0 0 0 3px rgba(245, 158, 11, 0.09);
+}
+
+.dashboard-mobile-content
+.dashboard-card:nth-child(3)::before {
+    background:
+        linear-gradient(
+            90deg,
+            #7c3aed,
+            #a78bfa
+        );
+}
+
+.dashboard-mobile-content
+.dashboard-card:nth-child(3)
+.dashboard-card-label::before {
+    background: #8b5cf6;
+
+    box-shadow:
+        0 0 0 3px rgba(139, 92, 246, 0.09);
+}
+
+.dashboard-mobile-content
+.dashboard-card:nth-child(4)::before {
+    background:
+        linear-gradient(
+            90deg,
+            #dc2626,
+            #fb7185
+        );
+}
+
+.dashboard-mobile-content
+.dashboard-card:nth-child(4)
+.dashboard-card-label::before {
+    background: #ef4444;
+
+    box-shadow:
+        0 0 0 3px rgba(239, 68, 68, 0.09);
+}
+
+.dashboard-mobile-content
+.dashboard-card:nth-child(5)::before {
+    background:
+        linear-gradient(
+            90deg,
+            #0284c7,
+            #38bdf8
+        );
+}
+
+.dashboard-mobile-content
+.dashboard-card:nth-child(5)
+.dashboard-card-label::before {
+    background: #0ea5e9;
+
+    box-shadow:
+        0 0 0 3px rgba(14, 165, 233, 0.09);
+}
+
+.dashboard-mobile-content
+.dashboard-card:nth-child(6)::before {
+    background:
+        linear-gradient(
+            90deg,
+            #0891b2,
+            #22d3ee
+        );
+}
+
+.dashboard-mobile-content
+.dashboard-card:nth-child(6)
+.dashboard-card-label::before {
+    background: #06b6d4;
+
+    box-shadow:
+        0 0 0 3px rgba(6, 182, 212, 0.09);
+}
+
+.dashboard-mobile-content
+.dashboard-card:nth-child(7)::before {
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #60a5fa
+        );
+}
+
+.dashboard-mobile-content
+.dashboard-card:nth-child(7)
+.dashboard-card-label::before {
+    background: #3b82f6;
+
+    box-shadow:
+        0 0 0 3px rgba(59, 130, 246, 0.09);
+}
+
+.dashboard-mobile-content
+.dashboard-card:nth-child(8)::before {
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #34d399
+        );
+}
+
+
+/* ======================================
+   CHART SECTION
+====================================== */
+
+.dashboard-mobile-content .dashboard-chart-page {
+    width: 100%;
+    margin-top: 1px;
+}
+
+
+/* ======================================
+   CHART CONTAINER
+====================================== */
+
+.dashboard-mobile-content .dashboard-chart-mobile {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 13px;
+}
+
+
+/* ======================================
+   CHART CARD
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-content {
+    position: relative;
+
+    width: 100%;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 95% 5%,
+            rgba(16, 185, 129, 0.06),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f9fbfa 100%
+        );
+
+    border: 1px solid #e2eae7;
+    border-radius: 15px;
+
+    box-shadow:
+        0 10px 26px rgba(15, 23, 42, 0.045),
+        0 2px 5px rgba(15, 23, 42, 0.025);
+}
+
+
+/* ======================================
+   CHART CARD ACCENT
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-content::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #10b981,
+            #34d399,
+            transparent
+        );
+}
+
+
+/* ======================================
+   CHART HEADER
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-content
+.dashboard-chart-header {
+    position: relative;
+    z-index: 2;
+
+    padding: 16px 15px 8px;
+}
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-content
+.dashboard-chart-header h3 {
+    margin: 0;
+
+    font-size: 13px;
+    line-height: 1.3;
+
+    font-weight: 700;
+
+    color: #26332e;
+}
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-content
+.dashboard-chart-header p {
+    margin: 4px 0 0;
+
+    font-size: 10px;
+    line-height: 1.4;
+
+    color: #829089;
+}
+
+
+/* ======================================
+   CHART BODY
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-content
+.dashboard-chart-body {
+    position: relative;
+
+    width: 100%;
+
+    min-height: 205px;
+
+    margin-bottom: 80px;
+
+    padding: 8px 12px 14px;
+}
+
+
+/* ======================================
+   OMSET LINE CHART
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-line {
+    position: relative;
+
+    width: 100%;
+    height: 185px;
+
+    display: flex;
+
+    gap: 8px;
+}
+
+
+/* ======================================
+   OMSET Y AXIS
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-y-axis {
+    width: 47px;
+
+    flex: 0 0 47px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 2px 0 19px;
+
+    color: #8b9791;
+
+    font-size: 8px;
+    line-height: 1;
+
+    text-align: right;
+}
+
+
+/* ======================================
+   OMSET GRAPH
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-graph {
+    position: relative;
+
+    flex: 1;
+
+    min-width: 0;
+    height: 100%;
+}
+
+
+/* ======================================
+   OMSET GRID
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-grid {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 19px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    pointer-events: none;
+}
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-grid span {
+    width: 100%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(218, 229, 224, 0.9),
+            rgba(218, 229, 224, 0.18)
+        );
+}
+
+
+/* ======================================
+   OMSET SVG
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-svg {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    top: 0;
+
+    width: 100%;
+    height: calc(100% - 19px);
+
+    overflow: visible;
+}
+
+
+/* ======================================
+   OMSET AREA
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-area {
+    fill:
+        rgba(16, 185, 129, 0.09);
+
+    stroke: none;
+}
+
+
+/* ======================================
+   OMSET LINE
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-line-path {
+    fill: none;
+
+    stroke: #059669;
+
+    stroke-width: 1.8;
+
+    vector-effect: non-scaling-stroke;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    filter:
+        drop-shadow(
+            0 3px 4px
+            rgba(5, 150, 105, 0.16)
+        );
+}
+
+
+/* ======================================
+   OMSET POINTS LAYER
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-points {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    top: 0;
+
+    height: calc(100% - 19px);
+
+    pointer-events: none;
+}
+
+
+/* ======================================
+   OMSET POINT
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-point {
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    border: 2px solid #059669;
+
+    box-shadow:
+        0 2px 7px
+        rgba(5, 150, 105, 0.22);
+}
+
+
+/* ======================================
+   OMSET DATES
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-dates {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 15px;
+
+    pointer-events: none;
+}
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-dates span {
+    position: absolute;
+
+    transform:
+        translateX(-50%);
+
+    white-space: nowrap;
+
+    color: #8b9791;
+
+    font-size: 8px;
+    line-height: 1;
+}
+
+
+/* ======================================
+   TRANSACTION BAR CHART
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-bars {
+    position: relative;
+
+    width: 100%;
+    height: 185px;
+}
+
+
+/* ======================================
+   BAR Y AXIS
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-bar-y-axis {
+    position: absolute;
+
+    left: 0;
+    top: 2px;
+    bottom: 19px;
+
+    width: 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding-right: 4px;
+
+    color: #8b9791;
+
+    font-size: 8px;
+    line-height: 1;
+
+    text-align: right;
+}
+
+
+/* ======================================
+   BAR GRAPH
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-bar-graph {
+    position: absolute;
+
+    left: 38px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    min-width: 0;
+}
+
+
+/* ======================================
+   BAR GRID
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-bar-grid {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 19px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    pointer-events: none;
+}
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-bar-grid span {
+    width: 100%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(218, 229, 224, 0.9),
+            rgba(218, 229, 224, 0.18)
+        );
+}
+
+
+/* ======================================
+   BAR AREA
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-bar-area {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 4px;
+}
+
+
+/* ======================================
+   BAR ITEM
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-bar-item {
+    position: relative;
+
+    height: 100%;
+
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+
+    gap: 5px;
+}
+
+
+/* ======================================
+   BAR
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-bar {
+    width: min(22px, 70%);
+
+    min-height: 3px;
+
+    border-radius: 7px 7px 3px 3px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #34d399 0%,
+            #059669 100%
+        );
+
+    box-shadow:
+        0 5px 11px
+        rgba(5, 150, 105, 0.16);
+
+    transition:
+        height 0.25s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* ======================================
+   BAR ACTIVE
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-bar-item:active
+.dashboard-chart-mobile-bar {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 14px
+        rgba(5, 150, 105, 0.22);
+}
+
+
+/* ======================================
+   BAR DATE
+====================================== */
+
+.dashboard-mobile-content
+.dashboard-chart-mobile-bar-date {
+    display: block;
+
+    height: 12px;
+
+    white-space: nowrap;
+
+    color: #8b9791;
+
+    font-size: 8px;
+    line-height: 1;
+}
+
+}
+
+/* ======================================
+   SMALL MOBILE
+====================================== */
+
+@media (max-width: 480px) {
+
+    .dashboard-mobile-content {
+        gap: 12px;
+    }
+
+
+    /* WELCOME */
+
+    .dashboard-mobile-content
+    .dashboard-welcome {
+        padding: 16px;
+
+        border-radius: 14px;
+    }
+
+    .dashboard-mobile-content
+    .dashboard-welcome h2 {
+        font-size: 16px;
+    }
+
+    .dashboard-mobile-content
+    .dashboard-welcome p {
+        font-size: 10px;
+    }
+
+
+    /* FILTER */
+
+    .dashboard-mobile-content
+    .dashboard-filter {
+        padding: 12px;
+
+        border-radius: 12px;
+    }
+
+
+    /* CARDS */
+
+    .dashboard-mobile-content
+    .dashboard-cards {
+        gap: 9px;
+    }
+
+    .dashboard-mobile-content
+    .dashboard-card {
+        min-height: 108px;
+
+        padding: 14px 12px 12px;
+
+        border-radius: 14px;
+    }
+
+    .dashboard-mobile-content
+    .dashboard-card-label {
+        font-size: 9px;
+
+        margin-bottom: 9px;
+    }
+
+    .dashboard-mobile-content
+    .dashboard-card-value {
+        font-size: 17px;
+    }
+
+    .dashboard-mobile-content
+    .dashboard-card-value::after {
+        width: 22px;
+
+        margin-top: 8px;
+    }
+
+
+    /* CHART CARD */
+
+    .dashboard-mobile-content
+    .dashboard-chart-mobile-content {
+        border-radius: 14px;
+    }
+
+    .dashboard-mobile-content
+    .dashboard-chart-mobile-content
+    .dashboard-chart-header {
+        padding: 14px 13px 7px;
+    }
+
+    .dashboard-mobile-content
+    .dashboard-chart-mobile-content
+    .dashboard-chart-header h3 {
+        font-size: 12px;
+    }
+
+    .dashboard-mobile-content
+    .dashboard-chart-mobile-content
+    .dashboard-chart-header p {
+        font-size: 9px;
+    }
+
+
+    /* CHART BODY */
+
+    .dashboard-mobile-content
+    .dashboard-chart-mobile-content
+    .dashboard-chart-body {
+        min-height: 190px;
+
+        padding:
+            7px
+            9px
+            12px;
+    }
+
+
+    /* LINE CHART */
+
+    .dashboard-mobile-content
+    .dashboard-chart-mobile-line {
+        height: 172px;
+
+        gap: 6px;
+    }
+
+    .dashboard-mobile-content
+    .dashboard-chart-mobile-y-axis {
+        width: 43px;
+
+        flex-basis: 43px;
+
+        font-size: 7px;
+    }
+
+    .dashboard-mobile-content
+    .dashboard-chart-mobile-point {
+        width: 6px;
+        height: 6px;
+    }
+
+    .dashboard-mobile-content
+    .dashboard-chart-mobile-dates span {
+        font-size: 7px;
+    }
+
+
+    /* BAR CHART */
+
+    .dashboard-mobile-content
+    .dashboard-chart-mobile-bars {
+        height: 172px;
+    }
+
+    .dashboard-mobile-content
+    .dashboard-chart-mobile-bar-y-axis {
+        width: 27px;
+
+        font-size: 7px;
+    }
+
+    .dashboard-mobile-content
+    .dashboard-chart-mobile-bar-graph {
+        left: 34px;
+    }
+
+    .dashboard-mobile-content
+    .dashboard-chart-mobile-bar-area {
+        gap: 3px;
+    }
+
+    .dashboard-mobile-content
+    .dashboard-chart-mobile-bar {
+        width: min(19px, 68%);
+    }
+
+    .dashboard-mobile-content
+    .dashboard-chart-mobile-bar-date {
+        font-size: 7px;
+    }
+}
+
+

@@ -1,0 +1,504 @@
+/* ======================================
+   TREEHOUSE POS
+   SATUAN & HARGA JUAL
+   MOBILE
+   PREMIUM EMERALD + NEUTRAL WHITE
+====================================== */
+
+@media (max-width: 767px) {
+
+/* ======================================
+   PAGE
+====================================== */
+
+    .satuan-page {
+        --satuan-emerald: #10b981;
+        --satuan-emerald-dark: #059669;
+        --satuan-emerald-light: #34d399;
+
+        --satuan-text: #17221e;
+        --satuan-muted: #68766f;
+        --satuan-border: #d6e2dd;
+
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+
+        padding: 0;
+        margin: 0;
+
+        color: var(--satuan-text);
+
+        box-sizing: border-box;
+    }
+
+    .satuan-page *,
+    .satuan-page *::before,
+    .satuan-page *::after {
+        box-sizing: border-box;
+    }
+
+/* ======================================
+   HEADER
+====================================== */
+
+    .satuan-page .satuan-header {
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: space-between;
+
+        gap: 14px;
+
+        width: 100%;
+        min-width: 0;
+        min-height: auto;
+
+        padding: 19px 17px 17px;
+
+        overflow: hidden;
+
+        background:
+            radial-gradient(
+                circle at 95% 8%,
+                rgba(16, 185, 129, 0.12),
+                transparent 32%
+            ),
+            linear-gradient(
+                145deg,
+                #ffffff 0%,
+                #f8fbfa 100%
+            );
+
+        border: 1px solid #d6e2dd;
+        border-radius: 15px;
+
+        box-shadow:
+            0 8px 20px rgba(15, 23, 42, 0.045),
+            0 2px 4px rgba(15, 23, 42, 0.025);
+    }
+
+    .satuan-page .satuan-header::before {
+        content: "";
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+
+        height: 3px;
+
+        background: linear-gradient(
+            90deg,
+            #059669 0%,
+            #10b981 48%,
+            rgba(16, 185, 129, 0.08) 100%
+        );
+    }
+
+    .satuan-page .satuan-header > div {
+        position: relative;
+        z-index: 1;
+
+        width: 100%;
+        min-width: 0;
+    }
+
+    .satuan-page .satuan-header h2 {
+        margin: 0;
+
+        color: #074e34;
+
+        font-size: 21px;
+        font-weight: 700;
+        text-align: center;
+        letter-spacing: -0.04em;
+        line-height: 1.35;
+    }
+
+    .satuan-page .satuan-header p {
+        margin: 5px 0 0;
+
+        color: #68766f;
+
+        font-size: 12px;
+        font-weight: 450;
+        text-align: center;
+        line-height: 1.6;
+    }
+
+
+
+/* ======================================
+   TOOLBAR
+====================================== */
+
+    .satuan-page .satuan-toolbar {
+        display: flex;
+        align-items: center;
+
+        width: 100%;
+        min-width: 0;
+
+        padding: 12px;
+
+        background: linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+        border: 0.5px solid #d6e2dd;
+        border-radius: 50px;
+
+        box-shadow:
+            0 5px 12px rgba(15, 23, 42, 0.035),
+            0 1px 3px rgba(15, 23, 42, 0.02);
+    }
+
+/* ======================================
+   SEARCH
+====================================== */
+
+    .satuan-page .satuan-search {
+        display: block;
+
+        width: 100%;
+        min-width: 0;
+        height: 42px;
+
+        padding: 0 12px;
+
+        border: 0.5px solid #d6e2ddda;
+        border-radius: 50px;
+
+        background: #ffffff;
+
+        color: #17221e;
+
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 450;
+
+        outline: none;
+
+        -webkit-appearance: none;
+        appearance: none;
+
+        transition:
+            border-color 180ms ease,
+            box-shadow 180ms ease;
+    }
+
+    .satuan-page .satuan-search::placeholder {
+        color: #98a69f;
+        opacity: 1;
+        font-size: 11px;
+    }
+
+    .satuan-page .satuan-search:focus {
+        border-color: #10b981;
+
+        box-shadow:
+            0 0 0 3px rgba(16, 185, 129, 0.09);
+    }
+
+/* ======================================
+   TABLE CARD
+====================================== */
+
+    .satuan-page .satuan-table-card {
+        position: relative;
+
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+
+        overflow: hidden;
+
+        background: linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+        border: 1px solid #d6e2dd;
+        border-radius: 13px;
+
+        box-shadow:
+            0 8px 20px rgba(15, 23, 42, 0.045),
+            0 2px 4px rgba(15, 23, 42, 0.025);
+    }
+
+    .satuan-page .satuan-table-card::before {
+        content: "";
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+
+        height: 3px;
+
+        z-index: 2;
+        pointer-events: none;
+
+        background: linear-gradient(
+            90deg,
+            #059669 0%,
+            #10b981 48%,
+            rgba(16, 185, 129, 0.08) 100%
+        );
+    }
+
+    .satuan-page .satuan-table-card::after {
+        content: "";
+
+        position: absolute;
+        top: -65px;
+        right: -65px;
+
+        width: 180px;
+        height: 160px;
+
+        border-radius: 50%;
+
+        background: radial-gradient(
+            circle,
+            rgba(16, 185, 129, 0.075) 0%,
+            rgba(16, 185, 129, 0.03) 40%,
+            transparent 72%
+        );
+
+        pointer-events: none;
+    }
+
+/* ======================================
+   TABLE WRAPPER
+====================================== */
+
+    .satuan-page .satuan-table-wrap {
+        position: relative;
+        z-index: 1;
+
+        display: block;
+
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        -webkit-overflow-scrolling: touch;
+
+        scrollbar-width: thin;
+        scrollbar-color: #b8d6c9 #f1f7f4;
+    }
+
+    .satuan-page .satuan-table-wrap::-webkit-scrollbar {
+        height: 5px;
+    }
+
+    .satuan-page .satuan-table-wrap::-webkit-scrollbar-track {
+        background: #f1f7f4;
+    }
+
+    .satuan-page .satuan-table-wrap::-webkit-scrollbar-thumb {
+        background: #b8d6c9;
+        border-radius: 20px;
+    }
+
+/* ======================================
+   TABLE
+====================================== */
+
+    .satuan-page .satuan-table {
+        width: 100%;
+        min-width: 700px;
+
+        margin: 0;
+
+        border-collapse: separate;
+        border-spacing: 0;
+
+        background: transparent;
+
+        color: #17221e;
+
+        font-family: inherit;
+        font-size: 12px;
+    }
+
+    .satuan-page .satuan-table thead,
+    .satuan-page .satuan-table thead tr {
+        background: #f2f8f5;
+    }
+
+    .satuan-page .satuan-table th {
+        padding: 13px 12px;
+
+        background: #f2f8f5;
+
+        color: #52645a;
+
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.035em;
+        text-align: left;
+        text-transform: uppercase;
+
+        white-space: nowrap;
+
+        border-bottom: 1px solid #d6e2dd;
+    }
+
+    .satuan-page .satuan-table th:first-child {
+        padding-left: 15px;
+    }
+
+    .satuan-page .satuan-table td {
+        padding: 13px 12px;
+
+        background: rgba(255, 255, 255, 0.82);
+
+        color: #36463e;
+
+        font-size: 12px;
+        font-weight: 450;
+        line-height: 1.5;
+
+        vertical-align: middle;
+
+        border-bottom: 1px solid #edf2ef;
+
+        overflow-wrap: anywhere;
+    }
+
+    .satuan-page .satuan-table td:first-child {
+        padding-left: 15px;
+
+        color: #059669;
+
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .satuan-page .satuan-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .satuan-page .satuan-table tbody tr:active td {
+        background: #f3faf6;
+    }
+
+/* ======================================
+   CONVERSION AND PRICE
+====================================== */
+
+    .satuan-page .satuan-table td:nth-child(4),
+    .satuan-page .satuan-table td:nth-child(5),
+    .satuan-page .satuan-table td:nth-child(6) {
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .satuan-page .satuan-table td:nth-child(5) {
+        color: #047857;
+        font-weight: 700;
+    }
+
+/* ======================================
+   EMPTY STATE
+====================================== */
+
+    .satuan-page .satuan-table td.satuan-empty {
+        height: 120px;
+
+        padding: 24px 15px;
+
+        color: #84938b;
+
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.7;
+        text-align: center;
+
+        background: linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+    }
+
+}
+
+/* ======================================
+   SMALL MOBILE
+====================================== */
+
+@media (max-width: 380px) {
+
+    .satuan-page {
+        gap: 11px;
+    }
+
+    .satuan-page .satuan-header {
+        gap: 12px;
+        padding: 17px 13px 14px;
+    }
+
+    .satuan-page .satuan-header h2 {
+        font-size: 19px;
+    }
+
+    .satuan-page .satuan-header p {
+        font-size: 11px;
+    }
+
+    .satuan-page .satuan-header .btn-primary {
+        min-height: 40px;
+        padding: 0 10px;
+        font-size: 11px;
+    }
+
+    .satuan-page .satuan-toolbar {
+        padding: 10px;
+    }
+
+    .satuan-page .satuan-search {
+        height: 40px;
+        padding: 0 10px;
+        font-size: 11px;
+    }
+
+    .satuan-page .satuan-search::placeholder {
+        font-size: 10px;
+    }
+
+    .satuan-page .satuan-table {
+        min-width: 660px;
+    }
+
+    .satuan-page .satuan-table th {
+        padding: 12px 10px;
+        font-size: 9px;
+    }
+
+    .satuan-page .satuan-table td {
+        padding: 12px 10px;
+        font-size: 11px;
+    }
+
+    .satuan-page .satuan-table th:first-child,
+    .satuan-page .satuan-table td:first-child {
+        padding-left: 12px;
+    }
+
+}

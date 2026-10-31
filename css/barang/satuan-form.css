@@ -1,0 +1,512 @@
+/* ======================================
+   TREEHOUSE POS
+   SATUAN FORM MODAL
+   CSS KHUSUS FORM SATUAN
+====================================== */
+
+
+/* ======================================
+   MODAL OVERLAY
+====================================== */
+
+.satuan-form-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+
+    padding: 20px;
+    box-sizing: border-box;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    isolation: isolate;
+}
+
+.satuan-form-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+
+/* ======================================
+   MODAL DIALOG
+====================================== */
+
+.satuan-form-modal-dialog {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    max-width: 760px;
+    max-height: calc(100dvh - 40px);
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #f8fbfa 100%
+    );
+
+    border: 1px solid #d6e2dd;
+    border-radius: 16px;
+
+    box-shadow:
+        0 24px 70px rgba(15, 23, 42, 0.24),
+        0 4px 12px rgba(15, 23, 42, 0.08);
+
+    animation: satuanModalMasuk 0.2s ease-out;
+}
+
+@keyframes satuanModalMasuk {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.99);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* ======================================
+   PAGE
+====================================== */
+
+.satuan-form-modal .satuan-form-page {
+    width: 100%;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+
+/* ======================================
+   HEADER
+====================================== */
+
+.satuan-form-modal .satuan-form-header {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.satuan-form-modal .satuan-form-header h2 {
+    margin: 0;
+
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.4;
+
+    color: #06472e;
+}
+
+.satuan-form-modal .satuan-form-header p {
+    margin: 5px 0 0;
+
+    font-size: 13px;
+    line-height: 1.5;
+
+    color: #6b7280;
+}
+
+
+/* ======================================
+   TOMBOL TUTUP
+====================================== */
+
+.satuan-form-modal .satuan-form-close {
+
+    flex: 0 0 36px;
+
+    width: 36px;
+    height: 36px;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    color: #64748b;
+    background: #ffffff;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 10px;
+
+    font-family: inherit;
+    font-size: 26px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.satuan-form-modal .satuan-form-close:hover {
+    color: #047857;
+    background: #ecfdf5;
+    border-color: #10b981;
+}
+
+.satuan-form-modal .satuan-form-close:focus-visible {
+    outline: 3px solid rgba(5, 150, 105, 0.2);
+    outline-offset: 2px;
+}
+
+
+/* ======================================
+   FORM CARD
+====================================== */
+
+.satuan-form-modal .satuan-form-main-card {
+    width: 100%;
+    min-width: 0;
+
+    padding: 22px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+
+    box-shadow:
+        0 2px 8px rgba(15, 23, 42, 0.04);
+
+    box-sizing: border-box;
+}
+
+
+/* ======================================
+   FORM GRID
+====================================== */
+
+.satuan-form-modal .satuan-form-main-grid {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+/* ======================================
+   FORM FIELD
+====================================== */
+
+.satuan-form-modal .satuan-form-field {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.satuan-form-modal .satuan-form-field label {
+    display: block;
+
+    margin: 0;
+
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+
+    color: #374151;
+}
+
+
+/* ======================================
+   INPUT & SELECT
+====================================== */
+
+.satuan-form-modal .satuan-form-field input,
+.satuan-form-modal .satuan-form-field select {
+    width: 100%;
+    min-width: 0;
+    height: 42px;
+
+    padding: 0 12px;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+
+    color: #111827;
+    background: #ffffff;
+
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+
+    outline: none;
+    box-sizing: border-box;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.satuan-form-modal .satuan-form-field input::placeholder {
+    color: #9ca3af;
+}
+
+.satuan-form-modal .satuan-form-field input:focus,
+.satuan-form-modal .satuan-form-field select:focus {
+    border-color: #059669;
+
+    box-shadow:
+        0 0 0 3px rgba(5, 150, 105, 0.12);
+}
+
+.satuan-form-modal .satuan-form-field input[readonly] {
+    color: #047857;
+    font-weight: 600;
+
+    background: #f3f4f6;
+
+    cursor: default;
+}
+
+
+/* ======================================
+   FORM ACTIONS
+====================================== */
+
+.satuan-form-modal .satuan-form-main-actions {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 28px;
+    padding-top: 20px;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.satuan-form-modal .satuan-form-main-actions button {
+    min-width: 110px;
+    height: 42px;
+
+    padding: 0 18px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* ======================================
+   BUTTON SECONDARY
+====================================== */
+
+.satuan-form-modal .satuan-form-main-actions .btn-secondary {
+    color: #374151;
+
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+}
+
+.satuan-form-modal .satuan-form-main-actions .btn-secondary:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+}
+
+
+/* ======================================
+   BUTTON PRIMARY
+====================================== */
+
+.satuan-form-modal .satuan-form-main-actions .btn-primary {
+    color: #ffffff;
+
+    background: #059669;
+    border: 1px solid #059669;
+}
+
+.satuan-form-modal .satuan-form-main-actions .btn-primary:hover {
+    background: #047857;
+    border-color: #047857;
+}
+
+.satuan-form-modal .satuan-form-main-actions button:focus-visible {
+    outline: 3px solid rgba(5, 150, 105, 0.2);
+    outline-offset: 2px;
+}
+
+
+/* ======================================
+   TABLET
+====================================== */
+
+@media (max-width: 900px) {
+    .satuan-form-modal-dialog {
+        max-width: 680px;
+    }
+
+    .satuan-form-modal .satuan-form-page {
+        padding: 20px;
+    }
+
+    .satuan-form-modal .satuan-form-main-card {
+        padding: 20px;
+    }
+
+    .satuan-form-modal .satuan-form-main-grid {
+        gap: 18px;
+    }
+}
+
+
+/* ======================================
+   MOBILE
+====================================== */
+
+@media (max-width: 600px) {
+    .satuan-form-modal {
+        align-items: center;
+        padding: 12px;
+    }
+
+    .satuan-form-modal-dialog {
+        width: 100%;
+        max-width: 480px;
+        max-height: calc(100dvh - 24px);
+
+        border-radius: 14px;
+    }
+
+    .satuan-form-modal .satuan-form-page {
+        gap: 14px;
+        padding: 16px;
+    }
+
+    .satuan-form-modal .satuan-form-header {
+        gap: 10px;
+    }
+
+    .satuan-form-modal .satuan-form-header h2 {
+        font-size: 19px;
+    }
+
+    .satuan-form-modal .satuan-form-header p {
+        font-size: 12px;
+    }
+
+    .satuan-form-modal .satuan-form-main-card {
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    .satuan-form-modal .satuan-form-main-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    .satuan-form-modal .satuan-form-field {
+        gap: 7px;
+    }
+
+    .satuan-form-modal .satuan-form-field label {
+        font-size: 12px;
+    }
+
+    .satuan-form-modal .satuan-form-field input,
+    .satuan-form-modal .satuan-form-field select {
+        height: 42px;
+        padding: 0 11px;
+        font-size: 14px;
+    }
+
+    .satuan-form-modal .satuan-form-main-actions {
+        gap: 10px;
+        margin-top: 22px;
+        padding-top: 16px;
+    }
+
+    .satuan-form-modal .satuan-form-main-actions button {
+        flex: 1;
+        min-width: 0;
+        height: 42px;
+        padding: 0 10px;
+        font-size: 12px;
+    }
+}
+
+
+/* ======================================
+   MOBILE KECIL
+====================================== */
+
+@media (max-width: 360px) {
+    .satuan-form-modal {
+        padding: 8px;
+    }
+
+    .satuan-form-modal-dialog {
+        max-height: calc(100dvh - 16px);
+    }
+
+    .satuan-form-modal .satuan-form-page {
+        padding: 12px;
+    }
+
+    .satuan-form-modal .satuan-form-main-card {
+        padding: 12px;
+    }
+
+    .satuan-form-modal .satuan-form-main-actions {
+        gap: 8px;
+    }
+
+    .satuan-form-modal .satuan-form-main-actions button {
+        padding: 0 8px;
+        font-size: 11px;
+    }
+}

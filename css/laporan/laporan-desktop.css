@@ -1,0 +1,360 @@
+/* ======================================
+   TREEHOUSE POS
+   LAPORAN DESKTOP
+   PREMIUM MODERN
+====================================== */
+
+
+/* ======================================
+   PAGE
+====================================== */
+
+.laporan-page {
+
+    width: 100%;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+/* ======================================
+   HEADER
+====================================== */
+
+.laporan-page .laporan-content-header {
+
+    position: relative;
+
+    width: 100%;
+    min-height: 88px;
+
+    padding: 20px 22px;
+
+    display: none;
+    align-items: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 94% 8%,
+            rgba(16, 185, 129, 0.12),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f7faf9 100%
+        );
+
+    border: 1px solid rgba(16, 185, 129, 0.12);
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 10px 28px rgba(15, 23, 42, 0.05),
+        0 2px 6px rgba(15, 23, 42, 0.03);
+}
+
+
+.laporan-page .laporan-content-header::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #10b981,
+            #34d399,
+            transparent
+        );
+}
+
+
+.laporan-page .laporan-content-header::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 170px;
+    height: 170px;
+
+    right: -75px;
+    top: -85px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(16, 185, 129, 0.12) 0%,
+            rgba(16, 185, 129, 0.035) 45%,
+            transparent 72%
+        );
+
+    pointer-events: none;
+}
+
+
+.laporan-page .laporan-content-header > div {
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+.laporan-page .laporan-content-header h2 {
+
+    margin: 0;
+
+    color: #17221e;
+
+    font-size: 21px;
+
+    line-height: 1.25;
+
+    font-weight: 700;
+
+    letter-spacing: -0.025em;
+}
+
+
+.laporan-page .laporan-content-header p {
+
+    margin: 6px 0 0;
+
+    color: #718078;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* ======================================
+   LAPORAN MENU
+====================================== */
+
+.laporan-page .laporan-sidebar {
+
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 18px;
+
+    padding: 19px 20px 16px;
+
+    background:
+        radial-gradient(
+            circle at 92% 15%,
+            rgba(16, 185, 129, 0.12),
+            transparent 28%
+        ),
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+    border: 1px solid var(--barang-border, #d6e2dd);
+    border-radius: 18px;
+
+    box-shadow:
+        0 4px 14px rgba(15, 23, 42, 0.04),
+        0 1px 3px rgba(15, 23, 42, 0.03);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+/* Aksen emerald di bagian atas */
+.laporan-page .laporan-sidebar::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 3px;
+
+    background: linear-gradient(
+        90deg,
+        #059669 0%,
+        #10b981 48%,
+        rgba(16, 185, 129, 0.08) 100%
+    );
+
+    pointer-events: none;
+}
+
+/* Pastikan elemen filter berada di atas dekorasi */
+.laporan-page .laporan-sidebar > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* ======================================
+   MENU ITEM
+====================================== */
+
+.laporan-page .laporan-menu-item {
+
+    position: relative;
+
+    height: 42px;
+
+    min-width: 110px;
+
+    padding: 0 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 1px solid transparent;
+
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: #718078;
+
+    font-size: 12px;
+
+    line-height: 1;
+
+    font-weight: 650;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* ======================================
+   MENU HOVER
+====================================== */
+
+.laporan-page .laporan-menu-item:hover {
+
+    color: #047857;
+
+    background:
+        rgba(16, 185, 129, 0.055);
+
+    border-color:
+        rgba(16, 185, 129, 0.10);
+}
+
+
+/* ======================================
+   MENU ACTIVE
+====================================== */
+
+.laporan-page .laporan-menu-item.active {
+
+    color: #047857;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(16, 185, 129, 0.13),
+            rgba(16, 185, 129, 0.055)
+        );
+
+    border-color:
+        rgba(16, 185, 129, 0.18);
+
+    box-shadow:
+        0 5px 12px
+        rgba(16, 185, 129, 0.08);
+}
+
+
+.laporan-page .laporan-menu-item.active::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 4px;
+
+    width: 22px;
+
+    height: 2px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #34d399
+        );
+}
+
+
+/* ======================================
+   MENU PRESS
+====================================== */
+
+.laporan-page .laporan-menu-item:active {
+
+    transform:
+        scale(0.98);
+}
+
+
+/* ======================================
+   CONTENT
+====================================== */
+
+.laporan-page .laporan-content {
+
+    width: 100%;
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}

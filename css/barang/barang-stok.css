@@ -1,0 +1,453 @@
+/* ======================================
+   TREEHOUSE POS
+   BARANG - PENYESUAIAN STOK
+   DESKTOP + MOBILE
+   PREMIUM EMERALD + NEUTRAL WHITE
+   CSS KHUSUS PENYESUAIAN STOK
+====================================== */
+
+
+/* ======================================
+   PAGE
+====================================== */
+
+.barang-stok-adjustment-page {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 4px 0 24px;
+    color: #17221e;
+}
+
+
+/* ======================================
+   HEADER
+====================================== */
+
+.barang-stok-adjustment-page .barang-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    min-width: 0;
+    
+    border-bottom: 1px solid #d6e2dd;
+}
+
+.barang-stok-adjustment-page .barang-header > div {
+    min-width: 0;
+}
+
+.barang-stok-adjustment-page .barang-header h2 {
+    margin: 0;
+    color: #07442e;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.5px;
+}
+
+.barang-stok-adjustment-page .barang-header p {
+    margin: 7px 0 0;
+    color: #68766f;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+
+/* ======================================
+   FORM CARD
+====================================== */
+
+.barang-stok-adjustment-page .barang-stok-adjustment-card {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    padding: 28px;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(16, 185, 129, 0.13),
+            transparent 34%
+        ),
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+    border: 1px solid #d6e2dd;
+    border-radius: 18px;
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.055),
+        0 2px 5px rgba(15, 23, 42, 0.035);
+}
+
+.barang-stok-adjustment-page .barang-stok-adjustment-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        #059669 0%,
+        #10b981 55%,
+        rgba(16, 185, 129, 0.08) 100%
+    );
+}
+
+
+/* ======================================
+   FORM GRID
+====================================== */
+
+.barang-stok-adjustment-page .barang-stok-adjustment-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 24px;
+    width: 100%;
+    min-width: 0;
+}
+
+
+/* ======================================
+   FIELD
+====================================== */
+
+.barang-stok-adjustment-page .barang-field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 0;
+}
+
+.barang-stok-adjustment-page .barang-field label {
+    display: block;
+    margin: 0;
+    color: #34453d;
+    font-size: 13px;
+    font-weight: 650;
+    line-height: 1.4;
+}
+
+.barang-stok-adjustment-page .barang-field input,
+.barang-stok-adjustment-page .barang-field select,
+.barang-stok-adjustment-page .barang-field textarea {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0 13px;
+    color: #17221e;
+    background: #ffffff;
+    border: 1px solid #d6e2dd;
+    border-radius: 10px;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.barang-stok-adjustment-page .barang-field input,
+.barang-stok-adjustment-page .barang-field select {
+    height: 44px;
+}
+
+.barang-stok-adjustment-page .barang-field select {
+    cursor: pointer;
+}
+
+.barang-stok-adjustment-page .barang-field textarea {
+    min-height: 112px;
+    padding: 12px 13px;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+.barang-stok-adjustment-page .barang-field input::placeholder,
+.barang-stok-adjustment-page .barang-field textarea::placeholder {
+    color: #9aa8a1;
+    font-weight: 400;
+}
+
+.barang-stok-adjustment-page .barang-field input:focus,
+.barang-stok-adjustment-page .barang-field select:focus,
+.barang-stok-adjustment-page .barang-field textarea:focus {
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+    background: #ffffff;
+}
+
+
+/* ======================================
+   DISABLED INPUT
+====================================== */
+
+.barang-stok-adjustment-page .barang-field input:disabled {
+    color: #68766f;
+    background: #f0f5f2;
+    border-color: #e0e9e4;
+    cursor: not-allowed;
+    opacity: 1;
+    -webkit-text-fill-color: #68766f;
+}
+
+
+/* ======================================
+   NUMBER INPUT
+====================================== */
+
+.barang-stok-adjustment-page .barang-field input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.barang-stok-adjustment-page .barang-field input[type="number"]::-webkit-inner-spin-button,
+.barang-stok-adjustment-page .barang-field input[type="number"]::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+}
+
+
+/* ======================================
+   FULL WIDTH FIELD
+====================================== */
+
+.barang-stok-adjustment-page .barang-stok-adjustment-full {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 0;
+}
+
+
+/* ======================================
+   FORM ACTIONS
+====================================== */
+
+.barang-stok-adjustment-page .barang-stok-adjustment-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid #e2ebe6;
+}
+
+.barang-stok-adjustment-page .barang-stok-adjustment-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 22px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.4;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.barang-stok-adjustment-page .barang-stok-adjustment-actions .btn-secondary {
+    color: #46564e;
+    background: #ffffff;
+    border: 1px solid #d6e2dd;
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.025);
+}
+
+.barang-stok-adjustment-page .barang-stok-adjustment-actions .btn-secondary:hover {
+    color: #17221e;
+    background: #f3f8f5;
+    border-color: #b9cec3;
+    transform: translateY(-2px);
+}
+
+.barang-stok-adjustment-page .barang-stok-adjustment-actions .btn-primary {
+    color: #ffffff;
+    background: linear-gradient(
+        135deg,
+        #10b981 0%,
+        #059669 100%
+    );
+    border: 1px solid #059669;
+    box-shadow: 0 5px 12px rgba(16, 185, 129, 0.18);
+}
+
+.barang-stok-adjustment-page .barang-stok-adjustment-actions .btn-primary:hover {
+    background: linear-gradient(
+        135deg,
+        #059669 0%,
+        #047857 100%
+    );
+    box-shadow: 0 8px 18px rgba(16, 185, 129, 0.24);
+    transform: translateY(-2px);
+}
+
+.barang-stok-adjustment-page .barang-stok-adjustment-actions button:active {
+    transform: translateY(0);
+}
+
+.barang-stok-adjustment-page .barang-stok-adjustment-actions button:focus-visible {
+    outline: 3px solid rgba(16, 185, 129, 0.25);
+    outline-offset: 3px;
+}
+
+
+/* ======================================
+   TABLET
+====================================== */
+
+@media (max-width: 900px) {
+    .barang-stok-adjustment-page {
+        gap: 18px;
+    }
+
+    .barang-stok-adjustment-page .barang-stok-adjustment-card {
+        padding: 24px;
+    }
+
+    .barang-stok-adjustment-page .barang-stok-adjustment-grid {
+        gap: 20px;
+    }
+}
+
+
+/* ======================================
+   MOBILE
+====================================== */
+
+@media (max-width: 768px) {
+    .barang-stok-adjustment-page {
+        gap: 16px;
+        padding: 2px 0 20px;
+    }
+
+    .barang-stok-adjustment-page .barang-header {
+        padding-bottom: 14px;
+    }
+
+    .barang-stok-adjustment-page .barang-header h2 {
+        font-size: 21px;
+        letter-spacing: -0.3px;
+    }
+
+    .barang-stok-adjustment-page .barang-header p {
+        margin-top: 6px;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .barang-stok-adjustment-page .barang-stok-adjustment-card {
+        padding: 22px 18px;
+        border-radius: 15px;
+    }
+
+    .barang-stok-adjustment-page .barang-stok-adjustment-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+    }
+
+    .barang-stok-adjustment-page .barang-field {
+        gap: 8px;
+    }
+
+    .barang-stok-adjustment-page .barang-field label {
+        font-size: 13px;
+    }
+
+    .barang-stok-adjustment-page .barang-field input,
+    .barang-stok-adjustment-page .barang-field select {
+        height: 46px;
+        padding-right: 12px;
+        padding-left: 12px;
+        font-size: 14px;
+    }
+
+    .barang-stok-adjustment-page .barang-field textarea {
+        min-height: 108px;
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .barang-stok-adjustment-page .barang-stok-adjustment-full {
+        grid-column: auto;
+    }
+
+    .barang-stok-adjustment-page .barang-stok-adjustment-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+        gap: 10px;
+        margin-top: 24px;
+        padding-top: 18px;
+    }
+
+    .barang-stok-adjustment-page .barang-stok-adjustment-actions button {
+        width: 100%;
+        min-height: 46px;
+        padding: 0 16px;
+        font-size: 13px;
+    }
+}
+
+
+/* ======================================
+   SMALL MOBILE
+====================================== */
+
+@media (max-width: 380px) {
+    .barang-stok-adjustment-page {
+        gap: 14px;
+    }
+
+    .barang-stok-adjustment-page .barang-header h2 {
+        font-size: 19px;
+    }
+
+    .barang-stok-adjustment-page .barang-stok-adjustment-card {
+        padding: 20px 14px;
+        border-radius: 13px;
+    }
+
+    .barang-stok-adjustment-page .barang-stok-adjustment-grid {
+        gap: 16px;
+    }
+
+    .barang-stok-adjustment-page .barang-stok-adjustment-actions {
+        gap: 9px;
+    }
+}
+
+
+/* ======================================
+   REDUCED MOTION
+====================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .barang-stok-adjustment-page .barang-field input,
+    .barang-stok-adjustment-page .barang-field select,
+    .barang-stok-adjustment-page .barang-field textarea,
+    .barang-stok-adjustment-page .barang-stok-adjustment-actions button {
+        transition: none;
+    }
+}

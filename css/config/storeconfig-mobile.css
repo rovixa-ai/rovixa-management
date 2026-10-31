@@ -1,0 +1,774 @@
+
+/* ======================================
+   TREEHOUSE POS
+   STORE CONFIG - MOBILE
+   PREMIUM EMERALD + NEUTRAL WHITE
+====================================== */
+
+@media (max-width: 767px) {
+
+/* ======================================
+   PAGE
+====================================== */
+
+    .config-page {
+        --config-emerald: #10b981;
+        --config-emerald-dark: #059669;
+        --config-emerald-light: #34d399;
+        --config-text: #17221e;
+        --config-muted: #68766f;
+        --config-border: #d6e2dd;
+
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding: 0;
+        margin-bottom: 60px;
+        color: var(--config-text);
+        overflow: visible;
+        box-sizing: border-box;
+    }
+
+    .config-page *,
+    .config-page *::before,
+    .config-page *::after {
+        box-sizing: border-box;
+    }
+
+/* ======================================
+   HEADER
+====================================== */
+
+    .config-header {
+        position: relative;
+        width: 100%;
+        min-width: 0;
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 19px 17px 17px;
+        overflow: hidden;
+        background:
+            radial-gradient(
+                circle at 95% 8%,
+                rgba(16, 185, 129, 0.12),
+                transparent 32%
+            ),
+            linear-gradient(
+                145deg,
+                #ffffff 0%,
+                #f8fbfa 100%
+            );
+        border: 1px solid #d6e2dd;
+        border-radius: 15px;
+        box-shadow:
+            0 8px 20px rgba(15, 23, 42, 0.045),
+            0 2px 4px rgba(15, 23, 42, 0.025);
+    }
+
+    .config-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(
+            90deg,
+            #059669 0%,
+            #10b981 48%,
+            rgba(16, 185, 129, 0.08) 100%
+        );
+    }
+
+    .config-header::after {
+        content: "";
+        position: absolute;
+        top: -65px;
+        right: -65px;
+        width: 180px;
+        height: 160px;
+        border-radius: 50%;
+        background: radial-gradient(
+            circle,
+            rgba(16, 185, 129, 0.075) 0%,
+            rgba(16, 185, 129, 0.03) 40%,
+            transparent 72%
+        );
+        pointer-events: none;
+    }
+
+    .config-header > div {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .config-header h2 {
+        margin: 0;
+        color: #074e34;
+        font-size: 21px;
+        font-weight: 700;
+        text-align: center;
+        letter-spacing: -0.04em;
+        line-height: 1.35;
+    }
+
+    .config-header p {
+        margin: 5px 0 0;
+        color: #68766f;
+        font-size: 12px;
+        font-weight: 450;
+        text-align: center;
+        line-height: 1.6;
+    }
+
+/* ======================================
+   MAIN CARD
+====================================== */
+
+    .config-card {
+        position: relative;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        padding: 8px;
+        overflow: hidden;
+        background: linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+        border: 1px solid #d6e2dd;
+        border-radius: 13px;
+        box-shadow:
+            0 8px 20px rgba(15, 23, 42, 0.045),
+            0 2px 4px rgba(15, 23, 42, 0.025);
+    }
+
+    .config-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(
+            90deg,
+            #059669 0%,
+            #10b981 48%,
+            rgba(16, 185, 129, 0.08) 100%
+        );
+    }
+
+/* ======================================
+   CONFIG SECTION
+====================================== */
+
+    .config-section {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        min-width: 0;
+        border: 1px solid #d6e2dd;
+        border-radius: 11px;
+        background: linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+        overflow: hidden;
+        transition:
+            border-color 180ms ease,
+            box-shadow 180ms ease,
+            background 180ms ease;
+    }
+
+    .config-section + .config-section {
+        margin-top: 8px;
+    }
+
+    .config-section.is-open {
+        border-color: #bfe5d5;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.035);
+    }
+
+/* ======================================
+   ACCORDION HEADER
+====================================== */
+
+    .config-section-title {
+        position: relative;
+        width: 100%;
+        min-width: 0;
+        min-height: 64px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 28px;
+        grid-template-rows: auto auto;
+        column-gap: 10px;
+        align-items: center;
+        padding: 12px 13px;
+        border: 0;
+        background: transparent;
+        color: #17221e;
+        text-align: left;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition:
+            background 180ms ease,
+            color 180ms ease;
+    }
+
+    .config-section-title:hover {
+        background: linear-gradient(
+            90deg,
+            rgba(16, 185, 129, 0.055),
+            rgba(16, 185, 129, 0)
+        );
+    }
+
+    .config-section-title:active {
+        background: rgba(16, 185, 129, 0.07);
+    }
+
+    .config-section-title:focus-visible {
+        outline: 3px solid rgba(16, 185, 129, 0.18);
+        outline-offset: -3px;
+    }
+
+    .config-section-title strong {
+        position: relative;
+        grid-column: 1;
+        display: flex;
+        align-items: center;
+        min-width: 0;
+        padding-right: 4px;
+        color: #17221e;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.4;
+    }
+
+    .config-section-title strong::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        flex: 0 0 6px;
+        margin-right: 9px;
+        border-radius: 50%;
+        background: #10b981;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.10);
+    }
+
+    .config-section-title > span:not(.config-accordion-icon) {
+        grid-column: 1;
+        min-width: 0;
+        color: #68766f;
+        font-size: 10px;
+        font-weight: 450;
+        line-height: 1.5;
+    }
+
+/* ======================================
+   ACCORDION ICON
+====================================== */
+
+    .config-accordion-icon {
+        position: absolute;
+        top: 50%;
+        right: 13px;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #d6e2dd;
+        border-radius: 8px;
+        background: #f8fbfa;
+        transform: translateY(-50%);
+        transition:
+            transform 220ms ease,
+            background 180ms ease,
+            border-color 180ms ease;
+    }
+
+    .config-accordion-icon::before,
+    .config-accordion-icon::after {
+        content: "";
+        position: absolute;
+        width: 9px;
+        height: 1.5px;
+        border-radius: 2px;
+        background: #68766f;
+        transition:
+            transform 220ms ease,
+            background 180ms ease;
+    }
+
+    .config-accordion-icon::after {
+        transform: rotate(90deg);
+    }
+
+    .config-section-title[aria-expanded="true"] {
+        background: linear-gradient(
+            90deg,
+            rgba(16, 185, 129, 0.07),
+            rgba(16, 185, 129, 0.015)
+        );
+    }
+
+    .config-section-title[aria-expanded="true"] .config-accordion-icon {
+        border-color: #b7d9c9;
+        background: #ecfdf5;
+        transform: translateY(-50%) rotate(180deg);
+    }
+
+    .config-section-title[aria-expanded="true"] .config-accordion-icon::before,
+    .config-section-title[aria-expanded="true"] .config-accordion-icon::after {
+        background: #059669;
+    }
+
+/* ======================================
+   ACCORDION CONTENT
+====================================== */
+
+    .config-section-content {
+        width: 100%;
+        min-width: 0;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 13px;
+        max-height: 0;
+        opacity: 0;
+        padding: 0 13px;
+        overflow: hidden;
+        visibility: hidden;
+        pointer-events: none;
+        border-top: 1px solid transparent;
+        transition:
+            max-height 280ms ease,
+            opacity 200ms ease,
+            padding 280ms ease,
+            border-color 200ms ease,
+            visibility 280ms ease;
+    }
+
+/* ======================================
+   ACCORDION OPEN
+====================================== */
+
+    .config-section.is-open .config-section-content {
+        max-height: 1800px;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        padding: 14px 13px 15px;
+        border-top-color: #e8efec;
+    }
+
+    .config-section-content:empty {
+        display: none;
+    }
+
+/* ======================================
+   FORM FIELD
+====================================== */
+
+    .config-field {
+        width: 100%;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .config-field label {
+        color: #68766f;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.035em;
+        line-height: 1.4;
+        text-transform: uppercase;
+    }
+
+/* ======================================
+   INPUT
+====================================== */
+
+    .config-input {
+        width: 100%;
+        min-width: 0;
+        height: 43px;
+        padding: 0 12px;
+        border: 1px solid #d6e2dd;
+        border-radius: 9px;
+        background: #ffffff;
+        color: #17221e;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 500;
+        outline: none;
+        transition:
+            border-color 180ms ease,
+            box-shadow 180ms ease;
+    }
+
+    .config-input::placeholder {
+        color: #98a69f;
+        opacity: 1;
+    }
+
+    .config-input:hover {
+        border-color: #b7d9c9;
+    }
+
+    .config-input:focus {
+        border-color: #10b981;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.09);
+    }
+
+    .config-textarea {
+        height: auto;
+        min-height: 88px;
+        padding: 11px 12px;
+        resize: vertical;
+        line-height: 1.6;
+    }
+
+/* ======================================
+   LOGO PREVIEW
+====================================== */
+
+    #storeConfigLogoPreviewField {
+        align-items: flex-start;
+    }
+
+    #storeConfigLogoPreview {
+        width: 120px !important;
+        height: 120px !important;
+        max-width: 100%;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #d6e2dd !important;
+        border-radius: 11px !important;
+        background: linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f4f8f6 100%
+        ) !important;
+        color: #68766f;
+        box-shadow:
+            0 6px 16px rgba(15, 23, 42, 0.045),
+            0 2px 4px rgba(15, 23, 42, 0.02);
+        overflow: hidden;
+    }
+
+    #storeConfigLogoPreview img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+    }
+
+/* ======================================
+   FILE INPUT
+====================================== */
+
+    #storeConfigLogoFile {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        height: 43px;
+        padding: 8px;
+        border: 1px solid #d6e2dd;
+        border-radius: 9px;
+        background: #ffffff;
+        color: #52645a;
+        font-family: inherit;
+        font-size: 11px;
+        cursor: pointer;
+    }
+
+    #storeConfigLogoFile::file-selector-button {
+        height: 25px;
+        margin-right: 8px;
+        padding: 0 9px;
+        border: 1px solid #b7d9c9;
+        border-radius: 6px;
+        background: #ecfdf5;
+        color: #047857;
+        font-family: inherit;
+        font-size: 10px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+/* ======================================
+   STATUS
+====================================== */
+
+    .config-status {
+        width: 100%;
+        min-width: 0;
+        min-height: 0;
+        margin-top: 10px;
+        padding: 0 10px;
+        border-radius: 9px;
+        color: #047857;
+        font-size: 11px;
+        line-height: 1.55;
+        overflow-wrap: anywhere;
+        transition:
+            padding 180ms ease,
+            background 180ms ease;
+    }
+
+    .config-status:not(:empty) {
+        min-height: 36px;
+        display: flex;
+        align-items: center;
+        padding: 9px 11px;
+        border: 1px solid #b7d9c9;
+        background: linear-gradient(
+            135deg,
+            #effbf6 0%,
+            #e8f8f1 100%
+        );
+    }
+
+/* ======================================
+   ACTIONS
+====================================== */
+
+    .config-actions {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        min-width: 0;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
+        margin-top: 4px;
+        padding: 14px 8px 8px;
+        border-top: 1px solid #e8efec;
+    }
+
+    .config-button {
+        width: 100%;
+        min-width: 0;
+        min-height: 43px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 14px;
+        border: 1px solid transparent;
+        border-radius: 9px;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition:
+            background 180ms ease,
+            border-color 180ms ease,
+            box-shadow 180ms ease,
+            transform 150ms ease;
+    }
+
+    .config-button-primary {
+        color: #ffffff;
+        background: linear-gradient(
+            135deg,
+            #10b981 0%,
+            #059669 100%
+        );
+        border-color: #059669;
+        box-shadow:
+            0 4px 10px rgba(5, 150, 105, 0.16),
+            inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+
+    .config-button-primary:active {
+        background: linear-gradient(
+            135deg,
+            #047857,
+            #059669
+        );
+        transform: scale(0.98);
+        box-shadow: 0 3px 8px rgba(5, 150, 105, 0.18);
+    }
+
+    .config-button-primary:focus-visible {
+        outline: 3px solid rgba(16, 185, 129, 0.22);
+        outline-offset: 2px;
+    }
+
+/* ======================================
+   STORE USER
+====================================== */
+
+    #storeUserContainer {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+}
+
+/* ======================================
+   SMALL MOBILE
+====================================== */
+
+@media (max-width: 380px) {
+
+    .config-page {
+        gap: 11px;
+    }
+
+/* ======================================
+   HEADER
+====================================== */
+
+    .config-header {
+        gap: 12px;
+        padding: 17px 13px 14px;
+        border-radius: 14px;
+    }
+
+    .config-header h2 {
+        font-size: 19px;
+    }
+
+    .config-header p {
+        font-size: 11px;
+    }
+
+/* ======================================
+   MAIN CARD
+====================================== */
+
+    .config-card {
+        padding: 6px;
+        border-radius: 12px;
+    }
+
+/* ======================================
+   CONFIG SECTION
+====================================== */
+
+    .config-section {
+        border-radius: 10px;
+    }
+
+    .config-section + .config-section {
+        margin-top: 7px;
+    }
+
+/* ======================================
+   ACCORDION HEADER
+====================================== */
+
+    .config-section-title {
+        min-height: 60px;
+        padding: 10px 11px;
+    }
+
+    .config-section-title strong {
+        font-size: 11px;
+    }
+
+    .config-section-title > span:not(.config-accordion-icon) {
+        font-size: 9px;
+    }
+
+    .config-accordion-icon {
+        right: 11px;
+        width: 26px;
+        height: 26px;
+    }
+
+/* ======================================
+   ACCORDION CONTENT
+====================================== */
+
+    .config-section-content {
+        gap: 11px;
+        padding: 0 11px;
+    }
+
+    .config-section.is-open .config-section-content {
+        padding: 12px 11px 13px;
+    }
+
+/* ======================================
+   FORM
+====================================== */
+
+    .config-field {
+        gap: 5px;
+    }
+
+    .config-field label {
+        font-size: 9px;
+    }
+
+    .config-input {
+        height: 41px;
+        padding: 0 10px;
+        font-size: 11px;
+    }
+
+    .config-textarea {
+        min-height: 80px;
+        padding: 10px;
+    }
+
+/* ======================================
+   LOGO PREVIEW
+====================================== */
+
+    #storeConfigLogoPreview {
+        width: 110px !important;
+        height: 110px !important;
+    }
+
+/* ======================================
+   FILE INPUT
+====================================== */
+
+    #storeConfigLogoFile {
+        height: 41px;
+        padding: 7px;
+        font-size: 10px;
+    }
+
+/* ======================================
+   STATUS
+====================================== */
+
+    .config-status {
+        font-size: 10px;
+    }
+
+/* ======================================
+   ACTIONS
+====================================== */
+
+    .config-actions {
+        gap: 7px;
+        padding: 12px 6px 7px;
+    }
+
+    .config-button {
+        min-height: 41px;
+        padding: 0 10px;
+        font-size: 11px;
+    }
+}

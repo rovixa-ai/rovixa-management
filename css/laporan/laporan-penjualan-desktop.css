@@ -1,0 +1,676 @@
+/* ======================================
+   TREEHOUSE POS
+   LAPORAN PENJUALAN
+   DESKTOP
+   PREMIUM MODERN
+====================================== */
+
+
+/* ======================================
+   PAGE
+====================================== */
+
+.laporan-penjualan {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+
+/* ======================================
+   PAGE HEADER
+====================================== */
+
+.laporan-penjualan .laporan-page-header {
+    position: relative;
+    width: 100%;
+    min-height: 82px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 94% 8%,
+            rgba(16, 185, 129, 0.13),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f7faf9 100%
+        );
+
+    border: 1px solid rgba(16, 185, 129, 0.12);
+    border-radius: 16px;
+
+    box-shadow:
+        0 10px 28px rgba(15, 23, 42, 0.05),
+        0 2px 6px rgba(15, 23, 42, 0.03);
+}
+
+
+.laporan-penjualan .laporan-page-header::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #10b981,
+            #34d399,
+            transparent
+        );
+}
+
+
+.laporan-penjualan .laporan-page-header::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    right: -85px;
+    top: -90px;
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(16, 185, 129, 0.12) 0%,
+            rgba(16, 185, 129, 0.035) 45%,
+            transparent 72%
+        );
+
+    pointer-events: none;
+}
+
+
+.laporan-penjualan .laporan-page-header > div {
+    position: relative;
+    z-index: 2;
+}
+
+
+.laporan-penjualan .laporan-page-header h2 {
+    margin: 0;
+    color: #084d33;
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+
+.laporan-penjualan .laporan-page-header p {
+    margin: 6px 0 0;
+    color: #718078;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* ======================================
+   PRINT BUTTON
+====================================== */
+
+.laporan-penjualan .laporan-laporan-button {
+    position: relative;
+    height: 38px;
+    min-width: 86px;
+    padding: 0 18px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(5, 150, 105, 0.18);
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #10b981,
+            #059669
+        );
+
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+
+    box-shadow:
+        0 7px 16px rgba(5, 150, 105, 0.18);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+.laporan-laporan-icon {
+    display: block;
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    object-fit: contain;
+}
+
+.laporan-penjualan .laporan-laporan-button:hover {
+    filter: brightness(1.03);
+
+    transform:
+        translateY(-1px);
+
+    box-shadow:
+        0 10px 20px rgba(5, 150, 105, 0.22);
+}
+
+
+.laporan-penjualan .laporan-laporan-button:active {
+    transform:
+        translateY(0)
+        scale(0.98);
+}
+
+
+/* ======================================
+   CARD
+====================================== */
+
+.laporan-penjualan .laporan-card {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+    border: 1px solid #e1e9e5;
+    border-radius: 15px;
+
+    box-shadow:
+        0 9px 24px rgba(15, 23, 42, 0.045),
+        0 2px 5px rgba(15, 23, 42, 0.025);
+}
+
+
+.laporan-penjualan .laporan-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(5, 150, 105, 0.55),
+            rgba(52, 211, 153, 0.18),
+            transparent
+        );
+
+    pointer-events: none;
+}
+
+
+/* ======================================
+   CARD HEADER
+====================================== */
+
+.laporan-penjualan .laporan-card-header {
+    width: 100%;
+    margin-bottom: 16px;
+
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+
+.laporan-penjualan .laporan-card-header h3 {
+    margin: 0;
+    color: #17221e;
+    font-size: 14px;
+    line-height: 1.3;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+
+.laporan-penjualan .laporan-card-header span {
+    flex-shrink: 0;
+
+    padding: 5px 9px;
+
+    border: 1px solid rgba(16, 185, 129, 0.14);
+    border-radius: 8px;
+
+    background:
+        rgba(16, 185, 129, 0.055);
+
+    color: #047857;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+/* ======================================
+   FORM GRID
+====================================== */
+
+.laporan-penjualan .laporan-form-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+    minmax(200px, 1fr) minmax(200px, 1fr) auto;
+
+    gap: 16px;
+}
+
+
+.laporan-penjualan .laporan-form-group {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+
+.laporan-penjualan .laporan-form-group label {
+    color: #56665f;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+.laporan-penjualan .laporan-form-group input,
+.laporan-penjualan .laporan-form-group select {
+    width: 100%;
+    height: 40px;
+    min-width: 0;
+
+    padding: 0 12px;
+
+    border: 1px solid #dce6e1;
+    border-radius: 9px;
+
+    outline: none;
+
+    background: #ffffff;
+
+    color: #26332e;
+    font-size: 12px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.laporan-penjualan .laporan-form-group input:hover,
+.laporan-penjualan .laporan-form-group select:hover {
+    border-color:
+        rgba(16, 185, 129, 0.30);
+}
+
+
+.laporan-penjualan .laporan-form-group input:focus,
+.laporan-penjualan .laporan-form-group select:focus {
+    border-color:
+        rgba(5, 150, 105, 0.55);
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(16, 185, 129, 0.08);
+}
+
+
+/* ======================================
+   FILTER ACTION
+====================================== */
+
+.laporan-penjualan .laporan-filter-action {
+    margin-top: 16px;
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.laporan-penjualan .laporan-reset-button {
+    
+    min-width: 74px;
+    padding: 0 14px;
+
+    border: 1px solid #dce6e1;
+    border-radius: 9px;
+
+    background: #03553c10;
+
+    color: #c20912;
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.laporan-penjualan .laporan-reset-button:hover {
+    color: #c209126c;
+
+    border-color:
+        rgba(16, 185, 129, 0.25);
+
+    background:
+        rgba(16, 185, 129, 0.045);
+}
+
+
+.laporan-penjualan .laporan-reset-button:active {
+    transform:
+        scale(0.98);
+}
+
+
+/* ======================================
+   SUMMARY
+====================================== */
+
+.laporan-penjualan .laporan-summary-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+    gap: 10px;
+}
+
+
+.laporan-penjualan .laporan-summary-item {
+    position: relative;
+
+    min-width: 0;
+    min-height: 78px;
+
+    padding: 13px 14px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+    border: 1px solid #e4ebe7;
+    border-radius: 11px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.laporan-penjualan .laporan-summary-item::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 3px;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #10b981,
+            #34d399
+        );
+}
+
+
+.laporan-penjualan .laporan-summary-item:hover {
+    transform:
+        translateY(-1px);
+
+    border-color:
+        rgba(16, 185, 129, 0.18);
+
+    box-shadow:
+        0 8px 18px rgba(15, 23, 42, 0.05);
+}
+
+
+.laporan-penjualan .laporan-summary-item span {
+    color: #718078;
+    font-size: 10px;
+    line-height: 1.3;
+    font-weight: 650;
+}
+
+
+.laporan-penjualan .laporan-summary-item strong {
+    overflow: hidden;
+
+    color: #17221e;
+
+    font-size: 15px;
+    line-height: 1.25;
+    font-weight: 700;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/* ======================================
+   TOTAL PAYMENT
+====================================== */
+
+.laporan-penjualan .laporan-summary-total {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(16, 185, 129, 0.09),
+            rgba(16, 185, 129, 0.035)
+        );
+
+    border-color:
+        rgba(16, 185, 129, 0.22);
+
+    box-shadow:
+        0 6px 16px rgba(16, 185, 129, 0.055);
+}
+
+
+.laporan-penjualan .laporan-summary-total::before {
+    width: 4px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #059669,
+            #34d399
+        );
+}
+
+
+.laporan-penjualan .laporan-summary-total strong {
+    color: #047857;
+}
+
+
+/* ======================================
+   RESULT TABLE
+====================================== */
+
+.laporan-penjualan .laporan-result-card {
+    padding-bottom: 14px;
+}
+
+
+.laporan-penjualan .laporan-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    border: 1px solid #e2e9e5;
+    border-radius: 11px;
+
+    background: #ffffff;
+}
+
+
+.laporan-penjualan .laporan-table {
+    width: 100%;
+    min-width: 650px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    color: #26332e;
+    font-size: 11px;
+}
+
+
+.laporan-penjualan .laporan-table thead th {
+    height: 42px;
+
+    padding: 0 14px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f7faf9,
+            #f1f6f4
+        );
+
+    border-bottom: 1px solid #dfe8e3;
+
+    color: #53635b;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-align: left;
+    white-space: nowrap;
+}
+
+
+.laporan-penjualan .laporan-table thead th:first-child {
+    border-top-left-radius: 10px;
+}
+
+
+.laporan-penjualan .laporan-table thead th:last-child {
+    border-top-right-radius: 10px;
+}
+
+
+.laporan-penjualan .laporan-table tbody td {
+    height: 46px;
+
+    padding: 0 14px;
+
+    border-bottom: 1px solid #edf1ef;
+
+    color: #34423c;
+
+    font-size: 11px;
+
+    vertical-align: middle;
+}
+
+
+.laporan-penjualan .laporan-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+
+.laporan-penjualan .laporan-table tbody tr {
+    transition:
+        background 0.18s ease;
+}
+
+
+.laporan-penjualan .laporan-table tbody tr:hover {
+    background:
+        rgba(16, 185, 129, 0.025);
+}
+
+
+/* ======================================
+   EMPTY
+====================================== */
+
+.laporan-penjualan .laporan-empty {
+    height: 100px !important;
+
+    color: #89958f !important;
+
+    font-size: 11px !important;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fafcfb
+        );
+}
+
+
+/* ======================================
+   LARGE DESKTOP
+====================================== */
+
+@media (min-width: 1200px) {
+
+    .laporan-penjualan .laporan-summary-grid {
+        grid-template-columns:
+            repeat(5, minmax(140px, 1fr));
+    }
+}

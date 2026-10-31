@@ -1,0 +1,475 @@
+/* ======================================
+   TREEHOUSE POS
+   BARANG TAMBAH
+   DESKTOP + MOBILE
+   PREMIUM EMERALD + NEUTRAL WHITE
+   CSS KHUSUS FORM TAMBAH BARANG
+====================================== */
+
+
+/* ======================================
+   PAGE
+====================================== */
+
+.barang-tambah-page {
+    margin-bottom: 100px;
+    --barang-tambah-emerald: #10b981;
+    --barang-tambah-emerald-dark: #059669;
+    --barang-tambah-text: #17221e;
+    --barang-tambah-muted: #68766f;
+    --barang-tambah-border: #d6e2dd;
+
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 100%;
+    min-width: 0;
+    padding: 4px 0 28px;
+    color: var(--barang-tambah-text);
+    box-sizing: border-box;
+}
+
+.barang-tambah-page *,
+.barang-tambah-page *::before,
+.barang-tambah-page *::after {
+    box-sizing: border-box;
+}
+
+
+/* ======================================
+   HEADER
+====================================== */
+
+.barang-tambah-page .barang-tambah-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    min-width: 0;
+    padding: 4px 0 18px;
+    border-bottom: 1px solid var(--barang-tambah-border);
+}
+
+.barang-tambah-page .barang-tambah-header > div {
+    min-width: 0;
+}
+
+.barang-tambah-page .barang-tambah-header::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 110px;
+    height: 3px;
+    border-radius: 4px;
+    background: linear-gradient(
+        90deg,
+        #059669,
+        #10b981,
+        rgba(16, 185, 129, 0.08)
+    );
+}
+
+.barang-tambah-page .barang-tambah-header h2 {
+    margin: 0;
+    color: var(--barang-tambah-text);
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+.barang-tambah-page .barang-tambah-header p {
+    margin: 7px 0 0;
+    color: var(--barang-tambah-muted);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+
+/* ======================================
+   FORM CARD
+====================================== */
+
+.barang-tambah-page .barang-tambah-card {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    width: 100%;
+    min-width: 0;
+    padding: 28px;
+    overflow: hidden;
+    border: 1px solid rgba(214, 226, 221, 0.95);
+    border-radius: 18px;
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(16, 185, 129, 0.13),
+            transparent 34%
+        ),
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.055),
+        0 2px 5px rgba(15, 23, 42, 0.035);
+}
+
+.barang-tambah-page .barang-tambah-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        #059669,
+        #10b981,
+        rgba(16, 185, 129, 0.08)
+    );
+    pointer-events: none;
+}
+
+
+/* ======================================
+   FORM GRID
+====================================== */
+
+.barang-tambah-page .barang-tambah-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 24px;
+    width: 100%;
+    min-width: 0;
+}
+
+
+/* ======================================
+   FORM FIELD
+====================================== */
+
+.barang-tambah-page .barang-tambah-field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    width: 100%;
+    min-width: 0;
+}
+
+.barang-tambah-page .barang-tambah-field label {
+    display: block;
+    margin: 0;
+    color: #34473d;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.barang-tambah-page .barang-tambah-field input,
+.barang-tambah-page .barang-tambah-field select {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 46px;
+    margin: 0;
+    padding: 0 13px;
+    border: 1px solid var(--barang-tambah-border);
+    border-radius: 10px;
+    outline: none;
+    background: #ffffff;
+    color: var(--barang-tambah-text);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: normal;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.025);
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.barang-tambah-page .barang-tambah-field input::placeholder {
+    color: #9aa8a0;
+    font-weight: 400;
+}
+
+.barang-tambah-page .barang-tambah-field input:hover,
+.barang-tambah-page .barang-tambah-field select:hover {
+    border-color: #b4cfc1;
+}
+
+.barang-tambah-page .barang-tambah-field input:focus,
+.barang-tambah-page .barang-tambah-field select:focus {
+    border-color: var(--barang-tambah-emerald);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
+.barang-tambah-page .barang-tambah-field input[readonly] {
+    border-color: #dce8e2;
+    background: #f0f5f2;
+    color: #64766c;
+    cursor: default;
+}
+
+
+/* ======================================
+   SELECT
+====================================== */
+
+.barang-tambah-page .barang-tambah-field select {
+    padding-right: 34px;
+    cursor: pointer;
+}
+
+
+/* ======================================
+   FORM ACTIONS
+====================================== */
+
+.barang-tambah-page .barang-tambah-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    width: 100%;
+    min-width: 0;
+    padding-top: 22px;
+    border-top: 1px solid var(--barang-tambah-border);
+}
+
+.barang-tambah-page .barang-tambah-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    min-height: 44px;
+    margin: 0;
+    padding: 0 22px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.barang-tambah-page .barang-tambah-actions .btn-secondary {
+    border-color: var(--barang-tambah-border);
+    background: #ffffff;
+    color: #47574f;
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.025);
+}
+
+.barang-tambah-page .barang-tambah-actions .btn-secondary:hover {
+    border-color: #a9cbbd;
+    background: #eff8f3;
+    color: var(--barang-tambah-emerald-dark);
+    transform: translateY(-2px);
+}
+
+.barang-tambah-page .barang-tambah-actions .btn-primary {
+    border-color: var(--barang-tambah-emerald-dark);
+    background: linear-gradient(
+        135deg,
+        #10b981,
+        #059669
+    );
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.17);
+}
+
+.barang-tambah-page .barang-tambah-actions .btn-primary:hover {
+    border-color: #047857;
+    background: linear-gradient(
+        135deg,
+        #059669,
+        #047857
+    );
+    box-shadow: 0 7px 16px rgba(16, 185, 129, 0.22);
+    transform: translateY(-2px);
+}
+
+.barang-tambah-page .barang-tambah-actions button:active {
+    transform: translateY(0);
+}
+
+.barang-tambah-page .barang-tambah-actions button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.barang-tambah-page .barang-tambah-actions button:focus-visible {
+    outline: 3px solid rgba(16, 185, 129, 0.22);
+    outline-offset: 3px;
+}
+
+
+/* ======================================
+   TABLET
+====================================== */
+
+@media (max-width: 900px) {
+    .barang-tambah-page {
+        gap: 18px;
+    }
+
+    .barang-tambah-page .barang-tambah-card {
+        padding: 24px;
+        border-radius: 16px;
+    }
+
+    .barang-tambah-page .barang-tambah-grid {
+        gap: 20px;
+    }
+}
+
+
+/* ======================================
+   MOBILE
+====================================== */
+
+@media (max-width: 600px) {
+    .barang-tambah-page {
+         padding-bottom: 100px;
+        gap: 16px;
+        padding: 2px 0 20px;
+    }
+
+    .barang-tambah-page .barang-tambah-header {
+        padding: 2px 0 15px;
+    }
+
+    .barang-tambah-page .barang-tambah-header h2 {
+        font-size: 21px;
+        letter-spacing: -0.03em;
+    }
+
+    .barang-tambah-page .barang-tambah-header p {
+        margin-top: 5px;
+        font-size: 12px;
+    }
+
+    .barang-tambah-page .barang-tambah-header::after {
+        width: 90px;
+    }
+
+    .barang-tambah-page .barang-tambah-card {
+        gap: 22px;
+        padding: 18px 14px;
+        border-radius: 14px;
+        box-shadow:
+            0 8px 20px rgba(15, 23, 42, 0.045),
+            0 2px 4px rgba(15, 23, 42, 0.025);
+    }
+
+    .barang-tambah-page .barang-tambah-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 17px;
+    }
+
+    .barang-tambah-page .barang-tambah-field {
+        gap: 7px;
+    }
+
+    .barang-tambah-page .barang-tambah-field label {
+        font-size: 12px;
+    }
+
+    .barang-tambah-page .barang-tambah-field input,
+    .barang-tambah-page .barang-tambah-field select {
+        height: 44px;
+        padding-right: 12px;
+        padding-left: 12px;
+        border-radius: 9px;
+        font-size: 13px;
+    }
+
+    .barang-tambah-page .barang-tambah-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        padding-top: 17px;
+    }
+
+    .barang-tambah-page .barang-tambah-actions button {
+        width: 100%;
+        min-width: 0;
+        min-height: 44px;
+        padding: 0 12px;
+        border-radius: 9px;
+        font-size: 12px;
+    }
+}
+
+
+/* ======================================
+   SMALL MOBILE
+====================================== */
+
+@media (max-width: 360px) {
+    .barang-tambah-page .barang-tambah-header h2 {
+        font-size: 19px;
+    }
+
+    .barang-tambah-page .barang-tambah-card {
+        padding: 15px 11px;
+    }
+
+    .barang-tambah-page .barang-tambah-grid {
+        gap: 15px;
+    }
+
+    .barang-tambah-page .barang-tambah-field input,
+    .barang-tambah-page .barang-tambah-field select {
+        height: 42px;
+        font-size: 12px;
+    }
+
+    .barang-tambah-page .barang-tambah-actions {
+        gap: 8px;
+    }
+
+    .barang-tambah-page .barang-tambah-actions button {
+        padding: 0 8px;
+        font-size: 11px;
+    }
+}
+
+
+/* ======================================
+   REDUCED MOTION
+====================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .barang-tambah-page *,
+    .barang-tambah-page *::before,
+    .barang-tambah-page *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}

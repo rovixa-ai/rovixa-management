@@ -1,0 +1,771 @@
+
+/* ==========================================
+   TREEHOUSE POS
+   LAPORAN PROFIT
+   DETAIL MODAL - DESKTOP
+========================================== */
+
+
+/* ==========================================
+   OVERLAY
+========================================== */
+
+.laporan-profit-detail-modal-overlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: 2147483000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 28px;
+
+    background: rgba(15, 23, 42, 0.62);
+
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+
+    overflow: hidden;
+
+    animation: laporanProfitOverlayIn 0.2s ease-out;
+}
+
+
+/* ==========================================
+   MODAL CONTENT
+========================================== */
+
+.laporan-profit-detail-modal-content {
+    position: relative;
+
+    width: min(1440px, 100%);
+    max-height: calc(100dvh - 56px);
+
+    display: flex;
+    flex-direction: column;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    background: #ffffff;
+
+    border: 1px solid #dce9e2;
+    border-radius: 18px;
+
+    box-shadow:
+        0 24px 70px rgba(15, 23, 42, 0.26),
+        0 8px 24px rgba(15, 23, 42, 0.10);
+
+    color: #1f2937;
+
+    font-family:
+        Inter,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5d1 transparent;
+
+    animation: laporanProfitModalIn 0.24s ease-out;
+}
+
+.laporan-profit-detail-modal-content::-webkit-scrollbar {
+    width: 7px;
+}
+
+.laporan-profit-detail-modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.laporan-profit-detail-modal-content::-webkit-scrollbar-thumb {
+    background: #cbd5d1;
+    border-radius: 10px;
+}
+
+.laporan-profit-detail-modal-content {
+    position: relative;
+}
+
+.laporan-profit-detail-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+
+    transform: translate(-50%, -50%) rotate(-25deg);
+
+    color: rgba(220, 38, 38, 0.14);
+    font-size: clamp(64px, 12vw, 150px);
+    font-weight: 900;
+    letter-spacing: 12px;
+
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.laporan-profit-detail-modal-header {
+    position: sticky;
+    top: 0;
+
+    z-index: 5;
+
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 22px 26px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ecfdf5 0%,
+            #ffffff 85%
+        );
+
+    border-bottom: 1px solid #dcefe4;
+}
+
+.laporan-profit-detail-modal-header > div {
+    min-width: 0;
+}
+
+.laporan-profit-detail-modal-header h2 {
+    margin: 0;
+
+    color: #065f46;
+
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 1.35;
+
+    letter-spacing: -0.4px;
+}
+
+.laporan-profit-detail-modal-id {
+    margin-top: 6px;
+
+    color: #64748b;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    overflow-wrap: anywhere;
+}
+
+.laporan-profit-detail-modal-close {
+    flex: 0 0 auto;
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid #d8e8df;
+    border-radius: 11px;
+
+    background: #ffffff;
+    color: #64748b;
+
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease;
+}
+
+.laporan-profit-detail-modal-close:hover {
+    background: #fee2e2;
+    border-color: #fecaca;
+    color: #b91c1c;
+
+    transform: rotate(90deg);
+}
+
+
+/* ==========================================
+   TRANSACTION INFO
+========================================== */
+
+.laporan-profit-detail-info {
+    display: grid;
+
+    grid-template-columns:
+        minmax(180px, 1.3fr)
+        repeat(4, minmax(120px, 1fr));
+
+    gap: 12px;
+
+    padding: 20px 26px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #edf2ef;
+}
+
+.laporan-profit-detail-info-item {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+
+    padding: 14px 15px;
+
+    background: #f8faf9;
+
+    border: 1px solid #e5eee9;
+    border-radius: 12px;
+}
+
+.laporan-profit-detail-info-item span {
+    color: #64748b;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.laporan-profit-detail-info-item strong {
+    color: #1f2937;
+
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* ==========================================
+   SUMMARY CARDS
+========================================== */
+
+.laporan-profit-detail-summary {
+    display: grid;
+
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    gap: 12px;
+
+    padding: 20px 26px 0;
+}
+
+.laporan-profit-detail-summary-card {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    padding: 17px 18px;
+
+    background: #f8faf9;
+
+    border: 1px solid #e2ebe6;
+    border-radius: 13px;
+
+    transition:
+        border-color 0.18s ease,
+        transform 0.18s ease;
+}
+
+.laporan-profit-detail-summary-card:hover {
+    border-color: #a7f3d0;
+
+    transform: translateY(-2px);
+}
+
+.laporan-profit-detail-summary-card span {
+    color: #64748b;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.laporan-profit-detail-summary-card strong {
+    color: #1f2937;
+
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.45;
+
+    overflow-wrap: anywhere;
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* Penjualan */
+
+.laporan-profit-detail-summary-card:first-child {
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #f8fafc
+        );
+
+    border-color: #dbeafe;
+}
+
+.laporan-profit-detail-summary-card:first-child strong {
+    color: #1d4ed8;
+}
+
+
+/* Discount */
+
+.laporan-profit-detail-summary-card:nth-child(2) {
+    background:
+        linear-gradient(
+            135deg,
+            #fff7ed,
+            #ffffff
+        );
+
+    border-color: #fed7aa;
+}
+
+.laporan-profit-detail-summary-card:nth-child(2) strong {
+    color: #c2410c;
+}
+
+
+/* HPP */
+
+.laporan-profit-detail-summary-card:nth-child(3) {
+    background:
+        linear-gradient(
+            135deg,
+            #fef2f2,
+            #ffffff
+        );
+
+    border-color: #fecaca;
+}
+
+.laporan-profit-detail-summary-card:nth-child(3) strong {
+    color: #b91c1c;
+}
+
+
+/* Gross Profit */
+
+.laporan-profit-detail-summary-card:nth-child(4) {
+    background:
+        linear-gradient(
+            135deg,
+            #ecfdf5,
+            #ffffff
+        );
+
+    border-color: #a7f3d0;
+}
+
+.laporan-profit-detail-summary-card:nth-child(4) strong {
+    color: #047857;
+}
+
+
+/* Margin Profit */
+
+.laporan-profit-detail-summary-card:nth-child(5) {
+    background:
+        linear-gradient(
+            135deg,
+            #f0fdf4,
+            #ecfdf5
+        );
+
+    border-color: #bbf7d0;
+}
+
+.laporan-profit-detail-summary-card:nth-child(5) strong {
+    color: #15803d;
+}
+
+
+/* ==========================================
+   TABLE WRAPPER
+========================================== */
+
+.laporan-profit-detail-table-wrapper {
+    width: calc(100% - 52px);
+
+    margin: 20px 26px 0;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    border: 1px solid #e2ebe6;
+    border-radius: 13px;
+
+    background: #ffffff;
+
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5d1 #f8faf9;
+}
+
+.laporan-profit-detail-table-wrapper::-webkit-scrollbar {
+    height: 7px;
+}
+
+.laporan-profit-detail-table-wrapper::-webkit-scrollbar-track {
+    background: #f8faf9;
+}
+
+.laporan-profit-detail-table-wrapper::-webkit-scrollbar-thumb {
+    background: #cbd5d1;
+    border-radius: 10px;
+}
+
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.laporan-profit-detail-table {
+    width: 100%;
+    min-width: 1180px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: #ffffff;
+
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+}
+
+.laporan-profit-detail-table th {
+    padding: 13px 14px;
+
+    background: #f4fbf7;
+
+    border-bottom: 1px solid #dce9e2;
+
+    color: #64748b;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.35px;
+
+    white-space: nowrap;
+}
+
+.laporan-profit-detail-table td {
+    padding: 13px 14px;
+
+    border-bottom: 1px solid #edf2ef;
+
+    color: #374151;
+
+    font-size: 12px;
+    line-height: 1.5;
+
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.laporan-profit-detail-table tbody tr {
+    transition: background 0.15s ease;
+}
+
+.laporan-profit-detail-table tbody tr:hover {
+    background: #f5fbf7;
+}
+
+.laporan-profit-detail-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* Number alignment */
+
+.laporan-profit-detail-table th:first-child,
+.laporan-profit-detail-table td:first-child {
+    width: 52px;
+
+    text-align: center;
+}
+
+.laporan-profit-detail-table th:nth-child(5),
+.laporan-profit-detail-table td:nth-child(5),
+.laporan-profit-detail-table th:nth-child(6),
+.laporan-profit-detail-table td:nth-child(6) {
+    text-align: center;
+}
+
+
+/* Currency alignment */
+
+.laporan-profit-detail-table th:nth-child(n+7),
+.laporan-profit-detail-table td:nth-child(n+7) {
+    text-align: right;
+}
+
+
+/* Numeric cells */
+
+.laporan-profit-detail-table .number {
+    text-align: center;
+
+    font-weight: 700;
+}
+
+.laporan-profit-detail-table .currency {
+    text-align: right;
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* Profit column */
+
+.laporan-profit-detail-table th:last-child {
+    background: #ecfdf5;
+
+    color: #047857;
+}
+
+.laporan-profit-detail-table td:last-child {
+    color: #047857;
+
+    font-weight: 800;
+}
+
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.laporan-profit-detail-table .empty {
+    padding: 32px 16px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    text-align: center;
+    white-space: normal;
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.laporan-profit-detail-modal-footer {
+    position: sticky;
+    bottom: 0;
+
+    z-index: 5;
+
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    margin-top: 22px;
+    padding: 17px 26px;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    border-top: 1px solid #e5eee9;
+}
+
+.laporan-profit-detail-tutup {
+    min-width: 112px;
+    min-height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 22px;
+
+    border: 1px solid #047857;
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #059669,
+            #047857
+        );
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 10px rgba(4, 120, 87, 0.16);
+
+    transition:
+        background 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+}
+
+.laporan-profit-detail-tutup:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #047857,
+            #065f46
+        );
+
+    box-shadow:
+        0 6px 15px rgba(4, 120, 87, 0.22);
+
+    transform: translateY(-1px);
+}
+
+.laporan-profit-detail-tutup:active {
+    transform: translateY(0);
+}
+
+
+/* ==========================================
+   COMPACT DESKTOP HEIGHT
+========================================== */
+
+@media (max-height: 760px) and (min-width: 769px) {
+
+    .laporan-profit-detail-modal-overlay {
+        padding: 16px;
+    }
+
+    .laporan-profit-detail-modal-content {
+        max-height: calc(100dvh - 32px);
+    }
+
+    .laporan-profit-detail-modal-header {
+        padding: 15px 22px;
+    }
+
+    .laporan-profit-detail-info {
+        gap: 8px;
+        padding: 13px 22px;
+    }
+
+    .laporan-profit-detail-info-item {
+        gap: 5px;
+        padding: 10px 12px;
+    }
+
+    .laporan-profit-detail-summary {
+        gap: 9px;
+        padding: 14px 22px 0;
+    }
+
+    .laporan-profit-detail-summary-card {
+        gap: 7px;
+        padding: 12px 14px;
+    }
+
+    .laporan-profit-detail-summary-card strong {
+        font-size: 14px;
+    }
+
+    .laporan-profit-detail-table-wrapper {
+        width: calc(100% - 44px);
+        margin: 14px 22px 0;
+    }
+
+    .laporan-profit-detail-table th,
+    .laporan-profit-detail-table td {
+        padding: 10px 12px;
+    }
+
+    .laporan-profit-detail-modal-footer {
+        margin-top: 14px;
+        padding: 11px 22px;
+    }
+}
+
+
+/* ==========================================
+   ANIMATIONS
+========================================== */
+
+@keyframes laporanProfitOverlayIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes laporanProfitModalIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.99);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .laporan-profit-detail-modal-overlay,
+    .laporan-profit-detail-modal-content {
+        animation: none;
+    }
+
+    .laporan-profit-detail-modal-close,
+    .laporan-profit-detail-summary-card,
+    .laporan-profit-detail-tutup,
+    .laporan-profit-detail-table tbody tr {
+        transition: none;
+    }
+}

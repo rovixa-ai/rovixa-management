@@ -1,0 +1,264 @@
+
+@import url("./laporan/laporan-desktop.css");
+@import url("./laporan/laporan-mobile.css");
+
+@import url("./laporan/laporan-pembelian-desktop.css");
+@import url("./laporan/laporan-pembelian-mobile.css");
+
+@import url("./laporan/modal/pembelian-desktop.css");
+@import url("./laporan/modal/pembelian-mobile.css");
+
+@import url("./laporan/modal/pembelian-transaksi-desktop.css");
+@import url("./laporan/modal/pembelian-transaksi-mobile.css");
+
+@import url("./laporan/modal/pembelian-detail-desktop.css");
+@import url("./laporan/modal/pembelian-detail-mobile.css");
+
+@import url("./laporan/laporan-penjualan-desktop.css");
+@import url("./laporan/laporan-penjualan-mobile.css");
+
+@import url("./laporan/modal/penjualan-desktop.css");
+@import url("./laporan/modal/penjualan-mobile.css");
+
+@import url("./laporan/modal/penjualan-transaksi-desktop.css");
+@import url("./laporan/modal/penjualan-transaksi-mobile.css");
+
+@import url("./laporan/modal/penjualan-detail-desktop.css");
+@import url("./laporan/modal/penjualan-detail-mobile.css");
+
+@import url("./laporan/laporan-expense-desktop.css");
+@import url("./laporan/laporan-expense-mobile.css");
+
+@import url("./laporan/modal/expense-desktop.css");
+@import url("./laporan/modal/expense-mobile.css");
+
+@import url("./laporan/laporan-profit-desktop.css");
+@import url("./laporan/laporan-profit-mobile.css");
+
+@import url("./laporan/modal/profit-desktop.css");
+@import url("./laporan/modal/profit-mobile.css");
+
+@import url("./laporan/modal/profit-detail-desktop.css");
+@import url("./laporan/modal/profit-detail-mobile.css");
+
+@import url("./dashboard/dashboard-desktop.css");
+@import url("./dashboard/dashboard-mobile.css");
+
+@import url("./expense/expense-desktop.css");
+@import url("./expense/expense-mobile.css");
+
+@import url("./config/storeconfig-desktop.css");
+@import url("./config/storeconfig-mobile.css");
+@import url("./config/store-user-desktop.css");
+@import url("./config/store-user-mobile.css");
+
+
+@import url("./barang/barang-menu.css");
+@import url("./barang/barang-form.css");
+@import url("./barang/barang-detail.css");
+@import url("./barang/barang-edit.css");
+@import url("./barang/barang-stok.css");
+@import url("./barang/barang-riwayat.css");
+@import url("./barang/barang-desktop.css");
+@import url("./barang/barang-mobile.css");
+
+@import url("./barang/harga-desktop.css");
+@import url("./barang/harga-mobile.css");
+
+@import url("./barang/satuan-desktop.css");
+@import url("./barang/satuan-mobile.css");
+@import url("./barang/satuan-form.css");
+
+@import url("loading.css");
+@import url("dialog.css");
+@import url("login.css");
+
+@import url("app-desktop.css");
+@import url("app-mobile.css");
+
+/* ======================================
+   TREEHOUSE POS
+   GLOBAL STYLE
+====================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+
+    font-family: Arial, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 12% 8%,
+            rgba(16, 185, 129, 0.07),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 88% 92%,
+            rgba(16, 185, 129, 0.05),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #eef2f1 0%,
+            #e7ecea 45%,
+            #edf1f0 100%
+        );
+
+    color: #202925;
+
+    position: relative;
+
+  
+
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+/* ======================================
+   APP
+====================================== */
+
+#app {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+}
+
+
+/* ======================================
+   MAIN
+====================================== */
+
+#main {
+    flex: 1;
+    min-width: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin-left: 240px;
+}
+
+
+/* ======================================
+   PAGE
+====================================== */
+
+#page {
+    width: 100%;
+    flex: 1;
+    min-width: 0;
+    padding: 24px;
+    
+}
+
+
+/* ======================================
+   MOBILE
+====================================== */
+
+@media (max-width: 768px) {
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+        overflow: hidden;
+    }
+
+    /* ==================================
+       APP
+    ================================== */
+
+    #app {
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        min-height: 0;
+        display: block;
+        overflow: hidden;
+    }
+
+    /* ==================================
+       MAIN
+    ================================== */
+
+    #main {
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        position: relative;
+        margin-left: 0;
+    }
+
+    /* ==================================
+       PAGE
+       ONLY CONTENT SCROLLS
+    ================================== */
+
+    #page {
+        width: 100%;
+        flex: 1 1 0;
+        height: auto;
+        min-height: 0;
+        padding: 70px 16px 16px;
+        margin-bottom: 70px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* ==================================
+       HEADER
+       FIXED AT TOP
+    ================================== */
+
+    #mobile-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10000;
+    }
+
+   
+}
+
+
+/* ======================================
+   SMALL MOBILE
+====================================== */
+
+@media (max-width: 480px) {
+
+    #page {
+        padding: 68px 12px 14px;
+    }
+
+ 
+}

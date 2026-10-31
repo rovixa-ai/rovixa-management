@@ -1,0 +1,965 @@
+/* =========================================================
+   TREEHOUSE POS
+   PEMBELIAN DETAIL MODAL
+   DESKTOP CSS
+========================================================= */
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.pembelian-detail-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483000;
+
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(16, 185, 129, 0.12),
+            transparent 38%
+        ),
+        rgba(15, 23, 42, 0.66);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+
+/* =========================================================
+   DIALOG
+   Overlay dan dialog adalah elemen terpisah pada render.
+   Dialog harus memiliki z-index lebih tinggi dari overlay.
+========================================================= */
+
+.pembelian-detail-modal-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 2147483001;
+
+    display: flex;
+    flex-direction: column;
+
+    width: min(1180px, calc(100vw - 64px));
+    max-height: calc(100vh - 56px);
+    max-height: calc(100dvh - 56px);
+
+    padding: 0;
+    margin: 0;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    color: #1f2937;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #fbfefc 60%,
+            #f5fbf7 100%
+        );
+
+    border: 1px solid #d9eee2;
+    border-radius: 24px;
+
+    box-shadow:
+        0 30px 90px rgba(2, 44, 34, 0.28),
+        0 10px 30px rgba(15, 23, 42, 0.15);
+
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+}
+
+.pembelian-detail-modal-dialog *,
+.pembelian-detail-modal-dialog *::before,
+.pembelian-detail-modal-dialog *::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.pembelian-detail-modal-header {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    padding: 25px 30px 23px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(16, 185, 129, 0.12),
+            transparent 45%
+        ),
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #f0fdf6 100%
+        );
+
+    border-bottom: 1px solid #dcefe4;
+
+    flex-shrink: 0;
+}
+
+.pembelian-detail-modal-header > div {
+    min-width: 0;
+}
+
+.pembelian-detail-modal-header h3 {
+    margin: 0;
+
+    color: #064e3b;
+
+    font-size: 23px;
+    font-weight: 850;
+
+    line-height: 1.35;
+    letter-spacing: -0.6px;
+}
+
+.pembelian-detail-modal-header p {
+    margin: 7px 0 0;
+
+    color: #718279;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   HEADER ACCENT
+========================================================= */
+
+.pembelian-detail-modal-header::after {
+    content: "";
+
+    position: absolute;
+    bottom: -1px;
+    left: 30px;
+
+    width: 76px;
+    height: 3px;
+
+    background: linear-gradient(
+        90deg,
+        #059669,
+        #34d399
+    );
+
+    border-radius: 3px 3px 0 0;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.pembelian-detail-modal-label {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 9px;
+
+    color: #047857;
+
+    font-size: 10px;
+    font-weight: 850;
+
+    letter-spacing: 1.5px;
+    line-height: 1.4;
+}
+
+.pembelian-detail-modal-label::before {
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    background: #10b981;
+
+    border-radius: 50%;
+
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.pembelian-detail-modal-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    padding: 0;
+
+    color: #64748b;
+
+    background: rgba(255, 255, 255, 0.9);
+
+    border: 1px solid #dce7e1;
+    border-radius: 13px;
+
+    font-family: inherit;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1;
+
+    cursor: pointer;
+
+    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+
+    flex-shrink: 0;
+
+    transition:
+        color 0.18s ease,
+        background 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.pembelian-detail-modal-close:hover {
+    color: #dc2626;
+
+    background: #fff1f2;
+
+    border-color: #fecdd3;
+
+    box-shadow: 0 5px 14px rgba(225, 29, 72, 0.09);
+
+    transform: translateY(-1px);
+}
+
+.pembelian-detail-modal-close:active {
+    transform: scale(0.96);
+}
+
+.pembelian-detail-modal-close:focus-visible {
+    outline: 3px solid rgba(16, 185, 129, 0.3);
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   TRANSACTION INFORMATION
+========================================================= */
+
+.pembelian-detail-modal-info {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    gap: 12px;
+
+    padding: 22px 30px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #e7f0eb;
+
+    flex-shrink: 0;
+}
+
+.pembelian-detail-modal-info > div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+
+    min-width: 0;
+    min-height: 76px;
+
+    padding: 14px 15px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f5fbf7 100%
+        );
+
+    border: 1px solid #e0eee5;
+    border-radius: 13px;
+
+    box-shadow: 0 3px 10px rgba(15, 72, 52, 0.035);
+}
+
+.pembelian-detail-modal-info span {
+    color: #829188;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    line-height: 1.4;
+    letter-spacing: 0.35px;
+}
+
+.pembelian-detail-modal-info strong {
+    color: #20543f;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.pembelian-detail-modal-section {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    margin: 0 30px 20px;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid #e0ece5;
+    border-radius: 17px;
+
+    box-shadow:
+        0 4px 14px rgba(15, 72, 52, 0.035),
+        0 1px 3px rgba(15, 23, 42, 0.025);
+
+    flex-shrink: 0;
+}
+
+.pembelian-detail-modal-info + .pembelian-detail-modal-section {
+    margin-top: 22px;
+}
+
+.pembelian-detail-modal-total + .pembelian-detail-modal-section {
+    margin-top: 0;
+}
+
+.pembelian-detail-modal-payment-section {
+    margin-top: 0;
+    margin-bottom: 22px;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.pembelian-detail-modal-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 18px;
+
+    padding: 18px 22px;
+
+    background:
+        linear-gradient(
+            110deg,
+            #f0fdf6 0%,
+            #ffffff 90%
+        );
+
+    border-bottom: 1px solid #e2eee7;
+
+    flex-shrink: 0;
+}
+
+.pembelian-detail-modal-section-header > div:first-child {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.pembelian-detail-modal-section-title {
+    margin: 0;
+
+    color: #064e3b;
+
+    font-size: 14px;
+    font-weight: 850;
+
+    line-height: 1.5;
+    letter-spacing: -0.2px;
+}
+
+.pembelian-detail-modal-section-subtitle {
+    margin-top: 4px;
+
+    color: #84958c;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   COUNTS
+========================================================= */
+
+.pembelian-detail-modal-item-count,
+.pembelian-detail-modal-payment-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    min-height: 30px;
+
+    padding: 6px 11px;
+
+    color: #047857;
+
+    background: linear-gradient(
+        135deg,
+        #d1fae5,
+        #ecfdf5
+    );
+
+    border: 1px solid #a7f3d0;
+    border-radius: 10px;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    line-height: 1.4;
+    white-space: nowrap;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+.pembelian-detail-modal-table-wrapper {
+    position: relative;
+
+    display: block;
+
+    width: 100%;
+    max-width: 100%;
+
+    overflow: auto;
+
+    overscroll-behavior: contain;
+
+    scrollbar-width: thin;
+    scrollbar-color: #a7d8bd #f3f8f5;
+}
+
+.pembelian-detail-modal-table-wrapper::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.pembelian-detail-modal-table-wrapper::-webkit-scrollbar-track {
+    background: #f3f8f5;
+    border-radius: 10px;
+}
+
+.pembelian-detail-modal-table-wrapper::-webkit-scrollbar-thumb {
+    background: #b7d9c5;
+
+    border: 2px solid #f3f8f5;
+    border-radius: 10px;
+}
+
+.pembelian-detail-modal-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #6fbd93;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.pembelian-detail-modal-table {
+    width: 100%;
+    min-width: 1000px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    color: #334155;
+
+    font-size: 12px;
+
+    text-align: left;
+}
+
+.pembelian-detail-modal-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.pembelian-detail-modal-table thead tr {
+    background: #f5faf7;
+}
+
+.pembelian-detail-modal-table th {
+    padding: 13px 15px;
+
+    color: #64786d;
+
+    background: #f5faf7;
+
+    border-bottom: 1px solid #dfeae3;
+
+    font-size: 10px;
+    font-weight: 850;
+
+    letter-spacing: 0.4px;
+    line-height: 1.5;
+
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.pembelian-detail-modal-table td {
+    padding: 13px 15px;
+
+    color: #475569;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #edf2ee;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    line-height: 1.6;
+    vertical-align: middle;
+
+    transition: background 0.15s ease;
+}
+
+.pembelian-detail-modal-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.pembelian-detail-modal-table tbody tr:hover td {
+    background: #f5fcf7;
+}
+
+
+/* =========================================================
+   ITEM NAME
+========================================================= */
+
+.pembelian-detail-modal-item-name {
+    display: inline-block;
+
+    color: #20543f;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    line-height: 1.6;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+.pembelian-detail-modal-number {
+    color: #475569;
+
+    font-size: 12px;
+    font-weight: 650;
+
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   MONEY
+========================================================= */
+
+.pembelian-detail-modal-money {
+    color: #334155;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.pembelian-detail-modal-table td:last-child strong {
+    color: #047857;
+    font-weight: 850;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.pembelian-detail-modal-empty {
+    padding: 32px 20px;
+
+    color: #94a39a;
+
+    background: #fcfefd;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    line-height: 1.7;
+    text-align: center;
+}
+
+
+/* =========================================================
+   TOTAL SUMMARY
+========================================================= */
+
+.pembelian-detail-modal-total {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 14px;
+
+    margin: 0 30px 20px;
+    padding: 18px 20px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #f0fdf6 0%,
+            #f9fefb 100%
+        );
+
+    border: 1px solid #d7eee0;
+    border-radius: 16px;
+
+    box-shadow: 0 3px 12px rgba(5, 150, 105, 0.035);
+
+    flex-shrink: 0;
+}
+
+.pembelian-detail-modal-total > div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+
+    min-width: 0;
+
+    padding: 5px 10px;
+}
+
+.pembelian-detail-modal-total > div > span {
+    color: #718279;
+
+    font-size: 11px;
+    font-weight: 650;
+
+    line-height: 1.5;
+}
+
+.pembelian-detail-modal-total > div > strong {
+    color: #334155;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    line-height: 1.5;
+
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
+
+.pembelian-detail-modal-total > div + div {
+    border-left: 1px solid #d7e9de;
+    padding-left: 20px;
+}
+
+.pembelian-detail-modal-total .pembelian-detail-modal-total-main {
+    background: linear-gradient(
+        135deg,
+        #dcfce7,
+        #ecfdf5
+    );
+
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
+
+    padding: 12px 15px;
+}
+
+.pembelian-detail-modal-total .pembelian-detail-modal-total-main > span {
+    color: #047857;
+
+    font-size: 10px;
+    font-weight: 850;
+
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.pembelian-detail-modal-total .pembelian-detail-modal-total-main > strong {
+    color: #065f46;
+
+    font-size: 20px;
+    font-weight: 900;
+
+    letter-spacing: -0.5px;
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.pembelian-detail-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    padding: 20px 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f0fdf6 0%,
+            #ffffff 100%
+        );
+
+    border-top: 1px solid #dcefe4;
+
+    flex-shrink: 0;
+}
+
+.pembelian-detail-modal-footer-total {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+
+    min-width: 0;
+}
+
+.pembelian-detail-modal-footer-total > span {
+    color: #718279;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    line-height: 1.5;
+}
+
+.pembelian-detail-modal-footer-total > strong {
+    color: #047857;
+
+    font-size: 23px;
+    font-weight: 900;
+
+    letter-spacing: -0.6px;
+    line-height: 1.35;
+
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   FOOTER BUTTON
+========================================================= */
+
+.pembelian-detail-modal-footer-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 120px;
+    min-height: 44px;
+
+    padding: 0 24px;
+
+    color: #ffffff;
+
+    background: linear-gradient(
+        135deg,
+        #059669 0%,
+        #047857 100%
+    );
+
+    border: 1px solid #047857;
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 850;
+
+    line-height: 1.4;
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 12px rgba(5, 150, 105, 0.17),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+    flex-shrink: 0;
+
+    transition:
+        background 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+}
+
+.pembelian-detail-modal-footer-button:hover {
+    background: linear-gradient(
+        135deg,
+        #047857 0%,
+        #065f46 100%
+    );
+
+    box-shadow:
+        0 8px 18px rgba(5, 150, 105, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
+    transform: translateY(-1px);
+}
+
+.pembelian-detail-modal-footer-button:active {
+    box-shadow: 0 3px 7px rgba(5, 150, 105, 0.16);
+
+    transform: scale(0.98);
+}
+
+.pembelian-detail-modal-footer-button:focus-visible {
+    outline: 3px solid rgba(16, 185, 129, 0.32);
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   SHORT DESKTOP VIEWPORT
+========================================================= */
+
+@media (max-height: 760px) and (min-width: 769px) {
+
+    .pembelian-detail-modal-dialog {
+        max-height: calc(100vh - 32px);
+        max-height: calc(100dvh - 32px);
+    }
+
+    .pembelian-detail-modal-header {
+        padding: 17px 24px;
+    }
+
+    .pembelian-detail-modal-header h3 {
+        font-size: 21px;
+    }
+
+    .pembelian-detail-modal-info {
+        gap: 9px;
+        padding: 14px 24px;
+    }
+
+    .pembelian-detail-modal-info > div {
+        min-height: 64px;
+        padding: 10px 12px;
+    }
+
+    .pembelian-detail-modal-info + .pembelian-detail-modal-section {
+        margin-top: 14px;
+    }
+
+    .pembelian-detail-modal-section {
+        margin-right: 24px;
+        margin-bottom: 13px;
+        margin-left: 24px;
+    }
+
+    .pembelian-detail-modal-section-header {
+        padding: 12px 18px;
+    }
+
+    .pembelian-detail-modal-table th {
+        padding: 9px 12px;
+    }
+
+    .pembelian-detail-modal-table td {
+        padding: 9px 12px;
+    }
+
+    .pembelian-detail-modal-total {
+        margin: 0 24px 13px;
+        padding: 12px 16px;
+    }
+
+    .pembelian-detail-modal-payment-section {
+        margin-bottom: 14px;
+    }
+
+    .pembelian-detail-modal-footer {
+        padding: 13px 24px;
+    }
+
+    .pembelian-detail-modal-footer-total > strong {
+        font-size: 20px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .pembelian-detail-modal-close,
+    .pembelian-detail-modal-table td,
+    .pembelian-detail-modal-footer-button {
+        transition: none !important;
+    }
+}

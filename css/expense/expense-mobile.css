@@ -1,0 +1,626 @@
+/* ======================================
+   TREEHOUSE POS
+   EXPENSE - MOBILE
+   PREMIUM EMERALD + NEUTRAL WHITE
+====================================== */
+
+@media (max-width: 767px) {
+
+/* ======================================
+   PAGE
+====================================== */
+
+    .expense-page {
+        --expense-emerald: #10b981;
+        --expense-emerald-dark: #059669;
+        --expense-emerald-light: #34d399;
+
+        --expense-text: #17221e;
+        --expense-muted: #68766f;
+        --expense-border: #d6e2dd;
+
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+
+        padding: 0;
+        margin-bottom: 60px;
+
+        color: var(--expense-text);
+
+        overflow: visible;
+        box-sizing: border-box;
+    }
+
+    .expense-page *,
+    .expense-page *::before,
+    .expense-page *::after {
+        box-sizing: border-box;
+    }
+
+/* ======================================
+   HEADER
+====================================== */
+
+    .expense-page-header {
+        position: relative;
+
+        width: 100%;
+        min-width: 0;
+        min-height: auto;
+
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: space-between;
+
+        gap: 15px;
+
+        padding: 19px 17px 17px;
+
+        overflow: hidden;
+
+        background:
+            radial-gradient(
+                circle at 95% 8%,
+                rgba(16, 185, 129, 0.12),
+                transparent 32%
+            ),
+            linear-gradient(
+                145deg,
+                #ffffff 0%,
+                #f8fbfa 100%
+            );
+
+        border: 1px solid #d6e2dd;
+        border-radius: 15px;
+
+        box-shadow:
+            0 8px 20px rgba(15, 23, 42, 0.045),
+            0 2px 4px rgba(15, 23, 42, 0.025);
+    }
+
+    .expense-page-header::before {
+        content: "";
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+
+        height: 3px;
+
+        background: linear-gradient(
+            90deg,
+            #059669 0%,
+            #10b981 48%,
+            rgba(16, 185, 129, 0.08) 100%
+        );
+    }
+
+    .expense-page-header::after {
+        content: "";
+
+        position: absolute;
+        top: -65px;
+        right: -65px;
+
+        width: 180px;
+        height: 160px;
+
+        border-radius: 50%;
+
+        background: radial-gradient(
+            circle,
+            rgba(16, 185, 129, 0.075) 0%,
+            rgba(16, 185, 129, 0.03) 40%,
+            transparent 72%
+        );
+
+        pointer-events: none;
+    }
+
+    .expense-page-header > div {
+        position: relative;
+        z-index: 1;
+
+        width: 100%;
+        min-width: 0;
+    }
+
+    .expense-page-header h2 {
+        margin: 0;
+
+        color: #074e34;
+
+        font-size: 21px;
+        font-weight: 700;
+        text-align: center;
+        letter-spacing: -0.04em;
+        line-height: 1.35;
+    }
+
+    .expense-page-header p {
+        margin: 5px 0 0;
+
+        color: #68766f;
+
+        font-size: 12px;
+        font-weight: 450;
+        text-align: center;
+        line-height: 1.6;
+    }
+
+/* ======================================
+   CARD
+====================================== */
+
+    .expense-card {
+        position: relative;
+
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+
+        padding: 15px;
+
+        overflow: hidden;
+
+        background: linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+        border: 1px solid #d6e2dd;
+        border-radius: 13px;
+
+        box-shadow:
+            0 8px 20px rgba(15, 23, 42, 0.045),
+            0 2px 4px rgba(15, 23, 42, 0.025);
+    }
+
+    .expense-card::before {
+        content: "";
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+
+        height: 3px;
+
+        background: linear-gradient(
+            90deg,
+            #059669 0%,
+            #10b981 48%,
+            rgba(16, 185, 129, 0.08) 100%
+        );
+    }
+
+/* ======================================
+   FORM GRID
+====================================== */
+
+    .expense-form-grid {
+        position: relative;
+        z-index: 1;
+
+        width: 100%;
+        min-width: 0;
+
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+/* ======================================
+   FORM GROUP
+====================================== */
+
+    .expense-form-group {
+        min-width: 0;
+
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .expense-form-group label {
+        color: #68766f;
+
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.035em;
+        text-transform: uppercase;
+    }
+
+    .expense-form-group input,
+    .expense-form-group select {
+        width: 100%;
+        min-width: 0;
+        height: 43px;
+
+        padding: 0 12px;
+
+        border: 1px solid #d6e2dd;
+        border-radius: 9px;
+
+        background: #ffffff;
+
+        color: #17221e;
+
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 500;
+
+        outline: none;
+
+        -webkit-appearance: none;
+        appearance: none;
+
+        transition:
+            border-color 180ms ease,
+            box-shadow 180ms ease;
+    }
+
+    .expense-form-group input::placeholder {
+        color: #98a69f;
+        opacity: 1;
+    }
+
+    .expense-form-group input:focus,
+    .expense-form-group select:focus {
+        border-color: #10b981;
+
+        box-shadow:
+            0 0 0 3px rgba(16, 185, 129, 0.09);
+    }
+
+/* ======================================
+   TOTAL CARD
+====================================== */
+
+    .expense-total-card {
+        padding: 0;
+    }
+
+    .expense-total {
+        position: relative;
+        z-index: 1;
+
+        min-width: 0;
+        min-height: 86px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+
+        padding: 15px;
+    }
+
+    .expense-total span {
+        color: #68766f;
+
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.035em;
+        text-transform: uppercase;
+    }
+
+    .expense-total strong {
+        position: relative;
+
+        color: #17221e;
+
+        font-size: 20px;
+        font-weight: 700;
+
+        white-space: nowrap;
+    }
+
+    .expense-total strong::after {
+        content: "";
+
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+
+        width: 22px;
+        height: 2px;
+
+        border-radius: 999px;
+
+        background: linear-gradient(
+            90deg,
+            #059669,
+            #34d399
+        );
+    }
+
+/* ======================================
+   FOOTER
+====================================== */
+
+    .expense-footer {
+        position: relative;
+
+        width: 100%;
+        min-width: 0;
+
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        padding: 14px;
+
+        background: linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+        border: 1px solid #d6e2dd;
+        border-radius: 13px;
+
+        box-shadow:
+            0 8px 20px rgba(15, 23, 42, 0.045),
+            0 2px 4px rgba(15, 23, 42, 0.025);
+    }
+
+    .expense-footer::before {
+        content: "";
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+
+        height: 3px;
+
+        background: linear-gradient(
+            90deg,
+            #059669 0%,
+            #10b981 48%,
+            rgba(16, 185, 129, 0.08) 100%
+        );
+    }
+
+/* ======================================
+   FOOTER TOTAL
+====================================== */
+
+    .expense-footer-total {
+        position: relative;
+        z-index: 1;
+
+        width: 100%;
+        min-width: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .expense-footer-total span {
+        color: #68766f;
+
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.035em;
+        text-transform: uppercase;
+    }
+
+    .expense-footer-total strong {
+        color: #17221e;
+
+        font-size: 18px;
+        font-weight: 700;
+
+        white-space: nowrap;
+    }
+
+/* ======================================
+   FOOTER ACTIONS
+====================================== */
+
+    .expense-footer-actions {
+        position: relative;
+        z-index: 1;
+
+        width: 100%;
+        min-width: 0;
+
+        display: grid;
+        grid-template-columns: 1fr 1.4fr;
+        gap: 8px;
+    }
+
+    #expense-batal,
+    #expense-simpan {
+        width: 100%;
+        min-width: 0;
+        min-height: 43px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 0 12px;
+
+        border-radius: 9px;
+
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 700;
+
+        cursor: pointer;
+
+        -webkit-tap-highlight-color: transparent;
+
+        transition:
+            background 180ms ease,
+            border-color 180ms ease,
+            box-shadow 180ms ease,
+            transform 150ms ease;
+    }
+
+/* ======================================
+   BATAL
+====================================== */
+
+    #expense-batal {
+        color: #52645a;
+
+        background: #ffffff;
+
+        border: 1px solid #d6e2dd;
+    }
+
+    #expense-batal:active {
+        background: #f0fdf4;
+        border-color: #b7d9c9;
+        transform: scale(0.98);
+    }
+
+    #expense-batal:focus-visible {
+        outline: 3px solid rgba(16, 185, 129, 0.18);
+        outline-offset: 2px;
+    }
+
+/* ======================================
+   SIMPAN
+====================================== */
+
+    #expense-simpan {
+        color: #ffffff;
+
+        background: linear-gradient(
+            135deg,
+            #10b981 0%,
+            #059669 100%
+        );
+
+        border: 1px solid #059669;
+
+        box-shadow:
+            0 4px 10px rgba(5, 150, 105, 0.16),
+            inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+
+    #expense-simpan:active {
+        background: linear-gradient(
+            135deg,
+            #047857,
+            #059669
+        );
+
+        transform: scale(0.98);
+
+        box-shadow:
+            0 3px 8px rgba(5, 150, 105, 0.18);
+    }
+
+    #expense-simpan:focus-visible {
+        outline: 3px solid rgba(16, 185, 129, 0.22);
+        outline-offset: 2px;
+    }
+
+}
+
+/* ======================================
+   SMALL MOBILE
+====================================== */
+
+@media (max-width: 380px) {
+
+    .expense-page {
+        gap: 11px;
+    }
+
+/* ======================================
+   HEADER
+====================================== */
+
+    .expense-page-header {
+        gap: 12px;
+        padding: 17px 13px 14px;
+        border-radius: 14px;
+    }
+
+    .expense-page-header h2 {
+        font-size: 19px;
+    }
+
+    .expense-page-header p {
+        font-size: 11px;
+    }
+
+/* ======================================
+   CARD
+====================================== */
+
+    .expense-card {
+        padding: 13px;
+        border-radius: 12px;
+    }
+
+/* ======================================
+   FORM
+====================================== */
+
+    .expense-form-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .expense-form-group input,
+    .expense-form-group select {
+        height: 41px;
+        font-size: 11px;
+    }
+
+/* ======================================
+   TOTAL
+====================================== */
+
+    .expense-total {
+        min-height: 80px;
+        padding: 13px;
+    }
+
+    .expense-total strong {
+        font-size: 18px;
+    }
+
+/* ======================================
+   FOOTER
+====================================== */
+
+    .expense-footer {
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .expense-footer-total strong {
+        font-size: 16px;
+    }
+
+    .expense-footer-actions {
+        gap: 7px;
+    }
+
+    #expense-batal,
+    #expense-simpan {
+        min-height: 41px;
+        padding: 0 8px;
+        font-size: 11px;
+    }
+
+}

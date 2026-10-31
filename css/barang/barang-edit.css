@@ -1,0 +1,480 @@
+/* ======================================
+   TREEHOUSE POS
+   BARANG EDIT FORM
+   DESKTOP + MOBILE
+   PREMIUM EMERALD + NEUTRAL WHITE
+   CSS KHUSUS EDIT BARANG
+====================================== */
+
+
+/* ======================================
+   PAGE
+====================================== */
+
+.barang-edit-page {
+   
+    --barang-emerald: #10b981;
+    --barang-emerald-dark: #059669;
+    --barang-emerald-light: #34d399;
+    --barang-text: #17221e;
+    --barang-muted: #68766f;
+    --barang-border: #d6e2dd;
+
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 100%;
+    min-width: 0;
+    padding: 4px 0 28px;
+    color: var(--barang-text);
+    box-sizing: border-box;
+}
+
+.barang-edit-page *,
+.barang-edit-page *::before,
+.barang-edit-page *::after {
+    box-sizing: border-box;
+}
+
+
+/* ======================================
+   HEADER
+====================================== */
+
+.barang-edit-page .barang-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    min-width: 0;
+    
+    border-bottom: 1px solid var(--barang-border);
+}
+
+.barang-edit-page .barang-header > div {
+    min-width: 0;
+}
+
+.barang-edit-page .barang-header::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 110px;
+    height: 3px;
+    border-radius: 4px;
+    background: linear-gradient(
+        90deg,
+        #059669,
+        #10b981,
+        rgba(16, 185, 129, 0.08)
+    );
+}
+
+.barang-edit-page .barang-header h2 {
+    margin: 0;
+    color:#08442e;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.3;
+}
+
+.barang-edit-page .barang-header p {
+    margin: 7px 0 0;
+    color: var(--barang-muted);
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+
+/* ======================================
+   FORM CARD
+====================================== */
+
+.barang-edit-page .barang-edit-card {
+    margin-bottom: 60px;
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    min-width: 0;
+    padding: 26px;
+    overflow: hidden;
+    border: 1px solid rgba(214, 226, 221, 0.95);
+    border-radius: 18px;
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(16, 185, 129, 0.13),
+            transparent 34%
+        ),
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.055),
+        0 2px 5px rgba(15, 23, 42, 0.035);
+}
+
+.barang-edit-page .barang-edit-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        #059669,
+        #10b981,
+        rgba(16, 185, 129, 0.08)
+    );
+    pointer-events: none;
+}
+
+
+/* ======================================
+   FORM GRID
+====================================== */
+
+.barang-edit-page .barang-edit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 24px;
+    width: 100%;
+    min-width: 0;
+}
+
+.barang-edit-page .barang-field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 0;
+}
+
+.barang-edit-page .barang-field label {
+    display: block;
+    margin: 0;
+    color: #34463e;
+    font-size: 13px;
+    font-weight: 650;
+    line-height: 1.5;
+}
+
+
+/* ======================================
+   INPUT & SELECT
+====================================== */
+
+.barang-edit-page .barang-field input,
+.barang-edit-page .barang-field select {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 44px;
+    margin: 0;
+    padding: 0 13px;
+    border: 1px solid #d6e2dd;
+    border-radius: 10px;
+    outline: none;
+    background: #ffffff;
+    color: var(--barang-text);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 450;
+    line-height: normal;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.025);
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.barang-edit-page .barang-field input::placeholder {
+    color: #9aa8a1;
+    opacity: 1;
+}
+
+.barang-edit-page .barang-field input:hover:not(:disabled),
+.barang-edit-page .barang-field select:hover {
+    border-color: #a9cbbd;
+}
+
+.barang-edit-page .barang-field input:focus,
+.barang-edit-page .barang-field select:focus {
+    border-color: var(--barang-emerald);
+    background: #ffffff;
+    box-shadow:
+        0 0 0 3px rgba(16, 185, 129, 0.11),
+        0 2px 5px rgba(15, 23, 42, 0.025);
+}
+
+.barang-edit-page .barang-field input:disabled {
+    border-color: #dce8e2;
+    background: #f0f7f3;
+    color: var(--barang-emerald-dark);
+    font-weight: 700;
+    opacity: 1;
+    cursor: not-allowed;
+    -webkit-text-fill-color: var(--barang-emerald-dark);
+}
+
+.barang-edit-page .barang-field input[type="number"] {
+    font-variant-numeric: tabular-nums;
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.barang-edit-page .barang-field input[type="number"]::-webkit-inner-spin-button,
+.barang-edit-page .barang-field input[type="number"]::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+}
+
+
+/* ======================================
+   FORM ACTIONS
+====================================== */
+
+.barang-edit-page .barang-edit-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(214, 226, 221, 0.85);
+}
+
+.barang-edit-page .barang-edit-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 120px;
+    min-height: 43px;
+    padding: 0 20px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+/* ======================================
+   CANCEL BUTTON
+====================================== */
+
+.barang-edit-page .barang-edit-actions .btn-secondary {
+    border-color: var(--barang-border);
+    background: linear-gradient(
+        145deg,
+        #ffffff,
+        #f6f9f7
+    );
+    color: #47574f;
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.025);
+}
+
+.barang-edit-page .barang-edit-actions .btn-secondary:hover {
+    border-color: #a9cbbd;
+    background: #eff8f3;
+    color: var(--barang-emerald-dark);
+    transform: translateY(-2px);
+}
+
+.barang-edit-page .barang-edit-actions .btn-secondary:active {
+    transform: translateY(0);
+}
+
+
+/* ======================================
+   SAVE BUTTON
+====================================== */
+
+.barang-edit-page .barang-edit-actions .btn-primary {
+    border-color: var(--barang-emerald-dark);
+    background: linear-gradient(
+        135deg,
+        #10b981 0%,
+        #059669 100%
+    );
+    color: #ffffff;
+    box-shadow:
+        0 5px 12px rgba(5, 150, 105, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.barang-edit-page .barang-edit-actions .btn-primary:hover {
+    border-color: #047857;
+    background: linear-gradient(
+        135deg,
+        #34d399 0%,
+        #059669 100%
+    );
+    box-shadow:
+        0 8px 18px rgba(5, 150, 105, 0.23),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.barang-edit-page .barang-edit-actions .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(5, 150, 105, 0.16);
+}
+
+.barang-edit-page .barang-edit-actions button:focus-visible {
+    outline: 3px solid rgba(16, 185, 129, 0.22);
+    outline-offset: 3px;
+}
+
+
+/* ======================================
+   TABLET
+====================================== */
+
+@media (max-width: 900px) {
+    .barang-edit-page {
+        gap: 18px;
+    }
+
+    .barang-edit-page .barang-edit-card {
+        padding: 22px;
+        border-radius: 16px;
+    }
+
+    .barang-edit-page .barang-edit-grid {
+        gap: 20px;
+    }
+}
+
+
+/* ======================================
+   MOBILE
+====================================== */
+
+@media (max-width: 600px) {
+    .barang-edit-page {
+        gap: 16px;
+        padding: 2px 0 20px;
+    }
+
+   
+
+    .barang-edit-page .barang-header h2 {
+        font-size: 21px;
+        letter-spacing: -0.03em;
+    }
+
+    .barang-edit-page .barang-header p {
+        margin-top: 5px;
+        font-size: 12px;
+    }
+
+    .barang-edit-page .barang-header::after {
+        width: 90px;
+    }
+
+    .barang-edit-page .barang-edit-card {
+        padding: 19px 15px;
+        border-radius: 14px;
+        box-shadow:
+            0 8px 20px rgba(15, 23, 42, 0.045),
+            0 2px 4px rgba(15, 23, 42, 0.025);
+    }
+
+    .barang-edit-page .barang-edit-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 17px;
+    }
+
+    .barang-edit-page .barang-field {
+        gap: 7px;
+    }
+
+    .barang-edit-page .barang-field label {
+        font-size: 12px;
+    }
+
+    .barang-edit-page .barang-field input,
+    .barang-edit-page .barang-field select {
+        height: 44px;
+        padding: 0 12px;
+        border-radius: 9px;
+        font-size: 14px;
+    }
+
+    .barang-edit-page .barang-edit-actions {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+        gap: 10px;
+        margin-top: 22px;
+        padding-top: 17px;
+    }
+
+    .barang-edit-page .barang-edit-actions button {
+        width: 100%;
+        min-width: 0;
+        min-height: 44px;
+        padding: 0 10px;
+        border-radius: 9px;
+        font-size: 12px;
+    }
+}
+
+
+/* ======================================
+   SMALL MOBILE
+====================================== */
+
+@media (max-width: 360px) {
+    .barang-edit-page .barang-edit-card {
+        padding: 16px 12px;
+    }
+
+    .barang-edit-page .barang-edit-grid {
+        gap: 15px;
+    }
+
+   
+
+    .barang-edit-page .barang-edit-actions button {
+        min-height: 43px;
+    }
+}
+
+
+/* ======================================
+   REDUCED MOTION
+====================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .barang-edit-page *,
+    .barang-edit-page *::before,
+    .barang-edit-page *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}

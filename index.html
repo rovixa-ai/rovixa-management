@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta name="theme-color" content="#059669">
+
+<link
+    rel="manifest"
+    href="./manifest.json"
+>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="app">
+
+    <aside id="sidebar">
+        <div id="sidebar-content"></div>
+    </aside>
+
+    <main id="main">
+
+        <header id="desktop-header"></header>
+
+        <header id="mobile-header"></header>
+
+        <section id="page"></section>
+
+    </main>
+
+</div>
+
+
+<script src="js/database/indexeddb.js"></script>
+
+<script src="../config/api-config.js"></script>
+<script src="js/api.js"></script>
+
+<script src="js/loading.js"></script>
+<script src="js/dialog.js"></script>
+
+
+<script src="js/sync/download.js"></script>
+<script src="js/sync/download-users.js"></script>
+<script src="js/sync/sync.js"></script>
+
+<!-- STORE CONFIG -->
+
+<script src="js/store/store-config-render.js"></script>
+<script src="js/store/store-config-desktop-render.js"></script>
+<script src="js/store/store-config-mobile-render.js"></script>
+<script src="js/store/store-config-event.js"></script>
+<script src="js/store/store-config-accordion.js"></script>
+<script src="js/store/store-config-logo.js"></script>
+<script src="js/store/store-config.js"></script>
+
+<script src="js/store/store-user-render.js"></script>
+<script src="js/store/store-user-desktop-render.js"></script>
+<script src="js/store/store-user-mobile-render.js"></script>
+<script src="js/store/store-user-event.js"></script>
+<script src="js/store/store-user-modal.js"></script>
+<script src="js/store/store-user-save.js"></script>
+
+<script src="js/store/store-user.js"></script>
+
+<!-- PEMBELIAN DATABASE CONFIG -->
+
+<script src="js/pembelian-database-config.js"></script>
+
+
+<!-- LAPORAN PEMBELIAN -->
+
+<script src="js/laporan-pembelian/laporan-pembelian-render.js"></script>
+<script src="js/laporan-pembelian/laporan-pembelian-desktop-render.js"></script>
+<script src="js/laporan-pembelian/laporan-pembelian-mobile-render.js"></script>
+
+<script src="js/laporan-pembelian/laporan-pembelian.js"></script>
+<script src="js/laporan-pembelian/laporan-pembelian-filter.js"></script>
+<script src="js/laporan-pembelian/laporan-pembelian-summary.js"></script>
+<script src="js/laporan-pembelian/laporan-pembelian-table.js"></script>
+<script src="js/laporan-pembelian/laporan-pembelian-print.js"></script>
+
+<script src="js/laporan-pembelian/modal/detail/pembelian-modal-detail-render.js"></script>
+<script src="js/laporan-pembelian/modal/detail/pembelian-modal-detail-desktop-render.js"></script>
+<script src="js/laporan-pembelian/modal/detail/pembelian-modal-detail-mobile-render.js"></script>
+<script src="js/laporan-pembelian/modal/detail/laporan-pembelian-modal-detail.js"></script>
+
+<script src="js/laporan-pembelian/modal/transaksi/pembelian-modal-transaksi-render.js"></script>
+<script src="js/laporan-pembelian/modal/transaksi/pembelian-modal-transaksi-desktop-render.js"></script>
+<script src="js/laporan-pembelian/modal/transaksi/pembelian-modal-transaksi-mobile-render.js"></script>
+<script src="js/laporan-pembelian/modal/transaksi/pembelian-modal-transaksi.js"></script>
+
+<script src="js/laporan-pembelian/modal/pembelian-modal-render.js"></script>
+<script src="js/laporan-pembelian/modal/pembelian-modal-desktop-render.js"></script>
+<script src="js/laporan-pembelian/modal/pembelian-modal-mobile-render.js"></script>
+<script src="js/laporan-pembelian/modal/laporan-pembelian-modal.js"></script>
+
+<script src="js/laporan-pembelian/modal/laporanpdf.js"></script>
+
+
+<!-- DASHBOARD -->
+
+<script src="js/dashboard/dashboard-render.js"></script>
+<script src="js/dashboard/dashboard-desktop-render.js"></script>
+<script src="js/dashboard/dashboard-mobile-render.js"></script>
+
+<script src="js/dashboard/dashboard-chart-desktop-render.js"></script>
+<script src="js/dashboard/dashboard-chart-mobile-render.js"></script>
+
+<script src="js/dashboard/dashboard.js"></script>
+
+
+<!-- PENJUALAN DATABASE CONFIG -->
+
+<script src="js/penjualan-database-config.js"></script>
+
+
+<!-- LAPORAN PENJUALAN -->
+
+<script src="js/laporan-penjualan/laporan-penjualan-render.js"></script>
+<script src="js/laporan-penjualan/laporan-penjualan-desktop-render.js"></script>
+<script src="js/laporan-penjualan/laporan-penjualan-mobile-render.js"></script>
+
+<script src="js/laporan-penjualan/laporan-penjualan.js"></script>
+
+<script src="js/laporan-penjualan/laporan-penjualan-filter.js"></script>
+<script src="js/laporan-penjualan/laporan-penjualan-summary.js"></script>
+<script src="js/laporan-penjualan/laporan-penjualan-table.js"></script>
+<script src="js/laporan-penjualan/laporan-penjualan-print.js"></script>
+
+<script src="js/laporan-penjualan/modal/penjualan-modal-render.js"></script>
+<script src="js/laporan-penjualan/modal/penjualan-modal-desktop-render.js"></script>
+<script src="js/laporan-penjualan/modal/penjualan-modal-mobile-render.js"></script>
+<script src="js/laporan-penjualan/modal/penjualan-modal.js"></script>
+
+<script src="js/laporan-penjualan/modal/transaksi/penjualan-modal-transaksi-render.js"></script>
+<script src="js/laporan-penjualan/modal/transaksi/penjualan-modal-transaksi-desktop-render.js"></script>
+<script src="js/laporan-penjualan/modal/transaksi/penjualan-modal-transaksi-mobile-render.js"></script>
+<script src="js/laporan-penjualan/modal/transaksi/penjualan-modal-transaksi.js"></script>
+
+<script src="js/laporan-penjualan/modal/detail/penjualan-modal-detail-render.js"></script>
+<script src="js/laporan-penjualan/modal/detail/penjualan-modal-detail-desktop-render.js"></script>
+<script src="js/laporan-penjualan/modal/detail/penjualan-modal-detail-mobile-render.js"></script>
+<script src="js/laporan-penjualan/modal/detail/penjualan-modal-detail.js"></script>
+
+
+<!-- LAPORAN EXPENSE -->
+
+<script src="js/laporan-expense/laporan-expense-render.js"></script>
+<script src="js/laporan-expense/laporan-expense-desktop-render.js"></script>
+<script src="js/laporan-expense/laporan-expense-mobile-render.js"></script>
+<script src="js/laporan-expense/laporan-expense-table.js"></script>
+<script src="js/laporan-expense/laporan-expense-summary.js"></script>
+<script src="js/laporan-expense/laporan-expense-filter.js"></script>
+
+<script src="js/laporan-expense/modal/expense-modal-render.js"></script>
+<script src="js/laporan-expense/modal/expense-modal-desktop-render.js"></script>
+<script src="js/laporan-expense/modal/expense-modal-mobile-render.js"></script>
+<script src="js/laporan-expense/modal/laporan-expense-modal.js"></script>
+
+<script src="js/laporan-expense/laporan-expense.js"></script>
+
+
+<!-- LAPORAN PROFIT -->
+
+<script src="js/laporan-profit/laporan-profit-render.js"></script>
+<script src="js/laporan-profit/laporan-profit-desktop-render.js"></script>
+<script src="js/laporan-profit/laporan-profit-mobile-render.js"></script>
+<script src="js/laporan-profit/laporan-profit-summary.js"></script>
+<script src="js/laporan-profit/laporan-profit-table.js"></script>
+<script src="js/laporan-profit/laporan-profit-filter.js"></script>
+<script src="js/laporan-profit/laporan-profit.js"></script>
+
+<script src="js/laporan-profit/modal/profit-modal-render.js"></script>
+<script src="js/laporan-profit/modal/profit-modal-desktop-render.js"></script>
+<script src="js/laporan-profit/modal/profit-modal-mobile-render.js"></script>
+<script src="js/laporan-profit/modal/laporan-profit-modal.js"></script>
+
+<script src="js/laporan-profit/modal/detail/profit-modal-detail-render.js"></script>
+<script src="js/laporan-profit/modal/detail/profit-modal-detail-desktop-render.js"></script>
+<script src="js/laporan-profit/modal/detail/profit-modal-detail-mobile-render.js"></script>
+<script src="js/laporan-profit/modal/detail/laporan-profit-detail-modal.js"></script>
+
+
+<!-- LAPORAN UTAMA -->
+
+<script src="js/laporan/laporan-render.js"></script>
+<script src="js/laporan/laporan-desktop-render.js"></script>
+<script src="js/laporan/laporan-mobile-render.js"></script>
+<script src="js/laporan/laporan.js"></script>
+
+
+<!-- EXPENSE -->
+
+<script src="js/expense-database-config.js"></script>
+
+<script src="js/expense/expense-render.js"></script>
+<script src="js/expense/expense-desktop-render.js"></script>
+<script src="js/expense/expense-mobile-render.js"></script>
+
+<script src="js/expense/expense.js"></script>
+
+
+<!-- BARANG -->
+
+<script src="js/barang/barang-render.js"></script>
+<script src="js/barang/barang-desktop-render.js"></script>
+<script src="js/barang/barang-mobile-render.js"></script>
+
+<script src="js/barang/barang.js"></script>
+
+<script src="js/barang/barang-form.js"></script>
+<script src="js/barang/barang-detail.js"></script>
+<script src="js/barang/barang-menu.js"></script>
+<script src="js/barang/barang-stok.js"></script>
+<script src="js/barang/barang-riwayat.js"></script>
+<script src="js/barang/barang-edit.js"></script>
+
+
+<!-- SATUAN -->
+
+<script src="js/satuan/satuan-render.js"></script>
+<script src="js/satuan/satuan-desktop-render.js"></script>
+<script src="js/satuan/satuan-mobile-render.js"></script>
+
+<script src="js/satuan/satuan.js"></script>
+
+<script src="js/satuan/satuan-form.js"></script>
+<script src="js/satuan/satuan-save.js"></script>
+
+
+<!-- HARGA PEMBELIAN -->
+
+<script src="js/harga-pembelian/harga-pembelian-render.js"></script>
+<script src="js/harga-pembelian/harga-pembelian-desktop-render.js"></script>
+<script src="js/harga-pembelian/harga-pembelian-mobile-render.js"></script>
+
+<script src="js/harga-pembelian/harga-pembelian.js"></script>
+
+
+<!-- ROUTER & APP -->
+<script src="js/auth.js"></script>
+<script src="js/login.js"></script>
+<script src="js/router.js"></script>
+<script src="js/app-desktop-render.js"></script>
+<script src="js/app-mobile-render.js"></script>
+<script src="js/app.js"></script>
+
+<script src="./js/pwa.js"></script>
+
+</body>
+</html>

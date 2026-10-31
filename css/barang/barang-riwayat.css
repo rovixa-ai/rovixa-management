@@ -1,0 +1,587 @@
+/* ======================================
+   TREEHOUSE POS
+   BARANG RIWAYAT STOK - CARD
+   PREMIUM EMERALD
+   DESKTOP + MOBILE
+====================================== */
+
+
+/* ======================================
+   PAGE
+====================================== */
+
+.barang-riwayat-page {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #17221e;
+}
+
+
+/* ======================================
+   HEADER
+====================================== */
+
+.barang-riwayat-page .barang-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 24px;
+    overflow: hidden;
+    border: 1px solid #d6e2dd;
+    border-radius: 18px;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(16, 185, 129, 0.13),
+            transparent 45%
+        ),
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.055),
+        0 2px 5px rgba(15, 23, 42, 0.035);
+}
+
+.barang-riwayat-page .barang-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        #059669,
+        #10b981,
+        rgba(16, 185, 129, 0.08)
+    );
+}
+
+.barang-riwayat-page .barang-header > div {
+    min-width: 0;
+}
+
+.barang-riwayat-page .barang-header h2 {
+    margin: 0;
+    color: #0a4d34;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.4px;
+}
+
+.barang-riwayat-page .barang-header p {
+    margin: 7px 0 0;
+    color: #68766f;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+
+/* ======================================
+   BUTTON KEMBALI
+====================================== */
+
+.barang-riwayat-page #riwayat-kembali {
+    flex-shrink: 0;
+    min-height: 42px;
+    padding: 0 18px;
+    border: 1px solid #d6e2dd;
+    border-radius: 11px;
+    background: #ffffff;
+    color: #374840;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.barang-riwayat-page #riwayat-kembali:hover {
+    background: #ecfdf5;
+    border-color: #10b981;
+    color: #047857;
+    box-shadow: 0 5px 14px rgba(16, 185, 129, 0.12);
+    transform: translateY(-1px);
+}
+
+
+/* ======================================
+   CARD LIST
+====================================== */
+
+.barang-riwayat-page .barang-riwayat-list {
+    width: 100%;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    align-items: start;
+}
+
+
+/* ======================================
+   INDIVIDUAL CARD
+====================================== */
+
+.barang-riwayat-page .barang-riwayat-card {
+    position: relative;
+    min-width: 0;
+    padding: 20px;
+    overflow: hidden;
+    border: 1px solid #d6e2dd;
+    border-radius: 16px;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(16, 185, 129, 0.07),
+            transparent 42%
+        ),
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.055),
+        0 2px 5px rgba(15, 23, 42, 0.035);
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.barang-riwayat-page .barang-riwayat-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        #059669,
+        #10b981,
+        rgba(16, 185, 129, 0.08)
+    );
+}
+
+.barang-riwayat-page .barang-riwayat-card:hover {
+    transform: translateY(-3px);
+    border-color: #a7d9c2;
+    box-shadow:
+        0 16px 32px rgba(15, 23, 42, 0.07),
+        0 4px 12px rgba(16, 185, 129, 0.07);
+}
+
+
+/* ======================================
+   CARD HEADER
+====================================== */
+
+.barang-riwayat-page .barang-riwayat-card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e6efea;
+}
+
+.barang-riwayat-page .barang-riwayat-card-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+}
+
+.barang-riwayat-page .barang-riwayat-indicator {
+    width: 9px;
+    height: 9px;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.barang-riwayat-page .barang-riwayat-indicator.tambah {
+    background: #10b981;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
+}
+
+.barang-riwayat-page .barang-riwayat-indicator.kurangi {
+    background: #ef4444;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+}
+
+.barang-riwayat-page .barang-riwayat-jenis {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.barang-riwayat-page .barang-riwayat-jenis.tambah {
+    color: #047857;
+}
+
+.barang-riwayat-page .barang-riwayat-jenis.kurangi {
+    color: #b91c1c;
+}
+
+.barang-riwayat-page .barang-riwayat-tanggal {
+    color: #7b8981;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* ======================================
+   JUMLAH PENYESUAIAN
+====================================== */
+
+.barang-riwayat-page .barang-riwayat-jumlah {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 0;
+}
+
+.barang-riwayat-page .barang-riwayat-label {
+    color: #68766f;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.barang-riwayat-page .barang-riwayat-jumlah strong {
+    font-size: 25px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    overflow-wrap: anywhere;
+}
+
+.barang-riwayat-page .barang-riwayat-jumlah strong.tambah {
+    color: #059669;
+}
+
+.barang-riwayat-page .barang-riwayat-jumlah strong.kurangi {
+    color: #dc2626;
+}
+
+
+/* ======================================
+   STOK SEBELUM / SESUDAH
+====================================== */
+
+.barang-riwayat-page .barang-riwayat-stok-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr);
+    align-items: center;
+    gap: 8px;
+    padding: 15px;
+    border: 1px solid #e0ece5;
+    border-radius: 12px;
+    background: rgba(240, 248, 244, 0.8);
+}
+
+.barang-riwayat-page .barang-riwayat-stok-item {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.barang-riwayat-page .barang-riwayat-stok-item span {
+    color: #718078;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.barang-riwayat-page .barang-riwayat-stok-item strong {
+    color: #17221e;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.barang-riwayat-page .barang-riwayat-stok-arrow {
+    color: #10b981;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+}
+
+
+/* ======================================
+   DETAIL ALASAN / CATATAN
+====================================== */
+
+.barang-riwayat-page .barang-riwayat-detail {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 17px;
+}
+
+.barang-riwayat-page .barang-riwayat-detail-item {
+    min-width: 0;
+}
+
+.barang-riwayat-page .barang-riwayat-detail-item > span {
+    display: block;
+    margin-bottom: 6px;
+    color: #84928a;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.barang-riwayat-page .barang-riwayat-detail-item p {
+    margin: 0;
+    color: #374840;
+    font-size: 12px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+
+/* ======================================
+   EMPTY STATE
+====================================== */
+
+.barang-riwayat-page .barang-riwayat-empty {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 220px;
+    padding: 30px 20px;
+    border: 1px dashed #cbdcd2;
+    border-radius: 16px;
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #f8fbfa 100%
+    );
+    text-align: center;
+}
+
+.barang-riwayat-page .barang-riwayat-empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    background: #ecfdf5;
+    color: #059669;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.barang-riwayat-page .barang-riwayat-empty strong {
+    color: #374840;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.barang-riwayat-page .barang-riwayat-empty p {
+    max-width: 340px;
+    margin: 0;
+    color: #84928a;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.barang-riwayat-page .barang-riwayat-empty.barang-riwayat-error {
+    border-color: #fecaca;
+    background: #fffafa;
+}
+
+.barang-riwayat-page .barang-riwayat-error strong {
+    color: #b91c1c;
+}
+
+
+/* ======================================
+   TABLET
+====================================== */
+
+@media (max-width: 1024px) {
+
+    .barang-riwayat-page {
+        gap: 16px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-list {
+        gap: 14px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-card {
+        padding: 17px;
+    }
+
+}
+
+
+/* ======================================
+   MOBILE
+====================================== */
+
+@media (max-width: 767px) {
+
+    .barang-riwayat-page {
+        gap: 14px;
+    }
+
+    .barang-riwayat-page .barang-header {
+        align-items: flex-start;
+        gap: 12px;
+        padding: 18px 15px;
+        border-radius: 14px;
+    }
+
+    .barang-riwayat-page .barang-header h2 {
+        font-size: 19px;
+    }
+
+    .barang-riwayat-page .barang-header p {
+        margin-top: 6px;
+        font-size: 12px;
+    }
+
+    .barang-riwayat-page #riwayat-kembali {
+        min-height: 38px;
+        padding: 0 12px;
+        border-radius: 9px;
+        font-size: 12px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-list {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 13px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-card {
+        padding: 17px 15px;
+        border-radius: 14px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-card-header {
+        padding-bottom: 14px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-jenis {
+        font-size: 12px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-tanggal {
+        font-size: 11px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-jumlah {
+        padding: 16px 0;
+    }
+
+    .barang-riwayat-page .barang-riwayat-jumlah strong {
+        font-size: 23px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-stok-grid {
+        padding: 13px 11px;
+        gap: 6px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-stok-item span {
+        font-size: 10px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-stok-item strong {
+        font-size: 18px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-stok-arrow {
+        font-size: 18px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-detail {
+        gap: 12px;
+        margin-top: 15px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-detail-item > span {
+        font-size: 10px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-detail-item p {
+        font-size: 12px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-empty {
+        min-height: 190px;
+        padding: 24px 16px;
+        border-radius: 14px;
+    }
+
+}
+
+
+/* ======================================
+   SMALL MOBILE
+====================================== */
+
+@media (max-width: 380px) {
+
+    .barang-riwayat-page .barang-header {
+        padding: 15px 12px;
+        gap: 8px;
+    }
+
+    .barang-riwayat-page .barang-header h2 {
+        font-size: 17px;
+    }
+
+    .barang-riwayat-page .barang-header p {
+        font-size: 11px;
+    }
+
+    .barang-riwayat-page #riwayat-kembali {
+        min-height: 35px;
+        padding: 0 10px;
+        font-size: 11px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-card {
+        padding: 15px 12px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-jumlah strong {
+        font-size: 21px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-stok-grid {
+        padding: 12px 9px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-stok-item strong {
+        font-size: 16px;
+    }
+
+    .barang-riwayat-page .barang-riwayat-detail {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+}

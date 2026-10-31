@@ -1,0 +1,698 @@
+/* ======================================
+   TREEHOUSE POS
+   BARANG DETAIL MODAL
+   PREMIUM EMERALD THEME
+====================================== */
+
+
+/* ======================================
+   MODAL OVERLAY
+====================================== */
+
+.barang-detail-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 30000;
+}
+
+.barang-detail-overlay {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(15, 23, 42, 0.48);
+
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+
+/* ======================================
+   DIALOG
+====================================== */
+
+.barang-detail-dialog {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    max-width: 900px;
+    max-height: 90dvh;
+    min-height: 0;
+
+    overflow: hidden;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #f8fbfa 100%
+    );
+
+    border: 1px solid #d6e2dd;
+    border-radius: 18px;
+
+    box-shadow:
+        0 24px 70px rgba(15, 23, 42, 0.20);
+}
+
+
+/* ======================================
+   HEADER
+====================================== */
+
+.barang-detail-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    flex: 0 0 auto;
+
+    padding: 20px 24px;
+
+    border-top: 4px solid #10b981;
+    border-bottom: 1px solid #d6e2dd;
+
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.barang-detail-header h2 {
+    margin: 0;
+
+    color: #0a4e35;
+
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.barang-detail-header p {
+    margin: 6px 0 0;
+
+    color: #68766f;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.barang-detail-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 38px;
+
+    width: 38px;
+    height: 38px;
+    padding: 0;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #17221e;
+
+    font-size: 26px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.barang-detail-close:hover {
+    border-color: #a7f3d0;
+
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.barang-detail-close:focus-visible {
+    outline: 2px solid #10b981;
+    outline-offset: 3px;
+}
+
+
+/* ======================================
+   BODY
+====================================== */
+
+.barang-detail-body {
+    flex: 1 1 auto;
+
+    min-width: 0;
+    min-height: 0;
+
+    padding: 24px;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    overscroll-behavior: contain;
+
+    scrollbar-width: thin;
+    scrollbar-color: #a7c8ba transparent;
+}
+
+.barang-detail-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.barang-detail-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.barang-detail-body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #a7c8ba;
+}
+
+.barang-detail-section {
+    min-width: 0;
+}
+
+.barang-detail-section + .barang-detail-section {
+    margin-top: 28px;
+}
+
+.barang-detail-section h3 {
+    margin: 0 0 16px;
+
+    color: #17221e;
+
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+
+/* ======================================
+   INFORMASI UTAMA
+====================================== */
+
+.barang-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.barang-detail-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    min-width: 0;
+    padding: 14px;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.barang-detail-field:hover {
+    border-color: #b8d8ca;
+
+    box-shadow:
+        0 3px 10px rgba(15, 23, 42, 0.035);
+}
+
+.barang-detail-field span {
+    color: #68766f;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.barang-detail-field strong {
+    color: #17221e;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* ======================================
+   TABEL SATUAN DAN HARGA
+====================================== */
+
+.barang-detail-table-wrapper {
+    width: 100%;
+    min-width: 0;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    scrollbar-width: thin;
+    scrollbar-color: #a7c8ba #f8fbfa;
+}
+
+.barang-detail-table-wrapper::-webkit-scrollbar {
+    height: 6px;
+}
+
+.barang-detail-table-wrapper::-webkit-scrollbar-track {
+    background: #f8fbfa;
+}
+
+.barang-detail-table-wrapper::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #a7c8ba;
+}
+
+.barang-detail-table {
+    width: 100%;
+    min-width: 680px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: #ffffff;
+
+    white-space: nowrap;
+}
+
+.barang-detail-table th,
+.barang-detail-table td {
+    padding: 12px 14px;
+
+    border-bottom: 1px solid #e5eeea;
+
+    text-align: left;
+    vertical-align: middle;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.barang-detail-table th {
+    background: #ecfdf5;
+    color: #065f46;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.01em;
+}
+
+.barang-detail-table td {
+    color: #17221e;
+}
+
+.barang-detail-table tbody tr {
+    transition: background 0.15s ease;
+}
+
+.barang-detail-table tbody tr:hover {
+    background: #f3fbf7;
+}
+
+.barang-detail-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.barang-detail-table .text-right {
+    text-align: right;
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* ======================================
+   EMPTY STATE
+====================================== */
+
+.barang-detail-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 80px;
+    padding: 20px;
+
+    border: 1px dashed #d6e2dd;
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.65);
+
+    color: #68766f;
+
+    text-align: center;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* ======================================
+   STATISTIK PENJUALAN
+====================================== */
+
+.barang-detail-statistics {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.barang-detail-stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    min-width: 0;
+    padding: 16px;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 12px;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #f8fbfa 100%
+    );
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.barang-detail-stat-card:hover {
+    border-color: #a7f3d0;
+
+    box-shadow:
+        0 5px 16px rgba(16, 185, 129, 0.08);
+
+    transform: translateY(-1px);
+}
+
+.barang-detail-stat-label {
+    color: #68766f;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.barang-detail-stat-value {
+    color: #059669;
+
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.3;
+
+    overflow-wrap: anywhere;
+
+    font-variant-numeric: tabular-nums;
+}
+
+.barang-detail-stat-unit {
+    color: #68766f;
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.barang-detail-statistics-note {
+    margin: 10px 0 0;
+
+    color: #68766f;
+
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+
+/* ======================================
+   FOOTER
+====================================== */
+
+.barang-detail-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+
+    flex: 0 0 auto;
+
+    padding: 16px 24px;
+
+    border-top: 1px solid #d6e2dd;
+
+    background: #ffffff;
+}
+
+.barang-detail-footer button {
+    min-height: 40px;
+}
+
+
+/* ======================================
+   FOOTER BUTTON - SECONDARY
+====================================== */
+
+.barang-detail-footer .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-width: 110px;
+    min-height: 42px;
+    padding: 10px 20px;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #b10505;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.4;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.barang-detail-footer .btn-secondary:hover {
+    border-color: #a7f3d0;
+
+    background: #b8141448;
+    color: #059669;
+
+    box-shadow:
+        0 3px 10px rgba(16, 185, 129, 0.08);
+}
+
+.barang-detail-footer .btn-secondary:active {
+    background: #d1fae5;
+    box-shadow: none;
+}
+
+.barang-detail-footer .btn-secondary:focus-visible {
+    outline: 2px solid #10b981;
+    outline-offset: 3px;
+}
+
+
+/* ======================================
+   RESPONSIVE TABLET
+====================================== */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .barang-detail-dialog {
+        max-width: 94vw;
+    }
+
+    .barang-detail-statistics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* ======================================
+   RESPONSIVE MOBILE
+====================================== */
+
+@media (max-width: 768px) {
+    .barang-detail-overlay {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    .barang-detail-dialog {
+        width: 100%;
+        max-width: none;
+        max-height: 92dvh;
+
+        border-right: none;
+        border-bottom: none;
+        border-left: none;
+
+        border-radius: 18px 18px 0 0;
+    }
+
+    .barang-detail-header {
+        gap: 12px;
+        padding: 16px 18px;
+    }
+
+    .barang-detail-header h2 {
+        font-size: 18px;
+    }
+
+    .barang-detail-header p {
+        font-size: 12px;
+    }
+
+    .barang-detail-close {
+        flex-basis: 36px;
+
+        width: 36px;
+        height: 36px;
+    }
+
+    .barang-detail-body {
+        padding: 18px;
+    }
+
+    .barang-detail-section + .barang-detail-section {
+        margin-top: 24px;
+    }
+
+    .barang-detail-section h3 {
+        margin-bottom: 12px;
+        font-size: 14px;
+    }
+
+    .barang-detail-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
+    }
+
+    .barang-detail-field {
+        padding: 12px;
+    }
+
+    .barang-detail-table th,
+    .barang-detail-table td {
+        padding: 11px 12px;
+        font-size: 12px;
+    }
+
+    .barang-detail-statistics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .barang-detail-stat-card {
+        gap: 6px;
+        padding: 12px;
+    }
+
+    .barang-detail-stat-label {
+        font-size: 11px;
+    }
+
+    .barang-detail-stat-value {
+        font-size: 20px;
+    }
+
+    .barang-detail-stat-unit {
+        font-size: 10px;
+    }
+
+    .barang-detail-statistics-note {
+        font-size: 11px;
+    }
+
+    .barang-detail-footer {
+        padding: 12px 18px;
+
+        padding-bottom: max(
+            12px,
+            env(safe-area-inset-bottom)
+        );
+    }
+
+    .barang-detail-footer button,
+    .barang-detail-footer .btn-secondary {
+        width: 100%;
+        min-height: 44px;
+    }
+}
+
+
+/* ======================================
+   SMALL MOBILE
+====================================== */
+
+@media (max-width: 380px) {
+    .barang-detail-header {
+        padding: 14px;
+    }
+
+    .barang-detail-body {
+        padding: 14px;
+    }
+
+    .barang-detail-stat-card {
+        padding: 10px;
+    }
+
+    .barang-detail-stat-value {
+        font-size: 18px;
+    }
+
+    .barang-detail-footer {
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+}
+
+
+/* ======================================
+   REDUCED MOTION
+====================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .barang-detail-close,
+    .barang-detail-field,
+    .barang-detail-table tbody tr,
+    .barang-detail-stat-card,
+    .barang-detail-footer .btn-secondary {
+        transition: none;
+    }
+
+    .barang-detail-stat-card:hover {
+        transform: none;
+    }
+}

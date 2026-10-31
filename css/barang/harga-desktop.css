@@ -1,0 +1,634 @@
+
+/* ======================================
+   TREEHOUSE POS
+   HARGA PEMBELIAN BARANG
+   DESKTOP
+   PREMIUM EMERALD + NEUTRAL WHITE
+====================================== */
+
+/* ======================================
+   PAGE
+====================================== */
+
+.harga-pembelian-page {
+    --hp-emerald: #10b981;
+    --hp-emerald-dark: #059669;
+    --hp-emerald-light: #34d399;
+
+    --hp-text: #17221e;
+    --hp-muted: #68766f;
+    --hp-border: #d6e2dd;
+
+    --hp-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.055),
+        0 2px 5px rgba(15, 23, 42, 0.035);
+
+    width: 100%;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    color: var(--hp-text);
+
+    box-sizing: border-box;
+}
+
+.harga-pembelian-page *,
+.harga-pembelian-page *::before,
+.harga-pembelian-page *::after {
+    box-sizing: border-box;
+}
+
+/* ======================================
+   MAIN HEADER
+====================================== */
+
+.harga-pembelian-header {
+    position: relative;
+
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    min-height: 112px;
+
+    padding: 24px 28px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 92% 15%,
+            rgba(16, 185, 129, 0.12),
+            transparent 28%
+        ),
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+    border: 1px solid var(--hp-border);
+    border-radius: 18px;
+
+    box-shadow: var(--hp-shadow);
+}
+
+.harga-pembelian-header::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 3px;
+
+    background: linear-gradient(
+        90deg,
+        #059669 0%,
+        #10b981 48%,
+        rgba(16, 185, 129, 0.08) 100%
+    );
+}
+
+.harga-pembelian-header > div {
+    position: relative;
+    z-index: 1;
+
+    min-width: 0;
+}
+
+.harga-pembelian-header h2 {
+    margin: 0;
+
+    color: var(--hp-text);
+
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1.3;
+}
+
+.harga-pembelian-header p {
+    margin: 7px 0 0;
+
+    color: var(--hp-muted);
+
+    font-size: 13px;
+    font-weight: 450;
+    line-height: 1.6;
+}
+
+/* ======================================
+   CONTENT CARD
+====================================== */
+
+.harga-pembelian-card {
+    position: relative;
+
+    width: 100%;
+    min-width: 0;
+
+    overflow: hidden;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #f8fbfa 100%
+    );
+
+    border: 1px solid var(--hp-border);
+    border-radius: 16px;
+
+    box-shadow: var(--hp-shadow);
+
+    transition: box-shadow 200ms ease;
+}
+
+.harga-pembelian-card::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 3px;
+
+    z-index: 3;
+    pointer-events: none;
+
+    background: linear-gradient(
+        90deg,
+        #059669 0%,
+        #10b981 48%,
+        rgba(16, 185, 129, 0.08) 100%
+    );
+}
+
+.harga-pembelian-card::after {
+    content: "";
+
+    position: absolute;
+    top: -100px;
+    right: -100px;
+
+    width: 280px;
+    height: 230px;
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(16, 185, 129, 0.09) 0%,
+        rgba(16, 185, 129, 0.035) 40%,
+        transparent 72%
+    );
+
+    pointer-events: none;
+    transition: transform 250ms ease;
+}
+
+.harga-pembelian-card:hover {
+    box-shadow:
+        0 18px 36px rgba(15, 23, 42, 0.065),
+        0 4px 10px rgba(16, 185, 129, 0.045);
+}
+
+.harga-pembelian-card:hover::after {
+    transform: scale(1.18);
+}
+
+/* ======================================
+   CARD HEADER
+====================================== */
+
+.harga-pembelian-card-header {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 24px 24px 20px;
+
+    border-bottom: 1px solid #e8efeb;
+}
+
+.harga-pembelian-card-header > div:first-child h3 {
+    margin: 0;
+
+    color: var(--hp-text);
+
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.4;
+}
+
+/* ======================================
+   FILTER TOOLBAR
+====================================== */
+
+.harga-pembelian-toolbar {
+    display: grid;
+
+    grid-template-columns:
+        minmax(180px, 1.4fr)
+        minmax(175px, 1fr)
+        minmax(180px, 1fr)
+        auto
+        auto;
+
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+    min-width: 0;
+}
+
+.harga-pembelian-filter-group {
+    display: flex;
+
+    width: 100%;
+    min-width: 0;
+}
+
+.harga-pembelian-search,
+.harga-pembelian-periode,
+.harga-pembelian-supplier {
+    display: block;
+
+    width: 100%;
+    min-width: 0;
+    height: 42px;
+
+    padding: 0 13px;
+
+    border: 1px solid var(--hp-border);
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: var(--hp-text);
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 450;
+
+    outline: none;
+
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        background 180ms ease;
+}
+
+.harga-pembelian-search::placeholder,
+.harga-pembelian-periode::placeholder,
+.harga-pembelian-supplier::placeholder {
+    color: #98a69f;
+    opacity: 1;
+}
+
+.harga-pembelian-search:hover,
+.harga-pembelian-periode:hover,
+.harga-pembelian-supplier:hover {
+    border-color: #b8d6c9;
+}
+
+.harga-pembelian-search:focus,
+.harga-pembelian-periode:focus,
+.harga-pembelian-supplier:focus {
+    border-color: var(--hp-emerald);
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(16, 185, 129, 0.09),
+        0 3px 8px rgba(15, 23, 42, 0.025);
+}
+
+/* ======================================
+   FILTER BUTTON
+====================================== */
+
+.harga-pembelian-filter-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 76px;
+    height: 42px;
+
+    padding: 0 15px;
+
+    border: 1px solid #059669;
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #10b981 0%,
+        #059669 100%
+    );
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 4px 10px rgba(5, 150, 105, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+    cursor: pointer;
+
+    transition:
+        transform 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.harga-pembelian-filter-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 16px rgba(5, 150, 105, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.harga-pembelian-filter-button:active {
+    transform: translateY(0);
+}
+
+/* ======================================
+   RESET BUTTON
+====================================== */
+
+.harga-pembelian-reset {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 72px;
+    height: 42px;
+
+    padding: 0 14px;
+
+    border: 1px solid #d6e2dd;
+    border-radius: 10px;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #f5f8f6 100%
+    );
+
+    color: #52645a;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        background 180ms ease,
+        border-color 180ms ease,
+        color 180ms ease;
+}
+
+.harga-pembelian-reset:hover {
+    border-color: #b7d9c8;
+
+    background: #effaf4;
+
+    color: #047857;
+}
+
+.harga-pembelian-reset:active {
+    background: #e5f5ec;
+}
+
+/* ======================================
+   BUTTON FOCUS
+====================================== */
+
+.harga-pembelian-filter-button:focus-visible,
+.harga-pembelian-reset:focus-visible {
+    outline: 3px solid rgba(16, 185, 129, 0.2);
+    outline-offset: 2px;
+}
+
+/* ======================================
+   TABLE WRAPPER
+====================================== */
+
+.harga-pembelian-table-wrapper {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    min-width: 0;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scrollbar-width: thin;
+    scrollbar-color: #b8d6c9 #f1f7f4;
+}
+
+.harga-pembelian-table-wrapper::-webkit-scrollbar {
+    height: 7px;
+}
+
+.harga-pembelian-table-wrapper::-webkit-scrollbar-track {
+    background: #f1f7f4;
+}
+
+.harga-pembelian-table-wrapper::-webkit-scrollbar-thumb {
+    background: #b8d6c9;
+    border-radius: 20px;
+}
+
+.harga-pembelian-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #86bba5;
+}
+
+/* ======================================
+   TABLE
+====================================== */
+
+.harga-pembelian-table {
+    width: 100%;
+    min-width: 1120px;
+
+    margin: 0;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: transparent;
+
+    color: var(--hp-text);
+
+    font-family: inherit;
+    font-size: 12px;
+}
+
+.harga-pembelian-table thead,
+.harga-pembelian-table thead tr {
+    background: #f2f8f5;
+}
+
+.harga-pembelian-table th {
+    padding: 15px 14px;
+
+    background: #f2f8f5;
+
+    color: #52645a;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.045em;
+    text-align: left;
+    text-transform: uppercase;
+
+    white-space: nowrap;
+
+    border-bottom: 1px solid var(--hp-border);
+}
+
+.harga-pembelian-table th:first-child {
+    padding-left: 22px;
+}
+
+.harga-pembelian-table td {
+    padding: 14px;
+
+    background: rgba(255, 255, 255, 0.78);
+
+    color: #36463e;
+
+    font-size: 12px;
+    font-weight: 450;
+    line-height: 1.55;
+
+    vertical-align: middle;
+
+    border-bottom: 1px solid #edf2ef;
+
+    overflow-wrap: anywhere;
+}
+
+.harga-pembelian-table td:first-child {
+    padding-left: 22px;
+
+    color: #52645a;
+
+    white-space: nowrap;
+}
+
+.harga-pembelian-table tbody tr {
+    transition: background 160ms ease;
+}
+
+.harga-pembelian-table tbody tr:hover td {
+    background: #f3faf6;
+}
+
+.harga-pembelian-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ======================================
+   NUMERIC COLUMNS
+====================================== */
+
+.harga-pembelian-table td:nth-child(5),
+.harga-pembelian-table td:nth-child(6),
+.harga-pembelian-table td:nth-child(7) {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.harga-pembelian-table td:nth-child(7) {
+    color: #047857;
+    font-weight: 700;
+}
+
+/* ======================================
+   EMPTY TABLE
+====================================== */
+
+.harga-pembelian-table td[colspan] {
+    padding: 28px 18px;
+
+    color: #84938b;
+
+    text-align: center;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #f8fbfa 100%
+    );
+}
+
+/* ======================================
+   RESPONSIVE DESKTOP
+====================================== */
+
+@media (min-width: 768px) and (max-width: 1200px) {
+
+    .harga-pembelian-page {
+        gap: 16px;
+    }
+
+    .harga-pembelian-header {
+        padding: 22px;
+    }
+
+    .harga-pembelian-card-header {
+        padding: 21px 18px 18px;
+    }
+
+    .harga-pembelian-toolbar {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+        gap: 10px;
+    }
+
+    .harga-pembelian-filter-button,
+    .harga-pembelian-reset {
+        width: 100%;
+    }
+
+}
+
+/* ======================================
+   REDUCED MOTION
+====================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .harga-pembelian-page *,
+    .harga-pembelian-page *::before,
+    .harga-pembelian-page *::after {
+        transition-duration: 0.01ms !important;
+    }
+
+}

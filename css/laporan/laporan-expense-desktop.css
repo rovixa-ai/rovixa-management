@@ -1,0 +1,629 @@
+/* ======================================
+   TREEHOUSE POS
+   LAPORAN EXPENSE
+   DESKTOP
+====================================== */
+
+
+/* ======================================
+   PAGE
+====================================== */
+
+.laporan-expense-page {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+
+/* ======================================
+   PAGE HEADER
+====================================== */
+
+.laporan-expense-page-header {
+    position: relative;
+
+    width: 100%;
+    min-height: 88px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px 24px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+    border: 1px solid #e3ebe7;
+    border-radius: 16px;
+
+    box-shadow:
+        0 10px 28px rgba(18, 35, 28, 0.07),
+        0 2px 6px rgba(18, 35, 28, 0.04);
+}
+
+.laporan-expense-page-header::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #10b981,
+            #34d399
+        );
+}
+
+.laporan-expense-page-header::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    right: -70px;
+    top: -100px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(16, 185, 129, 0.12),
+            rgba(16, 185, 129, 0) 70%
+        );
+
+    pointer-events: none;
+}
+
+.laporan-expense-page-header h2 {
+    position: relative;
+
+    margin: 0;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    letter-spacing: -0.3px;
+
+    color: #084d33;
+}
+
+.laporan-expense-page-header p {
+    position: relative;
+
+    margin: 5px 0 0;
+
+    font-size: 13px;
+
+    color: #68766f;
+}
+
+
+/* ======================================
+   FILTER CARD
+====================================== */
+
+.laporan-expense-filter-card {
+    position: relative;
+
+    width: 100%;
+
+    padding: 20px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+    border: 1px solid #e3ebe7;
+    border-radius: 16px;
+
+    box-shadow:
+        0 8px 24px rgba(18, 35, 28, 0.06),
+        0 2px 5px rgba(18, 35, 28, 0.03);
+}
+
+.laporan-expense-filter-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #10b981,
+            #34d399
+        );
+}
+
+
+/* ======================================
+   FILTER GRID
+====================================== */
+
+.laporan-expense-filter-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(180px, 1fr)
+        minmax(180px, 1fr)
+        minmax(200px, 1fr)
+        auto;
+
+    gap: 16px;
+
+    align-items: end;
+}
+
+
+/* ======================================
+   FILTER GROUP
+====================================== */
+
+.laporan-expense-filter-group {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.laporan-expense-filter-group label {
+    font-size: 11px;
+    font-weight: 700;
+
+    color: #68766f;
+
+    text-transform: uppercase;
+    letter-spacing: 0.45px;
+}
+
+.laporan-expense-filter-group input,
+.laporan-expense-filter-group select {
+    width: 100%;
+    height: 42px;
+
+    padding: 0 12px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    color: #24332d;
+
+    background: #ffffff;
+
+    border: 1px solid #dce6e1;
+    border-radius: 10px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.laporan-expense-filter-group input:hover,
+.laporan-expense-filter-group select:hover {
+    border-color: #b9d8cb;
+}
+
+.laporan-expense-filter-group input:focus,
+.laporan-expense-filter-group select:focus {
+    border-color: #10b981;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(16, 185, 129, 0.10);
+}
+
+
+/* ======================================
+   FILTER ACTION
+====================================== */
+
+.laporan-expense-filter-actions {
+    display: flex;
+
+    align-items: flex-end;
+}
+
+#laporanExpenseResetButton {
+    height: 42px;
+
+    min-width: 82px;
+
+    padding: 0 16px;
+
+    border: 1px solid #d6e2dc;
+    border-radius: 10px;
+
+    background: #03553c10;
+
+    color: #c20912;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#laporanExpenseResetButton:hover {
+    color: #c2091286;
+
+    background: #f0fdf7;
+
+    border-color: #a7d9c4;
+
+    box-shadow:
+        0 5px 14px rgba(16, 185, 129, 0.10);
+
+    transform: translateY(-1px);
+}
+
+#laporanExpenseResetButton:active {
+    transform: translateY(0);
+}
+
+
+/* ======================================
+   SUMMARY
+====================================== */
+
+.laporan-expense-summary {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, minmax(0, 1fr));
+
+    gap: 14px;
+}
+
+
+/* ======================================
+   SUMMARY CARD
+====================================== */
+
+.laporan-expense-summary-card {
+    position: relative;
+
+    min-width: 0;
+    min-height: 108px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 18px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f8fbfa 100%
+        );
+
+    border: 1px solid #e2ebe6;
+    border-radius: 15px;
+
+    box-shadow:
+        0 8px 22px rgba(18, 35, 28, 0.06),
+        0 2px 5px rgba(18, 35, 28, 0.03);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.laporan-expense-summary-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #10b981,
+            #34d399
+        );
+}
+
+.laporan-expense-summary-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 90px;
+    height: 90px;
+
+    right: -35px;
+    bottom: -45px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(16, 185, 129, 0.08),
+            rgba(16, 185, 129, 0) 70%
+        );
+
+    pointer-events: none;
+}
+
+.laporan-expense-summary-card:hover {
+    transform: translateY(-2px);
+
+    border-color: #cce2d8;
+
+    box-shadow:
+        0 14px 28px rgba(18, 35, 28, 0.09),
+        0 3px 8px rgba(18, 35, 28, 0.04);
+}
+
+.laporan-expense-summary-card span {
+    margin-bottom: 8px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    color: #718078;
+
+    text-transform: uppercase;
+    letter-spacing: 0.35px;
+}
+
+.laporan-expense-summary-card strong {
+    position: relative;
+
+    display: inline-block;
+
+    width: fit-content;
+
+    font-size: 21px;
+    font-weight: 700;
+
+    line-height: 1.2;
+
+    color: #17221e;
+}
+
+.laporan-expense-summary-card strong::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -5px;
+
+    width: 24px;
+    height: 2px;
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #34d399
+        );
+}
+
+
+/* ======================================
+   TABLE CARD
+====================================== */
+
+.laporan-expense-table-card {
+    position: relative;
+
+    width: 100%;
+
+    padding: 0;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f9fbfa 100%
+        );
+
+    border: 1px solid #e2ebe6;
+    border-radius: 16px;
+
+    box-shadow:
+        0 10px 28px rgba(18, 35, 28, 0.07),
+        0 2px 6px rgba(18, 35, 28, 0.03);
+}
+
+.laporan-expense-table-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #10b981,
+            #34d399
+        );
+
+    z-index: 1;
+}
+
+
+/* ======================================
+   TABLE WRAPPER
+====================================== */
+
+.laporan-expense-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* ======================================
+   TABLE
+====================================== */
+
+.laporan-expense-table {
+    width: 100%;
+
+    min-width: 900px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.laporan-expense-table thead th {
+    height: 46px;
+
+    padding: 0 14px;
+
+    background: #f3f7f5;
+
+    border-bottom: 1px solid #dfe9e4;
+
+    color: #52645c;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    text-align: left;
+
+    text-transform: uppercase;
+    letter-spacing: 0.35px;
+
+    white-space: nowrap;
+}
+
+.laporan-expense-table thead th:first-child {
+    padding-left: 18px;
+}
+
+.laporan-expense-table tbody td {
+    height: 48px;
+
+    padding: 10px 14px;
+
+    border-bottom: 1px solid #edf2ef;
+
+    color: #34443d;
+
+    font-size: 12px;
+
+    background: #ffffff;
+
+    white-space: nowrap;
+
+    transition:
+        background 0.15s ease;
+}
+
+.laporan-expense-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.laporan-expense-table tbody tr:hover td {
+    background: #f7fcfa;
+}
+
+
+/* ======================================
+   EMPTY
+====================================== */
+
+.laporan-expense-empty {
+    height: 100px !important;
+
+    text-align: center !important;
+
+    color: #8a9791 !important;
+
+    font-size: 12px !important;
+
+    background: #ffffff !important;
+}
+
+
+/* ======================================
+   LARGE DESKTOP
+====================================== */
+
+@media (min-width: 1400px) {
+
+    .laporan-expense-page {
+        gap: 20px;
+    }
+
+    .laporan-expense-summary-card {
+        min-height: 112px;
+    }
+
+    .laporan-expense-summary-card strong {
+        font-size: 22px;
+    }
+}
