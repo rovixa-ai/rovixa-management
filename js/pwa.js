@@ -22,11 +22,12 @@
         window.addEventListener("load", function () {
 
             navigator.serviceWorker.register(
-                "./service-worker.js",
+                "/service-worker.js",
                 {
-                    scope: "./"
+                    scope: "/"
                 }
-            ).catch(function (error) {
+            )      
+            .catch(function (error) {
 
                 console.error(
                     "PWA Service Worker registration failed:",
