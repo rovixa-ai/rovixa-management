@@ -46,21 +46,40 @@ const App = {
             Sync.init();
 
             Loading.update(
-                "Mengunduh dan menyiapkan data aplikasi...",
+                "Memeriksa data lokal aplikasi...",
                 "Memuat Aplikasi"
             );
 
-            const result =
-                await Download.bootstrap();
-
-            if (!result.success) {
-
-                console.warn(
-                    "Download gagal:",
-                    result.message
+            const lastBootstrap =
+                await DB.get(
+                    "config",
+                    "lastBootstrap"
                 );
 
+
+            if (!lastBootstrap) {
+
+                Loading.update(
+                    "Mengunduh dan menyiapkan data aplikasi pertama kali...",
+                    "Memuat Aplikasi"
+                );
+
+                const result =
+                    await Download.bootstrap();
+
+                if (!result || !result.success) {
+
+                    console.warn(
+                        "Download gagal:",
+                        result
+                            ? result.message
+                            : "Bootstrap tidak memberikan hasil."
+                    );
+
+                }
+
             }
+
 
             Loading.update(
                 "Memeriksa sesi pengguna...",
