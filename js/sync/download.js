@@ -433,7 +433,58 @@ const Download = {
             };
 
 
-           
+                       /* ======================================
+               SIMPAN DATABASE PENJUALAN
+               KE LOCAL CONFIG
+            ====================================== */
+
+            DatabaseConfig.saveYearDatabase(
+                database.year,
+                {
+                    penjualan:
+                        database.penjualan,
+
+                    detailPenjualan:
+                        database.detailPenjualan,
+
+                    pembayaran:
+                        database.pembayaran
+                }
+            );
+
+
+            /* ======================================
+               SIMPAN DATABASE PEMBELIAN
+               KE LOCAL CONFIG
+            ====================================== */
+
+            PembelianDatabaseConfig.saveYearDatabase(
+                pembelianDatabaseConfig.year,
+                {
+                    pembelian:
+                        pembelianDatabaseConfig.pembelian,
+
+                    detailPembelian:
+                        pembelianDatabaseConfig.detailPembelian,
+
+                    pembayaran:
+                        pembelianDatabaseConfig.pembayaran
+                }
+            );
+
+
+            /* ======================================
+               SIMPAN DATABASE EXPENSE
+               KE LOCAL CONFIG
+            ====================================== */
+
+            ExpenseDatabaseConfig.saveYearDatabase(
+                expenseDatabaseConfig.year,
+                {
+                    expense:
+                        expenseDatabaseConfig.expense
+                }
+            );
 
 
             /* ======================================
