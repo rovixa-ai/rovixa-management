@@ -39,12 +39,7 @@ const IncomingSync = {
                 await this.getLastSync();
 
             const response =
-                await API.get(
-                    "syncChanges",
-                    {
-                        since: since || ""
-                    }
-                );
+                await API.getSyncChanges(since);
 
             if (
                 !response ||
