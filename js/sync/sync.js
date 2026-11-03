@@ -42,6 +42,14 @@ const Sync = {
 
                 this.process();
 
+                if (
+                    typeof IncomingSync !== "undefined"
+                ) {
+
+                    IncomingSync.process();
+
+                }
+
             }
         );
 
@@ -71,6 +79,14 @@ const Sync = {
         ) {
 
             this.process();
+
+            if (
+                typeof IncomingSync !== "undefined"
+            ) {
+
+                IncomingSync.process();
+
+            }
 
         }
 
