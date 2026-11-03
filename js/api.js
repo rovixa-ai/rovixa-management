@@ -300,26 +300,37 @@ const API = {
     },
 
 
-    /* ==================================
-       INCREMENTAL SYNC
-    ================================== */
+    getSyncChanges(since, database) {
 
-    getSyncChanges(since) {
+    database =
+        database || {};
 
-        return this.get(
+    return this.get(
 
-            "syncChanges",
+        "syncChanges",
 
-            {
+        {
 
-                since:
-                    since || ""
+            since:
+                since || "",
 
-            }
+            year:
+                database.year || "",
 
-        );
+            penjualanId:
+                database.penjualan || "",
 
-    },
+            detailPenjualanId:
+                database.detailPenjualan || "",
+
+            pembayaranId:
+                database.pembayaran || ""
+
+        }
+
+    );
+
+},
 
 
     /* ==================================
