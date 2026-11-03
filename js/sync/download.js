@@ -1,5 +1,100 @@
 const Download = {
 
+    /* ======================================
+       CEK KESIAPAN DATABASE LOKAL
+    ====================================== */
+
+    async isDatabaseReady() {
+
+        try {
+
+            if (typeof DB === "undefined") {
+                return false;
+            }
+
+            // 1. Periksa penanda bootstrap selesai
+            const lastBootstrap =
+                await DB.get(
+                    "config",
+                    "lastBootstrap"
+                );
+
+            if (!lastBootstrap || !lastBootstrap.value) {
+                return false;
+            }
+
+            // 2. Periksa ketersediaan pengguna lokal untuk login / autentikasi
+            const users =
+                await DB.getAll(
+                    "users"
+                );
+
+            if (!Array.isArray(users) || users.length === 0) {
+                return false;
+            }
+
+            // 3. Periksa ketersediaan konfigurasi toko lokal
+            const storeConfig =
+                await DB.get(
+                    "config",
+                    "storeConfig"
+                );
+
+            if (!storeConfig || !storeConfig.value) {
+                return false;
+            }
+
+            // 4. Periksa ketersediaan dan integritas store master
+            const barang =
+                await DB.getAll(
+                    "barang"
+                );
+
+            const satuan =
+                await DB.getAll(
+                    "satuan"
+                );
+
+            if (!Array.isArray(barang) || !Array.isArray(satuan)) {
+                return false;
+            }
+
+            // 5. Periksa ketersediaan store transaksi
+            const penjualan =
+                await DB.getAll(
+                    "penjualan"
+                );
+
+            const pembelian =
+                await DB.getAll(
+                    "pembelian"
+                );
+
+            const expense =
+                await DB.getAll(
+                    "expense"
+                );
+
+            if (!Array.isArray(penjualan) || !Array.isArray(pembelian) || !Array.isArray(expense)) {
+                return false;
+            }
+
+            return true;
+
+        } catch (error) {
+
+            console.warn(
+                "Pemeriksaan kesiapan database lokal gagal:",
+                error
+            );
+
+            return false;
+
+        }
+
+    },
+
+
     async bootstrap() {
 
         try {
@@ -671,6 +766,23 @@ const Download = {
 
                 }
             );
+
+
+            /* ======================================
+               SIMPAN STORE CONFIG LOKAL
+            ====================================== */
+
+            if (
+                typeof StoreConfig !== "undefined" &&
+                StoreConfig.config &&
+                Object.keys(StoreConfig.config).length > 0
+            ) {
+
+                await StoreConfig.saveLocal(
+                    StoreConfig.config
+                );
+
+            }
 
 
             

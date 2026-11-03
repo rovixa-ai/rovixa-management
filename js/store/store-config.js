@@ -32,10 +32,408 @@ const StoreConfig = {
 
 
     // ==================================
+    // LOAD LOCAL CONFIG
+    // ==================================
+
+    async loadLocal() {
+
+        try {
+
+            if (typeof DB === "undefined") {
+                return null;
+            }
+
+            const cached =
+                await DB.get(
+                    "config",
+                    "storeConfig"
+                );
+
+            if (cached && cached.value) {
+
+                this.config =
+                    cached.value;
+
+                this.populateForm();
+
+                return this.config;
+
+            }
+
+            return null;
+
+        } catch (error) {
+
+            console.warn(
+                "Gagal membaca konfigurasi toko lokal:",
+                error
+            );
+
+            return null;
+
+        }
+
+    },
+
+
+    // ==================================
+    // SAVE LOCAL CONFIG
+    // ==================================
+
+    async saveLocal(configData) {
+
+        try {
+
+            if (typeof DB === "undefined") {
+                return;
+            }
+
+            await DB.put(
+                "config",
+                {
+                    key: "storeConfig",
+                    value: configData || this.config
+                }
+            );
+
+        } catch (error) {
+
+            console.warn(
+                "Gagal menyimpan konfigurasi toko lokal:",
+                error
+            );
+
+        }
+
+    },
+
+
+    // ==================================
+    // POPULATE FORM
+    // ==================================
+
+    populateForm() {
+
+        if (!this.config || Object.keys(this.config).length === 0) {
+            return;
+        }
+
+        // ==============================
+        // IDENTITAS TOKO
+        // ==============================
+
+        this.setValue(
+            "storeConfigName",
+            this.getConfigValue(
+                "STORE_NAME",
+                "storeName"
+            )
+        );
+
+        this.setValue(
+            "storeConfigAddress",
+            this.getConfigValue(
+                "STORE_ADDRESS",
+                "storeAddress"
+            )
+        );
+
+        this.setValue(
+            "storeConfigPhone",
+            this.getConfigValue(
+                "STORE_PHONE",
+                "storePhone"
+            )
+        );
+
+        this.setValue(
+            "storeConfigEmail",
+            this.getConfigValue(
+                "STORE_EMAIL",
+                "storeEmail"
+            )
+        );
+
+        this.setValue(
+            "storeConfigDescription",
+            this.getConfigValue(
+                "STORE_DESCRIPTION",
+                "storeDescription"
+            )
+        );
+
+        this.setValue(
+            "storeConfigStatus",
+            this.getConfigValue(
+                "STORE_STATUS",
+                "storeStatus"
+            )
+        );
+
+
+        // ==============================
+        // LOGO
+        // ==============================
+
+        const logoSource =
+            this.getConfigValue(
+                "LOGO_SOURCE",
+                "logoSource"
+            );
+
+        const logoDrive =
+            this.getConfigValue(
+                "LOGO_DRIVE",
+                "logoDrive"
+            );
+
+        const logoUrl =
+            this.getConfigValue(
+                "LOGO_URL",
+                "logoUrl"
+            );
+
+        const logo =
+            this.getConfigValue(
+                "LOGO",
+                "logo"
+            );
+
+        this.setValue(
+            "storeConfigLogoSource",
+            logoSource
+        );
+
+        this.setValue(
+            "storeConfigLogoDrive",
+            logoDrive
+        );
+
+        this.setValue(
+            "storeConfigLogoUrl",
+            logoUrl
+        );
+
+        this.logoValue =
+            String(
+                logo || ""
+            ).trim();
+
+        try {
+            if (typeof StoreConfigLogo !== "undefined") {
+                this.loadLogo();
+            }
+        } catch (logoError) {
+            console.warn("Gagal merender logo awal:", logoError);
+        }
+
+
+        // ==============================
+        // CURRENCY
+        // ==============================
+
+        this.setValue(
+            "storeConfigCurrency",
+            this.getConfigValue(
+                "CURRENCY",
+                "currency"
+            )
+        );
+
+
+        // ==============================
+        // TAX
+        // ==============================
+
+        this.setValue(
+            "storeConfigTaxEnabled",
+            this.toBooleanString(
+                this.getConfigValue(
+                    "TAX_ENABLED",
+                    "taxEnabled"
+                )
+            )
+        );
+
+        this.setValue(
+            "storeConfigTaxPercent",
+            this.getConfigValue(
+                "TAX_PERCENT",
+                "taxPercent"
+            )
+        );
+
+
+        // ==============================
+        // DISCOUNT
+        // ==============================
+
+        this.setValue(
+            "storeConfigDiscountEnabled",
+            this.toBooleanString(
+                this.getConfigValue(
+                    "DISCOUNT_ENABLED",
+                    "discountEnabled"
+                )
+            )
+        );
+
+
+        // ==============================
+        // PREFIX
+        // ==============================
+
+        this.setValue(
+            "storeConfigProductPrefix",
+            this.getConfigValue(
+                "PRODUCT_PREFIX",
+                "productPrefix"
+            )
+        );
+
+        this.setValue(
+            "storeConfigTransactionPrefix",
+            this.getConfigValue(
+                "TRANSACTION_PREFIX",
+                "transactionPrefix"
+            )
+        );
+
+
+        // ==============================
+        // RECEIPT
+        // ==============================
+
+        this.setValue(
+            "storeConfigReceiptHeader",
+            this.getConfigValue(
+                "RECEIPT_HEADER",
+                "receiptHeader"
+            )
+        );
+
+        this.setValue(
+            "storeConfigReceiptFooter",
+            this.getConfigValue(
+                "RECEIPT_FOOTER",
+                "receiptFooter"
+            )
+        );
+
+
+        // ==============================
+        // QRIS
+        // ==============================
+
+        this.setValue(
+            "storeConfigQrisEnabled",
+            this.toBooleanString(
+                this.getConfigValue(
+                    "QRIS_ENABLED",
+                    "qrisEnabled"
+                )
+            )
+        );
+
+        this.setValue(
+            "storeConfigQrisProvider",
+            this.getConfigValue(
+                "QRIS_PROVIDER",
+                "qrisProvider"
+            )
+        );
+
+        this.setValue(
+            "storeConfigQrisMerchantId",
+            this.getConfigValue(
+                "QRIS_MERCHANT_ID",
+                "qrisMerchantId"
+            )
+        );
+
+        this.setValue(
+            "storeConfigQrisApiUrl",
+            this.getConfigValue(
+                "QRIS_API_URL",
+                "qrisApiUrl"
+            )
+        );
+
+        this.setValue(
+            "storeConfigQrisApiKey",
+            this.getConfigValue(
+                "QRIS_API_KEY",
+                "qrisApiKey"
+            )
+        );
+
+        this.setValue(
+            "storeConfigQrisSecretKey",
+            this.getConfigValue(
+                "QRIS_SECRET_KEY",
+                "qrisSecretKey"
+            )
+        );
+
+        this.setValue(
+            "storeConfigQrisCallbackUrl",
+            this.getConfigValue(
+                "QRIS_CALLBACK_URL",
+                "qrisCallbackUrl"
+            )
+        );
+
+        this.setValue(
+            "storeConfigQrisStoreId",
+            this.getConfigValue(
+                "QRIS_STORE_ID",
+                "qrisStoreId"
+            )
+        );
+
+
+        // ==============================
+        // TIMEZONE
+        // ==============================
+
+        this.setValue(
+            "storeConfigTimezone",
+            this.getConfigValue(
+                "TIMEZONE",
+                "timezone"
+            )
+        );
+
+        this.setValue(
+            "storeConfigStoreTimezone",
+            this.getConfigValue(
+                "STORE_TIMEZONE",
+                "storeTimezone"
+            )
+        );
+
+    },
+
+
+    // ==================================
     // LOAD
     // ==================================
 
     async load() {
+
+        // 1. Muat dari lokal terlebih dahulu
+        await this.loadLocal();
+
+        // 2. Jika offline, gunakan data lokal dan jangan melempar error
+        if (!navigator.onLine) {
+
+            console.log(
+                "Offline: Menggunakan konfigurasi toko lokal."
+            );
+
+            return;
+
+        }
 
         try {
 
@@ -61,295 +459,12 @@ const StoreConfig = {
             this.config =
                 data.storeConfig || {};
 
-
-            // ==============================
-            // IDENTITAS TOKO
-            // ==============================
-
-            this.setValue(
-                "storeConfigName",
-                this.getConfigValue(
-                    "STORE_NAME",
-                    "storeName"
-                )
+            // Simpan konfigurasi toko terbaru ke IndexedDB lokal
+            await this.saveLocal(
+                this.config
             );
 
-            this.setValue(
-                "storeConfigAddress",
-                this.getConfigValue(
-                    "STORE_ADDRESS",
-                    "storeAddress"
-                )
-            );
-
-            this.setValue(
-                "storeConfigPhone",
-                this.getConfigValue(
-                    "STORE_PHONE",
-                    "storePhone"
-                )
-            );
-
-            this.setValue(
-                "storeConfigEmail",
-                this.getConfigValue(
-                    "STORE_EMAIL",
-                    "storeEmail"
-                )
-            );
-
-            this.setValue(
-                "storeConfigDescription",
-                this.getConfigValue(
-                    "STORE_DESCRIPTION",
-                    "storeDescription"
-                )
-            );
-
-            this.setValue(
-                "storeConfigStatus",
-                this.getConfigValue(
-                    "STORE_STATUS",
-                    "storeStatus"
-                )
-            );
-
-
-            // ==============================
-            // LOGO
-            // ==============================
-
-            const logoSource =
-                this.getConfigValue(
-                    "LOGO_SOURCE",
-                    "logoSource"
-                );
-
-            const logoDrive =
-                this.getConfigValue(
-                    "LOGO_DRIVE",
-                    "logoDrive"
-                );
-
-            const logoUrl =
-                this.getConfigValue(
-                    "LOGO_URL",
-                    "logoUrl"
-                );
-
-            const logo =
-                this.getConfigValue(
-                    "LOGO",
-                    "logo"
-                );
-
-            this.setValue(
-                "storeConfigLogoSource",
-                logoSource
-            );
-
-            this.setValue(
-                "storeConfigLogoDrive",
-                logoDrive
-            );
-
-            this.setValue(
-                "storeConfigLogoUrl",
-                logoUrl
-            );
-
-            this.logoValue =
-                String(
-                    logo || ""
-                ).trim();
-
-            this.loadLogo();
-
-
-            // ==============================
-            // CURRENCY
-            // ==============================
-
-            this.setValue(
-                "storeConfigCurrency",
-                this.getConfigValue(
-                    "CURRENCY",
-                    "currency"
-                )
-            );
-
-
-            // ==============================
-            // TAX
-            // ==============================
-
-            this.setValue(
-                "storeConfigTaxEnabled",
-                this.toBooleanString(
-                    this.getConfigValue(
-                        "TAX_ENABLED",
-                        "taxEnabled"
-                    )
-                )
-            );
-
-            this.setValue(
-                "storeConfigTaxPercent",
-                this.getConfigValue(
-                    "TAX_PERCENT",
-                    "taxPercent"
-                )
-            );
-
-
-            // ==============================
-            // DISCOUNT
-            // ==============================
-
-            this.setValue(
-                "storeConfigDiscountEnabled",
-                this.toBooleanString(
-                    this.getConfigValue(
-                        "DISCOUNT_ENABLED",
-                        "discountEnabled"
-                    )
-                )
-            );
-
-
-            // ==============================
-            // PREFIX
-            // ==============================
-
-            this.setValue(
-                "storeConfigProductPrefix",
-                this.getConfigValue(
-                    "PRODUCT_PREFIX",
-                    "productPrefix"
-                )
-            );
-
-            this.setValue(
-                "storeConfigTransactionPrefix",
-                this.getConfigValue(
-                    "TRANSACTION_PREFIX",
-                    "transactionPrefix"
-                )
-            );
-
-
-            // ==============================
-            // RECEIPT
-            // ==============================
-
-            this.setValue(
-                "storeConfigReceiptHeader",
-                this.getConfigValue(
-                    "RECEIPT_HEADER",
-                    "receiptHeader"
-                )
-            );
-
-            this.setValue(
-                "storeConfigReceiptFooter",
-                this.getConfigValue(
-                    "RECEIPT_FOOTER",
-                    "receiptFooter"
-                )
-            );
-
-
-            // ==============================
-            // QRIS
-            // ==============================
-
-            this.setValue(
-                "storeConfigQrisEnabled",
-                this.toBooleanString(
-                    this.getConfigValue(
-                        "QRIS_ENABLED",
-                        "qrisEnabled"
-                    )
-                )
-            );
-
-            this.setValue(
-                "storeConfigQrisProvider",
-                this.getConfigValue(
-                    "QRIS_PROVIDER",
-                    "qrisProvider"
-                )
-            );
-
-            this.setValue(
-                "storeConfigQrisMerchantId",
-                this.getConfigValue(
-                    "QRIS_MERCHANT_ID",
-                    "qrisMerchantId"
-                )
-            );
-
-            this.setValue(
-                "storeConfigQrisApiUrl",
-                this.getConfigValue(
-                    "QRIS_API_URL",
-                    "qrisApiUrl"
-                )
-            );
-
-            this.setValue(
-                "storeConfigQrisApiKey",
-                this.getConfigValue(
-                    "QRIS_API_KEY",
-                    "qrisApiKey"
-                )
-            );
-
-            this.setValue(
-                "storeConfigQrisSecretKey",
-                this.getConfigValue(
-                    "QRIS_SECRET_KEY",
-                    "qrisSecretKey"
-                )
-            );
-
-            this.setValue(
-                "storeConfigQrisCallbackUrl",
-                this.getConfigValue(
-                    "QRIS_CALLBACK_URL",
-                    "qrisCallbackUrl"
-                )
-            );
-
-            this.setValue(
-                "storeConfigQrisStoreId",
-                this.getConfigValue(
-                    "QRIS_STORE_ID",
-                    "qrisStoreId"
-                )
-            );
-
-
-            // ==============================
-            // TIMEZONE
-            // ==============================
-
-            this.setValue(
-                "storeConfigTimezone",
-                this.getConfigValue(
-                    "TIMEZONE",
-                    "timezone"
-                )
-            );
-
-            this.setValue(
-                "storeConfigStoreTimezone",
-                this.getConfigValue(
-                    "STORE_TIMEZONE",
-                    "storeTimezone"
-                )
-            );
-
+            this.populateForm();
 
             this.message(
                 "Konfigurasi toko berhasil dimuat.",
@@ -363,11 +478,16 @@ const StoreConfig = {
                 error
             );
 
-            this.message(
-                error.message ||
-                "Gagal memuat konfigurasi toko.",
-                "error"
-            );
+            // Jika konfigurasi lokal sudah ada, jangan tampilkan pesan error fatal
+            if (!this.config || Object.keys(this.config).length === 0) {
+
+                this.message(
+                    error.message ||
+                    "Gagal memuat konfigurasi toko.",
+                    "error"
+                );
+
+            }
 
         }
 
@@ -679,6 +799,11 @@ const StoreConfig = {
                 ...data
             };
 
+            await this.saveLocal(
+                this.config
+            );
+
+            this.populateForm();
 
             this.message(
                 "Konfigurasi toko berhasil disimpan.",

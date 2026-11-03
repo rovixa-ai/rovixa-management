@@ -14,54 +14,59 @@ const App = {
 
         try {
 
+            // 1. Inisialisasi IndexedDB lokal
             await DB.init();
 
-            try {
-
-                Loading.update(
-                    "Mengunduh data pengguna...",
-                    "Memuat Aplikasi"
-                );
-
-                await DownloadUsers.download();
-
-            }
-            catch (error) {
-
-                console.warn(
-                    "Download User gagal:",
-                    error.message ||
-                    error
-                );
-
-            }
-
-            Loading.update(
-                "Memuat konfigurasi toko...",
-                "Memuat Aplikasi"
-            );
-
-            await StoreConfig.load();
-
-            Sync.init();
-
+            // 2. Periksa kesiapan database lokal secara komprehensif
             Loading.update(
                 "Memeriksa data lokal aplikasi...",
                 "Memuat Aplikasi"
             );
 
-            const lastBootstrap =
-                await DB.get(
-                    "config",
-                    "lastBootstrap"
+            const isReady =
+                await Download.isDatabaseReady();
+
+            // 3. Jalankan bootstrap penuh HANYA jika database lokal belum siap atau belum lengkap
+            if (!isReady) {
+
+                if (!navigator.onLine) {
+
+                    throw new Error(
+                        "Data aplikasi belum tersedia di perangkat ini. Hubungkan perangkat ke internet untuk inisialisasi awal."
+                    );
+
+                }
+
+                Loading.update(
+                    "Mengunduh data pengguna...",
+                    "Inisialisasi Awal"
                 );
 
+                try {
 
-            if (!lastBootstrap) {
+                    await DownloadUsers.download();
+
+                }
+                catch (error) {
+
+                    console.warn(
+                        "Download User gagal:",
+                        error.message ||
+                        error
+                    );
+
+                }
+
+                Loading.update(
+                    "Memuat konfigurasi toko...",
+                    "Inisialisasi Awal"
+                );
+
+                await StoreConfig.load();
 
                 Loading.update(
                     "Mengunduh dan menyiapkan data aplikasi pertama kali...",
-                    "Memuat Aplikasi"
+                    "Inisialisasi Awal"
                 );
 
                 const result =
@@ -78,7 +83,15 @@ const App = {
 
                 }
 
+            } else {
+
+                // Data lokal sudah lengkap: muat konfigurasi lokal secara instan tanpa blocking
+                await StoreConfig.loadLocal();
+
             }
+
+            // 4. Inisialisasi sinkronisasi background & antrian syncQueue
+            Sync.init();
 
 
             Loading.update(
