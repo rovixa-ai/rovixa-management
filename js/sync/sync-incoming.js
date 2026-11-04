@@ -35,18 +35,76 @@ const IncomingSync = {
 
         try {
 
-            const database =
+            const salesDatabase =
                 DatabaseConfig.getActiveDatabase();
 
             if (
-                !database ||
-                !database.year ||
-                !database.penjualan ||
-                !database.detailPenjualan ||
-                !database.pembayaran
+                !salesDatabase ||
+                !salesDatabase.year ||
+                !salesDatabase.penjualan ||
+                !salesDatabase.detailPenjualan ||
+                !salesDatabase.pembayaran
             ) {
                 throw new Error(
                     "Konfigurasi database Penjualan tidak valid."
+                );
+            }
+
+            /*
+             * AMBIL KONFIGURASI PEMBELIAN
+             */
+
+            const purchaseDatabase =
+                PembelianDatabaseConfig.getActiveDatabase();
+
+            if (
+                !purchaseDatabase ||
+                Number(purchaseDatabase.year) !==
+                Number(salesDatabase.year)
+            ) {
+                throw new Error(
+                    "Tahun database Pembelian tidak sesuai."
+                );
+            }
+
+            /*
+             * GABUNGKAN KONFIGURASI DATABASE
+             *
+             * Nama properti ID mengikuti
+             * kebutuhan backend getSyncChanges().
+             */
+
+            const database = {
+
+                ...salesDatabase,
+
+                penjualanId:
+                    salesDatabase.penjualan,
+
+                detailPenjualanId:
+                    salesDatabase.detailPenjualan,
+
+                pembayaranId:
+                    salesDatabase.pembayaran,
+
+                pembelianId:
+                    purchaseDatabase.pembelian,
+
+                detailPembelianId:
+                    purchaseDatabase.detailPembelian,
+
+                pembayaranPembelianId:
+                    purchaseDatabase.pembayaran
+
+            };
+
+            if (
+                !database.pembelianId ||
+                !database.detailPembelianId ||
+                !database.pembayaranPembelianId
+            ) {
+                throw new Error(
+                    "Konfigurasi database Pembelian tidak lengkap."
                 );
             }
 
@@ -512,183 +570,183 @@ const IncomingSync = {
 
 
     /* ======================================
-   APPLY PEMBELIAN CHANGES
-====================================== */
+       APPLY PEMBELIAN CHANGES
+    ====================================== */
 
-async applyPembelianChanges(data) {
+    async applyPembelianChanges(data) {
 
-    /*
-     * AMBIL DATA LOKAL
-     */
+        /*
+         * AMBIL DATA LOKAL
+         */
 
-    const [
-        localPembelian,
-        localDetailPembelian,
-        localPembayaranPembelian
-    ] = await Promise.all([
+        const [
+            localPembelian,
+            localDetailPembelian,
+            localPembayaranPembelian
+        ] = await Promise.all([
 
-        DB.getAll("pembelian"),
+            DB.getAll("pembelian"),
 
-        DB.getAll("detailPembelian"),
+            DB.getAll("detailPembelian"),
 
-        DB.getAll("pembayaranPembelian")
+            DB.getAll("pembayaranPembelian")
 
-    ]);
+        ]);
 
-    /*
-     * INDEX HEADER PEMBELIAN
-     */
+        /*
+         * INDEX HEADER PEMBELIAN
+         */
 
-    const existingPembelian =
-        new Map();
+        const existingPembelian =
+            new Map();
 
-    for (const item of localPembelian || []) {
+        for (const item of localPembelian || []) {
 
-        if (
-            !item ||
-            !item.id
-        ) {
-            continue;
+            if (
+                !item ||
+                !item.id
+            ) {
+                continue;
+            }
+
+            existingPembelian.set(
+                String(item.id),
+                item
+            );
+
         }
 
-        existingPembelian.set(
-            String(item.id),
-            item
-        );
+        /*
+         * INSERT / UPDATE HEADER PEMBELIAN
+         */
 
-    }
+        for (const pembelian of data.pembelian) {
 
-    /*
-     * INSERT / UPDATE HEADER PEMBELIAN
-     */
+            if (
+                !pembelian ||
+                !pembelian.id
+            ) {
+                continue;
+            }
 
-    for (const pembelian of data.pembelian) {
+            const id =
+                String(pembelian.id);
 
-        if (
-            !pembelian ||
-            !pembelian.id
-        ) {
-            continue;
+            await DB.put(
+                "pembelian",
+                pembelian
+            );
+
+            existingPembelian.set(
+                id,
+                pembelian
+            );
+
         }
 
-        const id =
-            String(pembelian.id);
+        /*
+         * INDEX DETAIL PEMBELIAN
+         */
 
-        await DB.put(
-            "pembelian",
-            pembelian
-        );
+        const existingDetail =
+            new Set();
 
-        existingPembelian.set(
-            id,
-            pembelian
-        );
+        for (const detail of localDetailPembelian || []) {
 
-    }
+            existingDetail.add(
+                this.createPembelianDetailSignature(detail)
+            );
 
-    /*
-     * INDEX DETAIL PEMBELIAN
-     */
-
-    const existingDetail =
-        new Set();
-
-    for (const detail of localDetailPembelian || []) {
-
-        existingDetail.add(
-            this.createPembelianDetailSignature(detail)
-        );
-
-    }
-
-    /*
-     * INSERT DETAIL PEMBELIAN
-     */
-
-    for (const detail of data.detailPembelian) {
-
-        if (
-            !detail ||
-            !detail.id
-        ) {
-            continue;
         }
 
-        const transactionId =
-            String(detail.id);
+        /*
+         * INSERT DETAIL PEMBELIAN
+         */
 
-        if (!existingPembelian.has(transactionId)) {
-            continue;
+        for (const detail of data.detailPembelian) {
+
+            if (
+                !detail ||
+                !detail.id
+            ) {
+                continue;
+            }
+
+            const transactionId =
+                String(detail.id);
+
+            if (!existingPembelian.has(transactionId)) {
+                continue;
+            }
+
+            const signature =
+                this.createPembelianDetailSignature(detail);
+
+            if (existingDetail.has(signature)) {
+                continue;
+            }
+
+            await DB.add(
+                "detailPembelian",
+                this.normalizePembelianDetail(detail)
+            );
+
+            existingDetail.add(signature);
+
         }
 
-        const signature =
-            this.createPembelianDetailSignature(detail);
+        /*
+         * INDEX PEMBAYARAN PEMBELIAN
+         */
 
-        if (existingDetail.has(signature)) {
-            continue;
+        const existingPembayaran =
+            new Set();
+
+        for (const pembayaran of localPembayaranPembelian || []) {
+
+            existingPembayaran.add(
+                this.createPembelianPaymentSignature(pembayaran)
+            );
+
         }
 
-        await DB.add(
-            "detailPembelian",
-            this.normalizePembelianDetail(detail)
-        );
+        /*
+         * INSERT PEMBAYARAN PEMBELIAN
+         */
 
-        existingDetail.add(signature);
+        for (const pembayaran of data.pembayaranPembelian) {
 
-    }
+            if (
+                !pembayaran ||
+                !pembayaran.id
+            ) {
+                continue;
+            }
 
-    /*
-     * INDEX PEMBAYARAN PEMBELIAN
-     */
+            const transactionId =
+                String(pembayaran.id);
 
-    const existingPembayaran =
-        new Set();
+            if (!existingPembelian.has(transactionId)) {
+                continue;
+            }
 
-    for (const pembayaran of localPembayaranPembelian || []) {
+            const signature =
+                this.createPembelianPaymentSignature(pembayaran);
 
-        existingPembayaran.add(
-            this.createPembelianPaymentSignature(pembayaran)
-        );
+            if (existingPembayaran.has(signature)) {
+                continue;
+            }
 
-    }
+            await DB.put(
+                "pembayaranPembelian",
+                this.normalizePembelianPayment(pembayaran)
+            );
 
-    /*
-     * INSERT PEMBAYARAN PEMBELIAN
-     */
+            existingPembayaran.add(signature);
 
-    for (const pembayaran of data.pembayaranPembelian) {
-
-        if (
-            !pembayaran ||
-            !pembayaran.id
-        ) {
-            continue;
         }
 
-        const transactionId =
-            String(pembayaran.id);
-
-        if (!existingPembelian.has(transactionId)) {
-            continue;
-        }
-
-        const signature =
-            this.createPembelianPaymentSignature(pembayaran);
-
-        if (existingPembayaran.has(signature)) {
-            continue;
-        }
-
-        await DB.put(
-            "pembayaranPembelian",
-            this.normalizePembelianPayment(pembayaran)
-        );
-
-        existingPembayaran.add(signature);
-
-    }
-
-},
+    },
 
 
     /* ======================================
@@ -865,6 +923,8 @@ async applyPembelianChanges(data) {
 
         return JSON.stringify([
 
+            String(pembayaran.id || ""),
+
             String(pembayaran.metode || ""),
 
             Number(pembayaran.nominal || 0),
@@ -883,6 +943,8 @@ async applyPembelianChanges(data) {
     normalizePembelianPayment(pembayaran) {
 
         return {
+
+            id: pembayaran.id,
 
             metode: pembayaran.metode,
 
