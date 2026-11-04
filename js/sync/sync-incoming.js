@@ -512,265 +512,183 @@ const IncomingSync = {
 
 
     /* ======================================
-       APPLY PEMBELIAN CHANGES
-    ====================================== */
+   APPLY PEMBELIAN CHANGES
+====================================== */
 
-    async applyPembelianChanges(data) {
+async applyPembelianChanges(data) {
 
-        /*
-         * AMBIL DATA LOKAL
-         */
+    /*
+     * AMBIL DATA LOKAL
+     */
 
-        const [
-            localPembelian,
-            localDetailPembelian,
-            localPembayaranPembelian
-        ] = await Promise.all([
+    const [
+        localPembelian,
+        localDetailPembelian,
+        localPembayaranPembelian
+    ] = await Promise.all([
 
-            DB.getAll("pembelian"),
+        DB.getAll("pembelian"),
 
-            DB.getAll("detailPembelian"),
+        DB.getAll("detailPembelian"),
 
-            DB.getAll("pembayaranPembelian")
+        DB.getAll("pembayaranPembelian")
 
-        ]);
+    ]);
 
-        /*
-         * INDEX HEADER PEMBELIAN
-         */
+    /*
+     * INDEX HEADER PEMBELIAN
+     */
 
-        const existingPembelian =
-            new Map();
+    const existingPembelian =
+        new Map();
 
-        for (const item of localPembelian || []) {
+    for (const item of localPembelian || []) {
 
-            if (
-                !item ||
-                !item.id
-            ) {
-                continue;
-            }
-
-            existingPembelian.set(
-                String(item.id),
-                item
-            );
-
+        if (
+            !item ||
+            !item.id
+        ) {
+            continue;
         }
 
-        /*
-         * INSERT / UPDATE HEADER PEMBELIAN
-         */
+        existingPembelian.set(
+            String(item.id),
+            item
+        );
 
-        for (const pembelian of data.pembelian) {
+    }
 
-            if (
-                !pembelian ||
-                !pembelian.id
-            ) {
-                continue;
-            }
+    /*
+     * INSERT / UPDATE HEADER PEMBELIAN
+     */
 
-            const id =
-                String(pembelian.id);
+    for (const pembelian of data.pembelian) {
 
-            await DB.put(
-                "pembelian",
-                pembelian
-            );
-
-            existingPembelian.set(
-                id,
-                pembelian
-            );
-
+        if (
+            !pembelian ||
+            !pembelian.id
+        ) {
+            continue;
         }
 
-        /*
-         * INDEX DETAIL PEMBELIAN
-         */
+        const id =
+            String(pembelian.id);
 
-        const existingDetail =
-            new Set();
+        await DB.put(
+            "pembelian",
+            pembelian
+        );
 
-        for (const detail of localDetailPembelian || []) {
+        existingPembelian.set(
+            id,
+            pembelian
+        );
 
-            existingDetail.add(
-                this.createPembelianDetailSignature(detail)
-            );
+    }
 
+    /*
+     * INDEX DETAIL PEMBELIAN
+     */
+
+    const existingDetail =
+        new Set();
+
+    for (const detail of localDetailPembelian || []) {
+
+        existingDetail.add(
+            this.createPembelianDetailSignature(detail)
+        );
+
+    }
+
+    /*
+     * INSERT DETAIL PEMBELIAN
+     */
+
+    for (const detail of data.detailPembelian) {
+
+        if (
+            !detail ||
+            !detail.id
+        ) {
+            continue;
         }
 
-        /*
-         * INSERT DETAIL PEMBELIAN
-         */
+        const transactionId =
+            String(detail.id);
 
-        for (const detail of data.detailPembelian) {
-
-            if (
-                !detail ||
-                !detail.id
-            ) {
-                continue;
-            }
-
-            const transactionId =
-                String(detail.id);
-
-            if (!existingPembelian.has(transactionId)) {
-                continue;
-            }
-
-            const signature =
-                this.createPembelianDetailSignature(detail);
-
-            if (existingDetail.has(signature)) {
-                continue;
-            }
-
-            await DB.add(
-                "detailPembelian",
-                this.normalizePembelianDetail(detail)
-            );
-
-            existingDetail.add(signature);
-
+        if (!existingPembelian.has(transactionId)) {
+            continue;
         }
 
-        /*
-         * KELOMPOKKAN PEMBAYARAN
-         * BERDASARKAN ID TRANSAKSI
-         *
-         * Store pembayaranPembelian memakai
-         * keyPath "id", sehingga satu transaksi
-         * disimpan sebagai satu record.
-         */
+        const signature =
+            this.createPembelianDetailSignature(detail);
 
-        const groupedPayments =
-            new Map();
-
-        for (const pembayaran of data.pembayaranPembelian) {
-
-            if (
-                !pembayaran ||
-                !pembayaran.id
-            ) {
-                continue;
-            }
-
-            const transactionId =
-                String(pembayaran.id);
-
-            if (!existingPembelian.has(transactionId)) {
-                continue;
-            }
-
-            if (!groupedPayments.has(transactionId)) {
-
-                groupedPayments.set(
-                    transactionId,
-                    []
-                );
-
-            }
-
-            groupedPayments
-                .get(transactionId)
-                .push(
-                    this.normalizePembelianPayment(pembayaran)
-                );
-
+        if (existingDetail.has(signature)) {
+            continue;
         }
 
-        /*
-         * INDEX PEMBAYARAN LOKAL
-         */
+        await DB.add(
+            "detailPembelian",
+            this.normalizePembelianDetail(detail)
+        );
 
-        const existingPaymentMap =
-            new Map();
+        existingDetail.add(signature);
 
-        for (const pembayaran of localPembayaranPembelian || []) {
+    }
 
-            if (
-                !pembayaran ||
-                !pembayaran.id
-            ) {
-                continue;
-            }
+    /*
+     * INDEX PEMBAYARAN PEMBELIAN
+     */
 
-            existingPaymentMap.set(
-                String(pembayaran.id),
-                pembayaran
-            );
+    const existingPembayaran =
+        new Set();
 
+    for (const pembayaran of localPembayaranPembelian || []) {
+
+        existingPembayaran.add(
+            this.createPembelianPaymentSignature(pembayaran)
+        );
+
+    }
+
+    /*
+     * INSERT PEMBAYARAN PEMBELIAN
+     */
+
+    for (const pembayaran of data.pembayaranPembelian) {
+
+        if (
+            !pembayaran ||
+            !pembayaran.id
+        ) {
+            continue;
         }
 
-        /*
-         * INSERT / UPDATE PEMBAYARAN PEMBELIAN
-         *
-         * Satu record untuk satu transaksi.
-         * Seluruh metode pembayaran berada
-         * di dalam array payments.
-         */
+        const transactionId =
+            String(pembayaran.id);
 
-        for (const [transactionId, payments] of groupedPayments) {
-
-            const existing =
-                existingPaymentMap.get(transactionId);
-
-            const normalizedPayments =
-                [];
-
-            const paymentSignatures =
-                new Set();
-
-            /*
-             * Pertahankan pembayaran lokal yang
-             * sudah ada, kemudian tambahkan data
-             * pembayaran terbaru dari server.
-             */
-
-            for (const payment of existing?.payments || []) {
-
-                const signature =
-                    this.createPembelianPaymentSignature(payment);
-
-                if (paymentSignatures.has(signature)) {
-                    continue;
-                }
-
-                normalizedPayments.push(payment);
-
-                paymentSignatures.add(signature);
-
-            }
-
-            for (const payment of payments) {
-
-                const signature =
-                    this.createPembelianPaymentSignature(payment);
-
-                if (paymentSignatures.has(signature)) {
-                    continue;
-                }
-
-                normalizedPayments.push(payment);
-
-                paymentSignatures.add(signature);
-
-            }
-
-            await DB.put(
-                "pembayaranPembelian",
-                {
-                    id: transactionId,
-                    payments: normalizedPayments
-                }
-            );
-
+        if (!existingPembelian.has(transactionId)) {
+            continue;
         }
 
-    },
+        const signature =
+            this.createPembelianPaymentSignature(pembayaran);
+
+        if (existingPembayaran.has(signature)) {
+            continue;
+        }
+
+        await DB.put(
+            "pembayaranPembelian",
+            this.normalizePembelianPayment(pembayaran)
+        );
+
+        existingPembayaran.add(signature);
+
+    }
+
+},
 
 
     /* ======================================
