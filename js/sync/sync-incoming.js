@@ -2,7 +2,7 @@
 /* ======================================
    ROVIXA POS
    INCOMING INCREMENTAL SYNC
-   BARANG, SATUAN & PENJUALAN
+   BARANG, SATUAN, PENJUALAN & PEMBELIAN
 ====================================== */
 
 "use strict";
@@ -79,6 +79,9 @@ const IncomingSync = {
                 !Array.isArray(data.penjualan) ||
                 !Array.isArray(data.detailPenjualan) ||
                 !Array.isArray(data.pembayaranPenjualan) ||
+                !Array.isArray(data.pembelian) ||
+                !Array.isArray(data.detailPembelian) ||
+                !Array.isArray(data.pembayaranPembelian) ||
                 !data.lastSync
             ) {
                 throw new Error(
@@ -91,7 +94,7 @@ const IncomingSync = {
                 Number(database.year)
             ) {
                 throw new Error(
-                    "Tahun database Penjualan tidak sesuai."
+                    "Tahun database tidak sesuai."
                 );
             }
 
@@ -201,6 +204,12 @@ const IncomingSync = {
 
         await this.applyPenjualanChanges(data);
 
+        /*
+         * PEMBELIAN
+         */
+
+        await this.applyPembelianChanges(data);
+
     },
 
 
@@ -252,7 +261,6 @@ const IncomingSync = {
                     pendingSatuan.add(
                         String(item.referenceId)
                     );
-
                 }
 
             }
@@ -504,7 +512,269 @@ const IncomingSync = {
 
 
     /* ======================================
-       DETAIL SIGNATURE
+       APPLY PEMBELIAN CHANGES
+    ====================================== */
+
+    async applyPembelianChanges(data) {
+
+        /*
+         * AMBIL DATA LOKAL
+         */
+
+        const [
+            localPembelian,
+            localDetailPembelian,
+            localPembayaranPembelian
+        ] = await Promise.all([
+
+            DB.getAll("pembelian"),
+
+            DB.getAll("detailPembelian"),
+
+            DB.getAll("pembayaranPembelian")
+
+        ]);
+
+        /*
+         * INDEX HEADER PEMBELIAN
+         */
+
+        const existingPembelian =
+            new Map();
+
+        for (const item of localPembelian || []) {
+
+            if (
+                !item ||
+                !item.id
+            ) {
+                continue;
+            }
+
+            existingPembelian.set(
+                String(item.id),
+                item
+            );
+
+        }
+
+        /*
+         * INSERT / UPDATE HEADER PEMBELIAN
+         */
+
+        for (const pembelian of data.pembelian) {
+
+            if (
+                !pembelian ||
+                !pembelian.id
+            ) {
+                continue;
+            }
+
+            const id =
+                String(pembelian.id);
+
+            await DB.put(
+                "pembelian",
+                pembelian
+            );
+
+            existingPembelian.set(
+                id,
+                pembelian
+            );
+
+        }
+
+        /*
+         * INDEX DETAIL PEMBELIAN
+         */
+
+        const existingDetail =
+            new Set();
+
+        for (const detail of localDetailPembelian || []) {
+
+            existingDetail.add(
+                this.createPembelianDetailSignature(detail)
+            );
+
+        }
+
+        /*
+         * INSERT DETAIL PEMBELIAN
+         */
+
+        for (const detail of data.detailPembelian) {
+
+            if (
+                !detail ||
+                !detail.id
+            ) {
+                continue;
+            }
+
+            const transactionId =
+                String(detail.id);
+
+            if (!existingPembelian.has(transactionId)) {
+                continue;
+            }
+
+            const signature =
+                this.createPembelianDetailSignature(detail);
+
+            if (existingDetail.has(signature)) {
+                continue;
+            }
+
+            await DB.add(
+                "detailPembelian",
+                this.normalizePembelianDetail(detail)
+            );
+
+            existingDetail.add(signature);
+
+        }
+
+        /*
+         * KELOMPOKKAN PEMBAYARAN
+         * BERDASARKAN ID TRANSAKSI
+         *
+         * Store pembayaranPembelian memakai
+         * keyPath "id", sehingga satu transaksi
+         * disimpan sebagai satu record.
+         */
+
+        const groupedPayments =
+            new Map();
+
+        for (const pembayaran of data.pembayaranPembelian) {
+
+            if (
+                !pembayaran ||
+                !pembayaran.id
+            ) {
+                continue;
+            }
+
+            const transactionId =
+                String(pembayaran.id);
+
+            if (!existingPembelian.has(transactionId)) {
+                continue;
+            }
+
+            if (!groupedPayments.has(transactionId)) {
+
+                groupedPayments.set(
+                    transactionId,
+                    []
+                );
+
+            }
+
+            groupedPayments
+                .get(transactionId)
+                .push(
+                    this.normalizePembelianPayment(pembayaran)
+                );
+
+        }
+
+        /*
+         * INDEX PEMBAYARAN LOKAL
+         */
+
+        const existingPaymentMap =
+            new Map();
+
+        for (const pembayaran of localPembayaranPembelian || []) {
+
+            if (
+                !pembayaran ||
+                !pembayaran.id
+            ) {
+                continue;
+            }
+
+            existingPaymentMap.set(
+                String(pembayaran.id),
+                pembayaran
+            );
+
+        }
+
+        /*
+         * INSERT / UPDATE PEMBAYARAN PEMBELIAN
+         *
+         * Satu record untuk satu transaksi.
+         * Seluruh metode pembayaran berada
+         * di dalam array payments.
+         */
+
+        for (const [transactionId, payments] of groupedPayments) {
+
+            const existing =
+                existingPaymentMap.get(transactionId);
+
+            const normalizedPayments =
+                [];
+
+            const paymentSignatures =
+                new Set();
+
+            /*
+             * Pertahankan pembayaran lokal yang
+             * sudah ada, kemudian tambahkan data
+             * pembayaran terbaru dari server.
+             */
+
+            for (const payment of existing?.payments || []) {
+
+                const signature =
+                    this.createPembelianPaymentSignature(payment);
+
+                if (paymentSignatures.has(signature)) {
+                    continue;
+                }
+
+                normalizedPayments.push(payment);
+
+                paymentSignatures.add(signature);
+
+            }
+
+            for (const payment of payments) {
+
+                const signature =
+                    this.createPembelianPaymentSignature(payment);
+
+                if (paymentSignatures.has(signature)) {
+                    continue;
+                }
+
+                normalizedPayments.push(payment);
+
+                paymentSignatures.add(signature);
+
+            }
+
+            await DB.put(
+                "pembayaranPembelian",
+                {
+                    id: transactionId,
+                    payments: normalizedPayments
+                }
+            );
+
+        }
+
+    },
+
+
+    /* ======================================
+       DETAIL SIGNATURE PENJUALAN
     ====================================== */
 
     createDetailSignature(detail) {
@@ -535,7 +805,7 @@ const IncomingSync = {
 
 
     /* ======================================
-       PAYMENT SIGNATURE
+       PAYMENT SIGNATURE PENJUALAN
     ====================================== */
 
     createPaymentSignature(pembayaran) {
@@ -556,7 +826,7 @@ const IncomingSync = {
 
 
     /* ======================================
-       NORMALIZE DETAIL
+       NORMALIZE DETAIL PENJUALAN
     ====================================== */
 
     normalizeDetail(detail) {
@@ -587,7 +857,7 @@ const IncomingSync = {
 
 
     /* ======================================
-       NORMALIZE PAYMENT
+       NORMALIZE PAYMENT PENJUALAN
     ====================================== */
 
     normalizePayment(pembayaran) {
@@ -595,6 +865,106 @@ const IncomingSync = {
         return {
 
             id: pembayaran.id,
+
+            metode: pembayaran.metode,
+
+            nominal: pembayaran.nominal,
+
+            kembalian: pembayaran.kembalian
+
+        };
+
+    },
+
+
+    /* ======================================
+       DETAIL SIGNATURE PEMBELIAN
+    ====================================== */
+
+    createPembelianDetailSignature(detail) {
+
+        return JSON.stringify([
+
+            String(detail.id || ""),
+
+            String(detail.kode || ""),
+
+            String(detail.namaBarang || ""),
+
+            String(detail.satuan || ""),
+
+            Number(detail.qty || 0),
+
+            Number(detail.konversi || 0),
+
+            Number(detail.harga || 0),
+
+            Number(detail.disc || 0),
+
+            Number(detail.total || 0)
+
+        ]);
+
+    },
+
+
+    /* ======================================
+       NORMALIZE DETAIL PEMBELIAN
+    ====================================== */
+
+    normalizePembelianDetail(detail) {
+
+        return {
+
+            id: detail.id,
+
+            kode: detail.kode,
+
+            namaBarang: detail.namaBarang,
+
+            satuan: detail.satuan,
+
+            qty: detail.qty,
+
+            konversi: detail.konversi,
+
+            harga: detail.harga,
+
+            disc: detail.disc,
+
+            total: detail.total
+
+        };
+
+    },
+
+
+    /* ======================================
+       PAYMENT SIGNATURE PEMBELIAN
+    ====================================== */
+
+    createPembelianPaymentSignature(pembayaran) {
+
+        return JSON.stringify([
+
+            String(pembayaran.metode || ""),
+
+            Number(pembayaran.nominal || 0),
+
+            Number(pembayaran.kembalian || 0)
+
+        ]);
+
+    },
+
+
+    /* ======================================
+       NORMALIZE PAYMENT PEMBELIAN
+    ====================================== */
+
+    normalizePembelianPayment(pembayaran) {
+
+        return {
 
             metode: pembayaran.metode,
 
