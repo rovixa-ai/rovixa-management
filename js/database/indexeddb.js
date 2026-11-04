@@ -673,6 +673,128 @@ const DB = {
     },
 
 
+    /* ======================================
+   BULK PUT
+   SATU TRANSAKSI UNTUK BANYAK DATA
+====================================== */
+
+bulkPut(
+    storeName,
+    dataList
+) {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            if (!Array.isArray(dataList) || !dataList.length) {
+                resolve([]);
+                return;
+            }
+
+            const transaction =
+                this.instance.transaction(
+                    storeName,
+                    "readwrite"
+                );
+
+            const store =
+                transaction.objectStore(storeName);
+
+            const results = [];
+
+            transaction.oncomplete = () => {
+                resolve(results);
+            };
+
+            transaction.onerror = () => {
+                reject(transaction.error);
+            };
+
+            transaction.onabort = () => {
+                reject(
+                    transaction.error ||
+                    new Error("Bulk put dibatalkan.")
+                );
+            };
+
+            for (const data of dataList) {
+
+                const request =
+                    store.put(data);
+
+                request.onsuccess = () => {
+                    results.push(request.result);
+                };
+
+            }
+
+        }
+    );
+
+},
+
+
+/* ======================================
+   BULK ADD
+   SATU TRANSAKSI UNTUK BANYAK DATA
+====================================== */
+
+bulkAdd(
+    storeName,
+    dataList
+) {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            if (!Array.isArray(dataList) || !dataList.length) {
+                resolve([]);
+                return;
+            }
+
+            const transaction =
+                this.instance.transaction(
+                    storeName,
+                    "readwrite"
+                );
+
+            const store =
+                transaction.objectStore(storeName);
+
+            const results = [];
+
+            transaction.oncomplete = () => {
+                resolve(results);
+            };
+
+            transaction.onerror = () => {
+                reject(transaction.error);
+            };
+
+            transaction.onabort = () => {
+                reject(
+                    transaction.error ||
+                    new Error("Bulk add dibatalkan.")
+                );
+            };
+
+            for (const data of dataList) {
+
+                const request =
+                    store.add(data);
+
+                request.onsuccess = () => {
+                    results.push(request.result);
+                };
+
+            }
+
+        }
+    );
+
+},
+
+
     async replaceAll(
         storeName,
         dataList

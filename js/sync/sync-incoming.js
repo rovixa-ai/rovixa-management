@@ -3,6 +3,7 @@
    ROVIXA POS
    INCOMING INCREMENTAL SYNC
    BARANG, SATUAN, PENJUALAN & PEMBELIAN
+   BULK DATABASE OPTIMIZATION
 ====================================== */
 
 "use strict";
@@ -10,10 +11,6 @@
 const IncomingSync = {
 
     processing: false,
-
-    /* ======================================
-       CONFIGURATION
-    ====================================== */
 
     LAST_SYNC_KEY: "lastIncrementalSync",
 
@@ -23,11 +20,7 @@ const IncomingSync = {
 
     async process() {
 
-        if (this.processing) {
-            return;
-        }
-
-        if (!navigator.onLine) {
+        if (this.processing || !navigator.onLine) {
             return;
         }
 
@@ -50,10 +43,6 @@ const IncomingSync = {
                 );
             }
 
-            /*
-             * AMBIL KONFIGURASI PEMBELIAN
-             */
-
             const purchaseDatabase =
                 PembelianDatabaseConfig.getActiveDatabase();
 
@@ -67,34 +56,17 @@ const IncomingSync = {
                 );
             }
 
-            /*
-             * GABUNGKAN KONFIGURASI DATABASE
-             *
-             * Nama properti ID mengikuti
-             * kebutuhan backend getSyncChanges().
-             */
-
             const database = {
 
                 ...salesDatabase,
 
-                penjualanId:
-                    salesDatabase.penjualan,
+                penjualanId: salesDatabase.penjualan,
+                detailPenjualanId: salesDatabase.detailPenjualan,
+                pembayaranId: salesDatabase.pembayaran,
 
-                detailPenjualanId:
-                    salesDatabase.detailPenjualan,
-
-                pembayaranId:
-                    salesDatabase.pembayaran,
-
-                pembelianId:
-                    purchaseDatabase.pembelian,
-
-                detailPembelianId:
-                    purchaseDatabase.detailPembelian,
-
-                pembayaranPembelianId:
-                    purchaseDatabase.pembayaran
+                pembelianId: purchaseDatabase.pembelian,
+                detailPembelianId: purchaseDatabase.detailPembelian,
+                pembayaranPembelianId: purchaseDatabase.pembayaran
 
             };
 
@@ -127,8 +99,7 @@ const IncomingSync = {
                 );
             }
 
-            const data =
-                response.data;
+            const data = response.data;
 
             if (
                 !data ||
@@ -156,10 +127,6 @@ const IncomingSync = {
                 );
             }
 
-            /*
-             * PASTIKAN CHECKPOINT VALID
-             */
-
             const lastSyncTime =
                 new Date(data.lastSync).getTime();
 
@@ -169,18 +136,7 @@ const IncomingSync = {
                 );
             }
 
-            /*
-             * TERAPKAN PERUBAHAN SERVER
-             */
-
             await this.applyChanges(data);
-
-            /*
-             * SIMPAN CHECKPOINT
-             *
-             * Hanya dilakukan setelah seluruh
-             * perubahan berhasil diterapkan.
-             */
 
             await DB.put(
                 "config",
@@ -224,11 +180,6 @@ const IncomingSync = {
             return checkpoint.value;
         }
 
-        /*
-         * Bootstrap pertama tetap menjadi
-         * titik awal incremental sync.
-         */
-
         const bootstrap =
             await DB.get(
                 "config",
@@ -250,21 +201,9 @@ const IncomingSync = {
 
     async applyChanges(data) {
 
-        /*
-         * BARANG & SATUAN
-         */
-
         await this.applyMasterChanges(data);
 
-        /*
-         * PENJUALAN
-         */
-
         await this.applyPenjualanChanges(data);
-
-        /*
-         * PEMBELIAN
-         */
 
         await this.applyPembelianChanges(data);
 
@@ -280,16 +219,8 @@ const IncomingSync = {
         const queue =
             await DB.getAll("syncQueue");
 
-        const pendingBarang =
-            new Set();
-
-        const pendingSatuan =
-            new Set();
-
-        /*
-         * Identifikasi data lokal yang masih
-         * menunggu proses outgoing sync.
-         */
+        const pendingBarang = new Set();
+        const pendingSatuan = new Set();
 
         for (const item of queue || []) {
 
@@ -325,9 +256,8 @@ const IncomingSync = {
 
         }
 
-        /*
-         * UPDATE BARANG
-         */
+        const barangRows = [];
+        const satuanRows = [];
 
         for (const barang of data.barang) {
 
@@ -338,23 +268,15 @@ const IncomingSync = {
                 continue;
             }
 
-            const kode =
-                String(barang.kode);
+            const kode = String(barang.kode);
 
             if (pendingBarang.has(kode)) {
                 continue;
             }
 
-            await DB.put(
-                "barang",
-                barang
-            );
+            barangRows.push(barang);
 
         }
-
-        /*
-         * UPDATE SATUAN
-         */
 
         for (const satuan of data.satuan) {
 
@@ -374,15 +296,26 @@ const IncomingSync = {
                 continue;
             }
 
-            await DB.put(
-                "satuan",
-                {
-                    ...satuan,
-                    id
-                }
-            );
+            satuanRows.push({
+                ...satuan,
+                id
+            });
 
         }
+
+        await Promise.all([
+
+            DB.bulkPut(
+                "barang",
+                barangRows
+            ),
+
+            DB.bulkPut(
+                "satuan",
+                satuanRows
+            )
+
+        ]);
 
     },
 
@@ -393,10 +326,6 @@ const IncomingSync = {
 
     async applyPenjualanChanges(data) {
 
-        /*
-         * Ambil data lokal yang sudah ada.
-         */
-
         const [
             localPenjualan,
             localDetail,
@@ -404,39 +333,24 @@ const IncomingSync = {
         ] = await Promise.all([
 
             DB.getAll("penjualan"),
-
             DB.getAll("detailPenjualan"),
-
             DB.getAll("pembayaranPenjualan")
 
         ]);
 
-        /*
-         * INDEX HEADER PENJUALAN
-         */
-
-        const existingPenjualan =
-            new Map();
+        const existingPenjualan = new Set();
 
         for (const item of localPenjualan || []) {
 
-            if (
-                !item ||
-                !item.id
-            ) {
-                continue;
+            if (item?.id) {
+                existingPenjualan.add(
+                    String(item.id)
+                );
             }
-
-            existingPenjualan.set(
-                String(item.id),
-                item
-            );
 
         }
 
-        /*
-         * INSERT / UPDATE HEADER PENJUALAN
-         */
+        const penjualanRows = [];
 
         for (const penjualan of data.penjualan) {
 
@@ -447,28 +361,15 @@ const IncomingSync = {
                 continue;
             }
 
-            const id =
-                String(penjualan.id);
+            penjualanRows.push(penjualan);
 
-            await DB.put(
-                "penjualan",
-                penjualan
-            );
-
-            existingPenjualan.set(
-                id,
-                penjualan
+            existingPenjualan.add(
+                String(penjualan.id)
             );
 
         }
 
-        /*
-         * INDEX DETAIL BERDASARKAN
-         * IDENTITAS DAN ISI DATA.
-         */
-
-        const existingDetail =
-            new Set();
+        const existingDetail = new Set();
 
         for (const detail of localDetail || []) {
 
@@ -478,9 +379,7 @@ const IncomingSync = {
 
         }
 
-        /*
-         * INSERT DETAIL PENJUALAN
-         */
+        const detailRows = [];
 
         for (const detail of data.detailPenjualan) {
 
@@ -491,10 +390,11 @@ const IncomingSync = {
                 continue;
             }
 
-            const transactionId =
-                String(detail.id);
-
-            if (!existingPenjualan.has(transactionId)) {
+            if (
+                !existingPenjualan.has(
+                    String(detail.id)
+                )
+            ) {
                 continue;
             }
 
@@ -505,8 +405,7 @@ const IncomingSync = {
                 continue;
             }
 
-            await DB.add(
-                "detailPenjualan",
+            detailRows.push(
                 this.normalizeDetail(detail)
             );
 
@@ -514,13 +413,7 @@ const IncomingSync = {
 
         }
 
-        /*
-         * INDEX PEMBAYARAN BERDASARKAN
-         * IDENTITAS DAN ISI DATA.
-         */
-
-        const existingPembayaran =
-            new Set();
+        const existingPembayaran = new Set();
 
         for (const pembayaran of localPembayaran || []) {
 
@@ -530,9 +423,7 @@ const IncomingSync = {
 
         }
 
-        /*
-         * INSERT PEMBAYARAN PENJUALAN
-         */
+        const pembayaranRows = [];
 
         for (const pembayaran of data.pembayaranPenjualan) {
 
@@ -543,10 +434,11 @@ const IncomingSync = {
                 continue;
             }
 
-            const transactionId =
-                String(pembayaran.id);
-
-            if (!existingPenjualan.has(transactionId)) {
+            if (
+                !existingPenjualan.has(
+                    String(pembayaran.id)
+                )
+            ) {
                 continue;
             }
 
@@ -557,14 +449,32 @@ const IncomingSync = {
                 continue;
             }
 
-            await DB.add(
-                "pembayaranPenjualan",
+            pembayaranRows.push(
                 this.normalizePayment(pembayaran)
             );
 
             existingPembayaran.add(signature);
 
         }
+
+        await Promise.all([
+
+            DB.bulkPut(
+                "penjualan",
+                penjualanRows
+            ),
+
+            DB.bulkAdd(
+                "detailPenjualan",
+                detailRows
+            ),
+
+            DB.bulkAdd(
+                "pembayaranPenjualan",
+                pembayaranRows
+            )
+
+        ]);
 
     },
 
@@ -575,10 +485,6 @@ const IncomingSync = {
 
     async applyPembelianChanges(data) {
 
-        /*
-         * AMBIL DATA LOKAL
-         */
-
         const [
             localPembelian,
             localDetailPembelian,
@@ -586,39 +492,24 @@ const IncomingSync = {
         ] = await Promise.all([
 
             DB.getAll("pembelian"),
-
             DB.getAll("detailPembelian"),
-
             DB.getAll("pembayaranPembelian")
 
         ]);
 
-        /*
-         * INDEX HEADER PEMBELIAN
-         */
-
-        const existingPembelian =
-            new Map();
+        const existingPembelian = new Set();
 
         for (const item of localPembelian || []) {
 
-            if (
-                !item ||
-                !item.id
-            ) {
-                continue;
+            if (item?.id) {
+                existingPembelian.add(
+                    String(item.id)
+                );
             }
-
-            existingPembelian.set(
-                String(item.id),
-                item
-            );
 
         }
 
-        /*
-         * INSERT / UPDATE HEADER PEMBELIAN
-         */
+        const pembelianRows = [];
 
         for (const pembelian of data.pembelian) {
 
@@ -629,27 +520,15 @@ const IncomingSync = {
                 continue;
             }
 
-            const id =
-                String(pembelian.id);
+            pembelianRows.push(pembelian);
 
-            await DB.put(
-                "pembelian",
-                pembelian
-            );
-
-            existingPembelian.set(
-                id,
-                pembelian
+            existingPembelian.add(
+                String(pembelian.id)
             );
 
         }
 
-        /*
-         * INDEX DETAIL PEMBELIAN
-         */
-
-        const existingDetail =
-            new Set();
+        const existingDetail = new Set();
 
         for (const detail of localDetailPembelian || []) {
 
@@ -659,9 +538,7 @@ const IncomingSync = {
 
         }
 
-        /*
-         * INSERT DETAIL PEMBELIAN
-         */
+        const detailRows = [];
 
         for (const detail of data.detailPembelian) {
 
@@ -672,10 +549,11 @@ const IncomingSync = {
                 continue;
             }
 
-            const transactionId =
-                String(detail.id);
-
-            if (!existingPembelian.has(transactionId)) {
+            if (
+                !existingPembelian.has(
+                    String(detail.id)
+                )
+            ) {
                 continue;
             }
 
@@ -686,8 +564,7 @@ const IncomingSync = {
                 continue;
             }
 
-            await DB.add(
-                "detailPembelian",
+            detailRows.push(
                 this.normalizePembelianDetail(detail)
             );
 
@@ -695,12 +572,7 @@ const IncomingSync = {
 
         }
 
-        /*
-         * INDEX PEMBAYARAN PEMBELIAN
-         */
-
-        const existingPembayaran =
-            new Set();
+        const existingPembayaran = new Set();
 
         for (const pembayaran of localPembayaranPembelian || []) {
 
@@ -710,9 +582,7 @@ const IncomingSync = {
 
         }
 
-        /*
-         * INSERT PEMBAYARAN PEMBELIAN
-         */
+        const pembayaranRows = [];
 
         for (const pembayaran of data.pembayaranPembelian) {
 
@@ -723,10 +593,11 @@ const IncomingSync = {
                 continue;
             }
 
-            const transactionId =
-                String(pembayaran.id);
-
-            if (!existingPembelian.has(transactionId)) {
+            if (
+                !existingPembelian.has(
+                    String(pembayaran.id)
+                )
+            ) {
                 continue;
             }
 
@@ -737,14 +608,32 @@ const IncomingSync = {
                 continue;
             }
 
-            await DB.put(
-                "pembayaranPembelian",
+            pembayaranRows.push(
                 this.normalizePembelianPayment(pembayaran)
             );
 
             existingPembayaran.add(signature);
 
         }
+
+        await Promise.all([
+
+            DB.bulkPut(
+                "pembelian",
+                pembelianRows
+            ),
+
+            DB.bulkAdd(
+                "detailPembelian",
+                detailRows
+            ),
+
+            DB.bulkPut(
+                "pembayaranPembelian",
+                pembayaranRows
+            )
+
+        ]);
 
     },
 
@@ -758,21 +647,13 @@ const IncomingSync = {
         return JSON.stringify([
 
             String(detail.id || ""),
-
             String(detail.kode || ""),
-
             String(detail.nama || ""),
-
             String(detail.satuan || ""),
-
             Number(detail.qty || 0),
-
             Number(detail.konversi || 0),
-
             Number(detail.harga || 0),
-
             Number(detail.discount || 0),
-
             Number(detail.subtotal || 0)
 
         ]);
@@ -789,11 +670,8 @@ const IncomingSync = {
         return JSON.stringify([
 
             String(pembayaran.id || ""),
-
             String(pembayaran.metode || ""),
-
             Number(pembayaran.nominal || 0),
-
             Number(pembayaran.kembalian || 0)
 
         ]);
@@ -810,21 +688,13 @@ const IncomingSync = {
         return {
 
             id: detail.id,
-
             kode: detail.kode,
-
             nama: detail.nama,
-
             satuan: detail.satuan,
-
             qty: detail.qty,
-
             konversi: detail.konversi,
-
             harga: detail.harga,
-
             discount: detail.discount,
-
             subtotal: detail.subtotal
 
         };
@@ -841,11 +711,8 @@ const IncomingSync = {
         return {
 
             id: pembayaran.id,
-
             metode: pembayaran.metode,
-
             nominal: pembayaran.nominal,
-
             kembalian: pembayaran.kembalian
 
         };
@@ -859,37 +726,29 @@ const IncomingSync = {
 
     createPembelianDetailSignature(detail) {
 
-    return JSON.stringify([
+        return JSON.stringify([
 
-        String(detail.id || ""),
+            String(detail.id || ""),
+            String(detail.kode || ""),
+            String(
+                detail.nama ||
+                detail.namaBarang ||
+                ""
+            ),
+            String(detail.satuan || ""),
+            Number(detail.qty || 0),
+            Number(
+                detail.isi ??
+                detail.konversi ??
+                0
+            ),
+            Number(detail.harga || 0),
+            Number(detail.disc || 0),
+            Number(detail.total || 0)
 
-        String(detail.kode || ""),
+        ]);
 
-        String(
-            detail.nama ||
-            detail.namaBarang ||
-            ""
-        ),
-
-        String(detail.satuan || ""),
-
-        Number(detail.qty || 0),
-
-        Number(
-            detail.isi ??
-            detail.konversi ??
-            0
-        ),
-
-        Number(detail.harga || 0),
-
-        Number(detail.disc || 0),
-
-        Number(detail.total || 0)
-
-    ]);
-
-},
+    },
 
 
     /* ======================================
@@ -898,35 +757,32 @@ const IncomingSync = {
 
     normalizePembelianDetail(detail) {
 
-    return {
+        return {
 
-        id: detail.id,
+            id: detail.id,
+            kode: detail.kode,
 
-        kode: detail.kode,
+            nama:
+                detail.nama ||
+                detail.namaBarang ||
+                "",
 
-        nama:
-            detail.nama ||
-            detail.namaBarang ||
-            "",
+            satuan: detail.satuan,
 
-        satuan: detail.satuan,
+            qty: detail.qty,
 
-        qty: detail.qty,
+            isi:
+                detail.isi ??
+                detail.konversi ??
+                0,
 
-        isi:
-            detail.isi ??
-            detail.konversi ??
-            0,
+            harga: detail.harga,
+            disc: detail.disc,
+            total: detail.total
 
-        harga: detail.harga,
+        };
 
-        disc: detail.disc,
-
-        total: detail.total
-
-    };
-
-},
+    },
 
 
     /* ======================================
@@ -938,11 +794,8 @@ const IncomingSync = {
         return JSON.stringify([
 
             String(pembayaran.id || ""),
-
             String(pembayaran.metode || ""),
-
             Number(pembayaran.nominal || 0),
-
             Number(pembayaran.kembalian || 0)
 
         ]);
@@ -959,11 +812,8 @@ const IncomingSync = {
         return {
 
             id: pembayaran.id,
-
             metode: pembayaran.metode,
-
             nominal: pembayaran.nominal,
-
             kembalian: pembayaran.kembalian
 
         };
