@@ -859,29 +859,37 @@ const IncomingSync = {
 
     createPembelianDetailSignature(detail) {
 
-        return JSON.stringify([
+    return JSON.stringify([
 
-            String(detail.id || ""),
+        String(detail.id || ""),
 
-            String(detail.kode || ""),
+        String(detail.kode || ""),
 
-            String(detail.namaBarang || ""),
+        String(
+            detail.nama ||
+            detail.namaBarang ||
+            ""
+        ),
 
-            String(detail.satuan || ""),
+        String(detail.satuan || ""),
 
-            Number(detail.qty || 0),
+        Number(detail.qty || 0),
 
-            Number(detail.konversi || 0),
+        Number(
+            detail.isi ??
+            detail.konversi ??
+            0
+        ),
 
-            Number(detail.harga || 0),
+        Number(detail.harga || 0),
 
-            Number(detail.disc || 0),
+        Number(detail.disc || 0),
 
-            Number(detail.total || 0)
+        Number(detail.total || 0)
 
-        ]);
+    ]);
 
-    },
+},
 
 
     /* ======================================
@@ -890,29 +898,35 @@ const IncomingSync = {
 
     normalizePembelianDetail(detail) {
 
-        return {
+    return {
 
-            id: detail.id,
+        id: detail.id,
 
-            kode: detail.kode,
+        kode: detail.kode,
 
-            namaBarang: detail.namaBarang,
+        nama:
+            detail.nama ||
+            detail.namaBarang ||
+            "",
 
-            satuan: detail.satuan,
+        satuan: detail.satuan,
 
-            qty: detail.qty,
+        qty: detail.qty,
 
-            konversi: detail.konversi,
+        isi:
+            detail.isi ??
+            detail.konversi ??
+            0,
 
-            harga: detail.harga,
+        harga: detail.harga,
 
-            disc: detail.disc,
+        disc: detail.disc,
 
-            total: detail.total
+        total: detail.total
 
-        };
+    };
 
-    },
+},
 
 
     /* ======================================
