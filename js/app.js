@@ -94,25 +94,30 @@ const App = {
             // 4. Inisialisasi sinkronisasi background & antrian syncQueue
             Sync.init();
 
-          // 5. Jalankan Incoming Sync dan tunggu sampai selesai
-            if (navigator.onLine) {
+         // 5. Jalankan Incoming Sync dan tunggu sampai selesai
+if (navigator.onLine) {
 
-                try {
+    try {
 
-                    await IncomingSync.process();
+        Loading.update(
+            "Memeriksa dan memperbarui database...",
+            "Sinkronisasi Data"
+        );
 
-                }
-                catch (error) {
+        await IncomingSync.process();
 
-                    console.warn(
-                        "Incoming Sync gagal:",
-                        error.message ||
-                        error
-                    );
+    }
+    catch (error) {
 
-                }
+        console.warn(
+            "Incoming Sync gagal:",
+            error.message ||
+            error
+        );
 
-            }
+    }
+
+}
 
 
             Loading.update(
