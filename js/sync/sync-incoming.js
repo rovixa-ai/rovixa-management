@@ -95,11 +95,30 @@ const IncomingSync = {
                 );
             }
 
+            /*
+             * PASTIKAN CHECKPOINT VALID
+             */
+
+            const lastSyncTime =
+                new Date(data.lastSync).getTime();
+
+            if (!Number.isFinite(lastSyncTime)) {
+                throw new Error(
+                    "Checkpoint dari server tidak valid."
+                );
+            }
+
+            /*
+             * TERAPKAN PERUBAHAN SERVER
+             */
+
             await this.applyChanges(data);
 
             /*
-             * Simpan checkpoint hanya setelah
-             * seluruh perubahan berhasil diproses.
+             * SIMPAN CHECKPOINT
+             *
+             * Hanya dilakukan setelah seluruh
+             * perubahan berhasil diterapkan.
              */
 
             await DB.put(
@@ -233,6 +252,7 @@ const IncomingSync = {
                     pendingSatuan.add(
                         String(item.referenceId)
                     );
+
                 }
 
             }
@@ -363,11 +383,6 @@ const IncomingSync = {
 
             const id =
                 String(penjualan.id);
-
-            /*
-             * Header dari server dapat diperbarui
-             * jika transaksi tersebut sudah ada.
-             */
 
             await DB.put(
                 "penjualan",
