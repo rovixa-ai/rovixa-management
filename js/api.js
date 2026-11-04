@@ -300,7 +300,8 @@ const API = {
     },
 
 
-    getSyncChanges(since, database) {
+  
+getSyncChanges(since, database) {
 
     database =
         database || {};
@@ -318,19 +319,38 @@ const API = {
                 database.year || "",
 
             penjualanId:
-                database.penjualan || "",
+                database.penjualanId ||
+                database.penjualan ||
+                "",
 
             detailPenjualanId:
-                database.detailPenjualan || "",
+                database.detailPenjualanId ||
+                database.detailPenjualan ||
+                "",
 
             pembayaranId:
-                database.pembayaran || ""
+                database.pembayaranId ||
+                database.pembayaran ||
+                "",
+
+            pembelianId:
+                database.pembelianId ||
+                "",
+
+            detailPembelianId:
+                database.detailPembelianId ||
+                "",
+
+            pembayaranPembelianId:
+                database.pembayaranPembelianId ||
+                ""
 
         }
 
     );
 
 },
+
 
 
     /* ==================================
