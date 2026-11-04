@@ -1,3 +1,4 @@
+
 // app.js
 
 const App = {
@@ -92,6 +93,21 @@ const App = {
 
             // 4. Inisialisasi sinkronisasi background & antrian syncQueue
             Sync.init();
+
+            // 5. Jalankan Incoming Sync otomatis
+            if (navigator.onLine) {
+
+                IncomingSync.process().catch(error => {
+
+                    console.warn(
+                        "Incoming Sync gagal:",
+                        error.message ||
+                        error
+                    );
+
+                });
+
+            }
 
 
             Loading.update(
