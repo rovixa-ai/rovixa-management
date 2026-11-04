@@ -197,15 +197,20 @@ const IncomingSync = {
 
     /* ======================================
        APPLY SERVER CHANGES
+       PARALLEL MODULE PROCESSING
     ====================================== */
 
     async applyChanges(data) {
 
-        await this.applyMasterChanges(data);
+        await Promise.all([
 
-        await this.applyPenjualanChanges(data);
+            this.applyMasterChanges(data),
 
-        await this.applyPembelianChanges(data);
+            this.applyPenjualanChanges(data),
+
+            this.applyPembelianChanges(data)
+
+        ]);
 
     },
 
@@ -216,13 +221,29 @@ const IncomingSync = {
 
     async applyMasterChanges(data) {
 
-        const queue =
-            await DB.getAll("syncQueue");
+        const hasBarang =
+            data.barang.length > 0;
+
+        const hasSatuan =
+            data.satuan.length > 0;
+
+        if (!hasBarang && !hasSatuan) {
+            return;
+        }
+
+        let queue = [];
+
+        if (hasBarang || hasSatuan) {
+
+            queue =
+                await DB.getAll("syncQueue") || [];
+
+        }
 
         const pendingBarang = new Set();
         const pendingSatuan = new Set();
 
-        for (const item of queue || []) {
+        for (const item of queue) {
 
             if (
                 item.status !== "pending" &&
@@ -232,8 +253,11 @@ const IncomingSync = {
             }
 
             if (
-                item.type === "barang" ||
-                item.type === "barangUpdate"
+                hasBarang &&
+                (
+                    item.type === "barang" ||
+                    item.type === "barangUpdate"
+                )
             ) {
 
                 if (item.referenceId) {
@@ -244,7 +268,10 @@ const IncomingSync = {
 
             }
 
-            if (item.type === "satuan") {
+            if (
+                hasSatuan &&
+                item.type === "satuan"
+            ) {
 
                 if (item.referenceId) {
                     pendingSatuan.add(
@@ -303,19 +330,33 @@ const IncomingSync = {
 
         }
 
-        await Promise.all([
+        const tasks = [];
 
-            DB.bulkPut(
-                "barang",
-                barangRows
-            ),
+        if (barangRows.length > 0) {
 
-            DB.bulkPut(
-                "satuan",
-                satuanRows
-            )
+            tasks.push(
+                DB.bulkPut(
+                    "barang",
+                    barangRows
+                )
+            );
 
-        ]);
+        }
+
+        if (satuanRows.length > 0) {
+
+            tasks.push(
+                DB.bulkPut(
+                    "satuan",
+                    satuanRows
+                )
+            );
+
+        }
+
+        if (tasks.length > 0) {
+            await Promise.all(tasks);
+        }
 
     },
 
@@ -326,31 +367,26 @@ const IncomingSync = {
 
     async applyPenjualanChanges(data) {
 
-        const [
-            localPenjualan,
-            localDetail,
-            localPembayaran
-        ] = await Promise.all([
+        const hasPenjualan =
+            data.penjualan.length > 0;
 
-            DB.getAll("penjualan"),
-            DB.getAll("detailPenjualan"),
-            DB.getAll("pembayaranPenjualan")
+        const hasDetail =
+            data.detailPenjualan.length > 0;
 
-        ]);
+        const hasPembayaran =
+            data.pembayaranPenjualan.length > 0;
 
-        const existingPenjualan = new Set();
-
-        for (const item of localPenjualan || []) {
-
-            if (item?.id) {
-                existingPenjualan.add(
-                    String(item.id)
-                );
-            }
-
+        if (
+            !hasPenjualan &&
+            !hasDetail &&
+            !hasPembayaran
+        ) {
+            return;
         }
 
         const penjualanRows = [];
+
+        const existingPenjualan = new Set();
 
         for (const penjualan of data.penjualan) {
 
@@ -369,112 +405,178 @@ const IncomingSync = {
 
         }
 
-        const existingDetail = new Set();
+        /*
+         * Baca header lokal hanya jika
+         * detail atau pembayaran perlu diperiksa.
+         */
 
-        for (const detail of localDetail || []) {
+        if (hasDetail || hasPembayaran) {
 
-            existingDetail.add(
-                this.createDetailSignature(detail)
-            );
+            const localPenjualan =
+                await DB.getAll("penjualan");
+
+            for (const item of localPenjualan || []) {
+
+                if (item?.id) {
+
+                    existingPenjualan.add(
+                        String(item.id)
+                    );
+
+                }
+
+            }
 
         }
 
-        const detailRows = [];
+        const tasks = [];
 
-        for (const detail of data.detailPenjualan) {
+        if (penjualanRows.length > 0) {
 
-            if (
-                !detail ||
-                !detail.id
-            ) {
-                continue;
-            }
-
-            if (
-                !existingPenjualan.has(
-                    String(detail.id)
+            tasks.push(
+                DB.bulkPut(
+                    "penjualan",
+                    penjualanRows
                 )
-            ) {
-                continue;
-            }
-
-            const signature =
-                this.createDetailSignature(detail);
-
-            if (existingDetail.has(signature)) {
-                continue;
-            }
-
-            detailRows.push(
-                this.normalizeDetail(detail)
-            );
-
-            existingDetail.add(signature);
-
-        }
-
-        const existingPembayaran = new Set();
-
-        for (const pembayaran of localPembayaran || []) {
-
-            existingPembayaran.add(
-                this.createPaymentSignature(pembayaran)
             );
 
         }
 
-        const pembayaranRows = [];
+        /*
+         * DETAIL PENJUALAN
+         */
 
-        for (const pembayaran of data.pembayaranPenjualan) {
+        if (hasDetail) {
 
-            if (
-                !pembayaran ||
-                !pembayaran.id
-            ) {
-                continue;
+            const localDetail =
+                await DB.getAll("detailPenjualan");
+
+            const existingDetail = new Set();
+
+            for (const detail of localDetail || []) {
+
+                existingDetail.add(
+                    this.createDetailSignature(detail)
+                );
+
             }
 
-            if (
-                !existingPenjualan.has(
-                    String(pembayaran.id)
-                )
-            ) {
-                continue;
+            const detailRows = [];
+
+            for (const detail of data.detailPenjualan) {
+
+                if (
+                    !detail ||
+                    !detail.id
+                ) {
+                    continue;
+                }
+
+                if (
+                    !existingPenjualan.has(
+                        String(detail.id)
+                    )
+                ) {
+                    continue;
+                }
+
+                const signature =
+                    this.createDetailSignature(detail);
+
+                if (existingDetail.has(signature)) {
+                    continue;
+                }
+
+                detailRows.push(
+                    this.normalizeDetail(detail)
+                );
+
+                existingDetail.add(signature);
+
             }
 
-            const signature =
-                this.createPaymentSignature(pembayaran);
+            if (detailRows.length > 0) {
 
-            if (existingPembayaran.has(signature)) {
-                continue;
+                tasks.push(
+                    DB.bulkAdd(
+                        "detailPenjualan",
+                        detailRows
+                    )
+                );
+
             }
-
-            pembayaranRows.push(
-                this.normalizePayment(pembayaran)
-            );
-
-            existingPembayaran.add(signature);
 
         }
 
-        await Promise.all([
+        /*
+         * PEMBAYARAN PENJUALAN
+         */
 
-            DB.bulkPut(
-                "penjualan",
-                penjualanRows
-            ),
+        if (hasPembayaran) {
 
-            DB.bulkAdd(
-                "detailPenjualan",
-                detailRows
-            ),
+            const localPembayaran =
+                await DB.getAll("pembayaranPenjualan");
 
-            DB.bulkAdd(
-                "pembayaranPenjualan",
-                pembayaranRows
-            )
+            const existingPembayaran = new Set();
 
-        ]);
+            for (const pembayaran of localPembayaran || []) {
+
+                existingPembayaran.add(
+                    this.createPaymentSignature(pembayaran)
+                );
+
+            }
+
+            const pembayaranRows = [];
+
+            for (const pembayaran of data.pembayaranPenjualan) {
+
+                if (
+                    !pembayaran ||
+                    !pembayaran.id
+                ) {
+                    continue;
+                }
+
+                if (
+                    !existingPenjualan.has(
+                        String(pembayaran.id)
+                    )
+                ) {
+                    continue;
+                }
+
+                const signature =
+                    this.createPaymentSignature(pembayaran);
+
+                if (existingPembayaran.has(signature)) {
+                    continue;
+                }
+
+                pembayaranRows.push(
+                    this.normalizePayment(pembayaran)
+                );
+
+                existingPembayaran.add(signature);
+
+            }
+
+            if (pembayaranRows.length > 0) {
+
+                tasks.push(
+                    DB.bulkAdd(
+                        "pembayaranPenjualan",
+                        pembayaranRows
+                    )
+                );
+
+            }
+
+        }
+
+        if (tasks.length > 0) {
+            await Promise.all(tasks);
+        }
 
     },
 
@@ -485,31 +587,26 @@ const IncomingSync = {
 
     async applyPembelianChanges(data) {
 
-        const [
-            localPembelian,
-            localDetailPembelian,
-            localPembayaranPembelian
-        ] = await Promise.all([
+        const hasPembelian =
+            data.pembelian.length > 0;
 
-            DB.getAll("pembelian"),
-            DB.getAll("detailPembelian"),
-            DB.getAll("pembayaranPembelian")
+        const hasDetail =
+            data.detailPembelian.length > 0;
 
-        ]);
+        const hasPembayaran =
+            data.pembayaranPembelian.length > 0;
 
-        const existingPembelian = new Set();
-
-        for (const item of localPembelian || []) {
-
-            if (item?.id) {
-                existingPembelian.add(
-                    String(item.id)
-                );
-            }
-
+        if (
+            !hasPembelian &&
+            !hasDetail &&
+            !hasPembayaran
+        ) {
+            return;
         }
 
         const pembelianRows = [];
+
+        const existingPembelian = new Set();
 
         for (const pembelian of data.pembelian) {
 
@@ -528,112 +625,178 @@ const IncomingSync = {
 
         }
 
-        const existingDetail = new Set();
+        /*
+         * Baca header lokal hanya jika
+         * detail atau pembayaran perlu diperiksa.
+         */
 
-        for (const detail of localDetailPembelian || []) {
+        if (hasDetail || hasPembayaran) {
 
-            existingDetail.add(
-                this.createPembelianDetailSignature(detail)
-            );
+            const localPembelian =
+                await DB.getAll("pembelian");
+
+            for (const item of localPembelian || []) {
+
+                if (item?.id) {
+
+                    existingPembelian.add(
+                        String(item.id)
+                    );
+
+                }
+
+            }
 
         }
 
-        const detailRows = [];
+        const tasks = [];
 
-        for (const detail of data.detailPembelian) {
+        if (pembelianRows.length > 0) {
 
-            if (
-                !detail ||
-                !detail.id
-            ) {
-                continue;
-            }
-
-            if (
-                !existingPembelian.has(
-                    String(detail.id)
+            tasks.push(
+                DB.bulkPut(
+                    "pembelian",
+                    pembelianRows
                 )
-            ) {
-                continue;
-            }
-
-            const signature =
-                this.createPembelianDetailSignature(detail);
-
-            if (existingDetail.has(signature)) {
-                continue;
-            }
-
-            detailRows.push(
-                this.normalizePembelianDetail(detail)
-            );
-
-            existingDetail.add(signature);
-
-        }
-
-        const existingPembayaran = new Set();
-
-        for (const pembayaran of localPembayaranPembelian || []) {
-
-            existingPembayaran.add(
-                this.createPembelianPaymentSignature(pembayaran)
             );
 
         }
 
-        const pembayaranRows = [];
+        /*
+         * DETAIL PEMBELIAN
+         */
 
-        for (const pembayaran of data.pembayaranPembelian) {
+        if (hasDetail) {
 
-            if (
-                !pembayaran ||
-                !pembayaran.id
-            ) {
-                continue;
+            const localDetailPembelian =
+                await DB.getAll("detailPembelian");
+
+            const existingDetail = new Set();
+
+            for (const detail of localDetailPembelian || []) {
+
+                existingDetail.add(
+                    this.createPembelianDetailSignature(detail)
+                );
+
             }
 
-            if (
-                !existingPembelian.has(
-                    String(pembayaran.id)
-                )
-            ) {
-                continue;
+            const detailRows = [];
+
+            for (const detail of data.detailPembelian) {
+
+                if (
+                    !detail ||
+                    !detail.id
+                ) {
+                    continue;
+                }
+
+                if (
+                    !existingPembelian.has(
+                        String(detail.id)
+                    )
+                ) {
+                    continue;
+                }
+
+                const signature =
+                    this.createPembelianDetailSignature(detail);
+
+                if (existingDetail.has(signature)) {
+                    continue;
+                }
+
+                detailRows.push(
+                    this.normalizePembelianDetail(detail)
+                );
+
+                existingDetail.add(signature);
+
             }
 
-            const signature =
-                this.createPembelianPaymentSignature(pembayaran);
+            if (detailRows.length > 0) {
 
-            if (existingPembayaran.has(signature)) {
-                continue;
+                tasks.push(
+                    DB.bulkAdd(
+                        "detailPembelian",
+                        detailRows
+                    )
+                );
+
             }
-
-            pembayaranRows.push(
-                this.normalizePembelianPayment(pembayaran)
-            );
-
-            existingPembayaran.add(signature);
 
         }
 
-        await Promise.all([
+        /*
+         * PEMBAYARAN PEMBELIAN
+         */
 
-            DB.bulkPut(
-                "pembelian",
-                pembelianRows
-            ),
+        if (hasPembayaran) {
 
-            DB.bulkAdd(
-                "detailPembelian",
-                detailRows
-            ),
+            const localPembayaranPembelian =
+                await DB.getAll("pembayaranPembelian");
 
-            DB.bulkPut(
-                "pembayaranPembelian",
-                pembayaranRows
-            )
+            const existingPembayaran = new Set();
 
-        ]);
+            for (const pembayaran of localPembayaranPembelian || []) {
+
+                existingPembayaran.add(
+                    this.createPembelianPaymentSignature(pembayaran)
+                );
+
+            }
+
+            const pembayaranRows = [];
+
+            for (const pembayaran of data.pembayaranPembelian) {
+
+                if (
+                    !pembayaran ||
+                    !pembayaran.id
+                ) {
+                    continue;
+                }
+
+                if (
+                    !existingPembelian.has(
+                        String(pembayaran.id)
+                    )
+                ) {
+                    continue;
+                }
+
+                const signature =
+                    this.createPembelianPaymentSignature(pembayaran);
+
+                if (existingPembayaran.has(signature)) {
+                    continue;
+                }
+
+                pembayaranRows.push(
+                    this.normalizePembelianPayment(pembayaran)
+                );
+
+                existingPembayaran.add(signature);
+
+            }
+
+            if (pembayaranRows.length > 0) {
+
+                tasks.push(
+                    DB.bulkPut(
+                        "pembayaranPembelian",
+                        pembayaranRows
+                    )
+                );
+
+            }
+
+        }
+
+        if (tasks.length > 0) {
+            await Promise.all(tasks);
+        }
 
     },
 
