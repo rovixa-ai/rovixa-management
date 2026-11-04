@@ -96,7 +96,9 @@ async open(
 
                         nama:
                             String(
-                                item.nama || ""
+                                item.namaBarang ||
+                                item.nama ||
+                                ""
                             ),
 
                         satuan:
