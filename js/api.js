@@ -343,6 +343,11 @@ getSyncChanges(since, database) {
 
             pembayaranPembelianId:
                 database.pembayaranPembelianId ||
+                "",
+
+            expenseId:
+                database.expenseId ||
+                database.expense ||
                 ""
 
         }
