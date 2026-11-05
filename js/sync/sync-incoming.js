@@ -831,181 +831,211 @@ const IncomingSync = {
     },
 
 
-    /* ======================================
-       APPLY EXPENSE CHANGES
-    ====================================== */
+   /* ======================================
+   APPLY EXPENSE CHANGES
+====================================== */
 
-    async applyExpenseChanges(data) {
+async applyExpenseChanges(data) {
 
-        const expenses =
-            Array.isArray(data.expense)
-                ? data.expense
-                : [];
+    const expenses =
+        Array.isArray(data.expense)
+            ? data.expense
+            : [];
 
-        if (expenses.length === 0) {
-            return;
+    if (expenses.length === 0) {
+        return;
+    }
+
+    /*
+    ======================================
+       BACA QUEUE LOKAL
+       LINDUNGI EXPENSE PENDING
+    ======================================
+    */
+
+    const queue =
+        await DB.getAll("syncQueue") || [];
+
+    const pendingExpenseIds = new Set();
+
+    for (const item of queue) {
+
+        if (
+            item.type !== "expense" ||
+            (
+                item.status !== "pending" &&
+                item.status !== "syncing"
+            )
+        ) {
+            continue;
         }
 
-        /*
-         * BACA QUEUE LOKAL
-         * LINDUNGI EXPENSE PENDING
-         */
+        if (item.referenceId) {
 
-        const queue =
-            await DB.getAll("syncQueue") || [];
-
-        const pendingExpenseIds = new Set();
-
-        for (const item of queue) {
-
-            if (
-                item.type !== "expense" ||
-                (
-                    item.status !== "pending" &&
-                    item.status !== "syncing"
-                )
-            ) {
-                continue;
-            }
-
-            if (item.referenceId) {
-
-                pendingExpenseIds.add(
-                    String(item.referenceId)
-                );
-
-            }
-
-        }
-
-        /*
-         * BACA DATA EXPENSE LOKAL
-         */
-
-        const localExpenses =
-            await DB.getAll("expense") || [];
-
-        const localById = new Map();
-
-        for (const item of localExpenses) {
-
-            if (item && item.id) {
-
-                localById.set(
-                    String(item.id),
-                    item
-                );
-
-            }
-
-        }
-
-        /*
-         * SIAPKAN DATA DARI SERVER
-         */
-
-        const expenseRows = [];
-
-        for (const expense of expenses) {
-
-            if (
-                !expense ||
-                !expense.id
-            ) {
-                continue;
-            }
-
-            const serverId =
-                String(expense.id);
-
-            const localExpense =
-                localById.get(serverId);
-
-            /*
-             * Jangan menimpa data lokal
-             * yang masih dalam antrean sync.
-             */
-
-            if (
-                pendingExpenseIds.has(serverId)
-            ) {
-                continue;
-            }
-
-            /*
-             * Jika ID lokal berbeda dengan ID server,
-             * cari berdasarkan spreadsheetId.
-             *
-             * Expense lokal yang sudah berhasil
-             * disinkronkan menggunakan spreadsheetId
-             * untuk menyimpan ID dari server.
-             */
-
-            const matchedLocal =
-                localExpense ||
-                localExpenses.find(function(item) {
-
-                    return (
-                        String(
-                            item.spreadsheetId || ""
-                        ) === serverId
-                    );
-
-                });
-
-            const normalizedExpense = {
-
-                ...(matchedLocal || {}),
-
-                id:
-                    serverId,
-
-                tanggal:
-                    expense.tanggal,
-
-                kategori:
-                    expense.kategori,
-
-                keterangan:
-                    expense.keterangan,
-
-                jumlah:
-                    Number(expense.jumlah) || 0,
-
-                metode:
-                    expense.metode,
-
-                status:
-                    expense.status,
-
-                spreadsheetId:
-                    serverId,
-
-                syncStatus:
-                    "synced"
-
-            };
-
-            expenseRows.push(
-                normalizedExpense
+            pendingExpenseIds.add(
+                String(item.referenceId)
             );
 
         }
 
-        /*
-         * SIMPAN BULK
-         */
+    }
 
-        if (expenseRows.length > 0) {
+    /*
+    ======================================
+       BACA DATA EXPENSE LOKAL
+    ======================================
+    */
 
-            await DB.bulkPut(
-                "expense",
-                expenseRows
+    const localExpenses =
+        await DB.getAll("expense") || [];
+
+    const localById = new Map();
+    const localBySpreadsheetId = new Map();
+
+    for (const item of localExpenses) {
+
+        if (!item) {
+            continue;
+        }
+
+        if (item.id) {
+
+            localById.set(
+                String(item.id),
+                item
             );
 
         }
 
-    },
+        if (item.spreadsheetId) {
+
+            localBySpreadsheetId.set(
+                String(item.spreadsheetId),
+                item
+            );
+
+        }
+
+    }
+
+    /*
+    ======================================
+       SIAPKAN DATA DARI SERVER
+    ======================================
+    */
+
+    const expenseRows = [];
+
+    for (const expense of expenses) {
+
+        if (
+            !expense ||
+            !expense.id
+        ) {
+            continue;
+        }
+
+        const serverId =
+            String(expense.id).trim();
+
+        if (!serverId) {
+            continue;
+        }
+
+        /*
+        ==================================
+           CARI DATA LOKAL
+        ==================================
+        */
+
+        const matchedLocal =
+            localById.get(serverId) ||
+            localBySpreadsheetId.get(serverId);
+
+        /*
+        ==================================
+           LINDUNGI DATA PENDING
+        ==================================
+        */
+
+        if (
+            matchedLocal &&
+            pendingExpenseIds.has(
+                String(matchedLocal.id)
+            )
+        ) {
+            continue;
+        }
+
+        if (
+            pendingExpenseIds.has(serverId)
+        ) {
+            continue;
+        }
+
+        /*
+        ==================================
+           PERTAHANKAN PRIMARY KEY LOKAL
+        ==================================
+        */
+
+        const normalizedExpense = {
+
+            ...(matchedLocal || {}),
+
+            id:
+                matchedLocal
+                    ? matchedLocal.id
+                    : serverId,
+
+            tanggal:
+                expense.tanggal,
+
+            kategori:
+                expense.kategori,
+
+            keterangan:
+                expense.keterangan,
+
+            jumlah:
+                Number(expense.jumlah) || 0,
+
+            metode:
+                expense.metode,
+
+            status:
+                expense.status,
+
+            spreadsheetId:
+                serverId,
+
+            syncStatus:
+                "synced"
+
+        };
+
+        expenseRows.push(
+            normalizedExpense
+        );
+
+    }
+
+    /*
+    ======================================
+       SIMPAN BULK
+    ======================================
+    */
+
+    if (expenseRows.length > 0) {
+
+        await DB.bulkPut(
+            "expense",
+            expenseRows
+        );
+
+    }
+
+},
 
 
     /* ======================================
