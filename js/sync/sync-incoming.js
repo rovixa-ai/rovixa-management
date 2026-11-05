@@ -2,7 +2,8 @@
 /* ======================================
    ROVIXA POS
    INCOMING INCREMENTAL SYNC
-   BARANG, SATUAN, PENJUALAN & PEMBELIAN
+   BARANG, SATUAN, PENJUALAN,
+   PEMBELIAN & EXPENSE
    BULK DATABASE OPTIMIZATION
 ====================================== */
 
@@ -56,6 +57,29 @@ const IncomingSync = {
                 );
             }
 
+            /* ======================================
+               DATABASE EXPENSE
+            ====================================== */
+
+            const expenseDatabase =
+                ExpenseDatabaseConfig.getActiveDatabase();
+
+            if (
+                !expenseDatabase ||
+                Number(expenseDatabase.year) !==
+                Number(salesDatabase.year)
+            ) {
+                throw new Error(
+                    "Tahun database Expense tidak sesuai."
+                );
+            }
+
+            if (!expenseDatabase.expense) {
+                throw new Error(
+                    "Konfigurasi database Expense tidak lengkap."
+                );
+            }
+
             const database = {
 
                 ...salesDatabase,
@@ -66,7 +90,9 @@ const IncomingSync = {
 
                 pembelianId: purchaseDatabase.pembelian,
                 detailPembelianId: purchaseDatabase.detailPembelian,
-                pembayaranPembelianId: purchaseDatabase.pembayaran
+                pembayaranPembelianId: purchaseDatabase.pembayaran,
+
+                expenseId: expenseDatabase.expense
 
             };
 
@@ -111,6 +137,7 @@ const IncomingSync = {
                 !Array.isArray(data.pembelian) ||
                 !Array.isArray(data.detailPembelian) ||
                 !Array.isArray(data.pembayaranPembelian) ||
+                !Array.isArray(data.expense) ||
                 !data.lastSync
             ) {
                 throw new Error(
@@ -208,7 +235,9 @@ const IncomingSync = {
 
             this.applyPenjualanChanges(data),
 
-            this.applyPembelianChanges(data)
+            this.applyPembelianChanges(data),
+
+            this.applyExpenseChanges(data)
 
         ]);
 
@@ -277,6 +306,7 @@ const IncomingSync = {
                     pendingSatuan.add(
                         String(item.referenceId)
                     );
+
                 }
 
             }
@@ -796,6 +826,183 @@ const IncomingSync = {
 
         if (tasks.length > 0) {
             await Promise.all(tasks);
+        }
+
+    },
+
+
+    /* ======================================
+       APPLY EXPENSE CHANGES
+    ====================================== */
+
+    async applyExpenseChanges(data) {
+
+        const expenses =
+            Array.isArray(data.expense)
+                ? data.expense
+                : [];
+
+        if (expenses.length === 0) {
+            return;
+        }
+
+        /*
+         * BACA QUEUE LOKAL
+         * LINDUNGI EXPENSE PENDING
+         */
+
+        const queue =
+            await DB.getAll("syncQueue") || [];
+
+        const pendingExpenseIds = new Set();
+
+        for (const item of queue) {
+
+            if (
+                item.type !== "expense" ||
+                (
+                    item.status !== "pending" &&
+                    item.status !== "syncing"
+                )
+            ) {
+                continue;
+            }
+
+            if (item.referenceId) {
+
+                pendingExpenseIds.add(
+                    String(item.referenceId)
+                );
+
+            }
+
+        }
+
+        /*
+         * BACA DATA EXPENSE LOKAL
+         */
+
+        const localExpenses =
+            await DB.getAll("expense") || [];
+
+        const localById = new Map();
+
+        for (const item of localExpenses) {
+
+            if (item && item.id) {
+
+                localById.set(
+                    String(item.id),
+                    item
+                );
+
+            }
+
+        }
+
+        /*
+         * SIAPKAN DATA DARI SERVER
+         */
+
+        const expenseRows = [];
+
+        for (const expense of expenses) {
+
+            if (
+                !expense ||
+                !expense.id
+            ) {
+                continue;
+            }
+
+            const serverId =
+                String(expense.id);
+
+            const localExpense =
+                localById.get(serverId);
+
+            /*
+             * Jangan menimpa data lokal
+             * yang masih dalam antrean sync.
+             */
+
+            if (
+                pendingExpenseIds.has(serverId)
+            ) {
+                continue;
+            }
+
+            /*
+             * Jika ID lokal berbeda dengan ID server,
+             * cari berdasarkan spreadsheetId.
+             *
+             * Expense lokal yang sudah berhasil
+             * disinkronkan menggunakan spreadsheetId
+             * untuk menyimpan ID dari server.
+             */
+
+            const matchedLocal =
+                localExpense ||
+                localExpenses.find(function(item) {
+
+                    return (
+                        String(
+                            item.spreadsheetId || ""
+                        ) === serverId
+                    );
+
+                });
+
+            const normalizedExpense = {
+
+                ...(matchedLocal || {}),
+
+                id:
+                    serverId,
+
+                tanggal:
+                    expense.tanggal,
+
+                kategori:
+                    expense.kategori,
+
+                keterangan:
+                    expense.keterangan,
+
+                jumlah:
+                    Number(expense.jumlah) || 0,
+
+                metode:
+                    expense.metode,
+
+                status:
+                    expense.status,
+
+                spreadsheetId:
+                    serverId,
+
+                syncStatus:
+                    "synced"
+
+            };
+
+            expenseRows.push(
+                normalizedExpense
+            );
+
+        }
+
+        /*
+         * SIMPAN BULK
+         */
+
+        if (expenseRows.length > 0) {
+
+            await DB.bulkPut(
+                "expense",
+                expenseRows
+            );
+
         }
 
     },
