@@ -645,6 +645,76 @@
 
 }
 
+/* ======================================
+   SIDEBAR RELOAD DATA
+====================================== */
+
+.sidebar-reload-button {
+
+    width: 100%;
+    min-height: 44px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin: 0 0 8px;
+    padding: 0 12px;
+
+    border: 1px solid rgba(16,185,129,0.16);
+    border-radius: 10px;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff,
+        #f0fdf8
+    );
+
+    color: #059669;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+
+    text-align: left;
+    cursor: pointer;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+}
+
+.sidebar-reload-button:hover {
+
+    background: linear-gradient(
+        145deg,
+        #ecfdf5,
+        #d1fae5
+    );
+
+    border-color: rgba(16,185,129,0.3);
+
+    color: #047857;
+
+    box-shadow:
+        0 4px 12px rgba(16,185,129,0.08);
+
+    transform: translateY(-1px);
+}
+
+.sidebar-reload-button:active {
+
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.sidebar-reload-button .sidebar-menu-text {
+    color: inherit;
+}
+
 
 /* ======================================
    DESKTOP HEADER

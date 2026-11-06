@@ -133,29 +133,53 @@ const AppDesktopRender = {
             </div>
 
 
-            <div class="sidebar-footer">
+            
+<div class="sidebar-footer">
 
-                <button
-                    type="button"
-                    class="sidebar-logout-button"
-                    id="sidebarLogoutButton"
-                    title="Logout"
-                    aria-label="Logout"
-                >
+    <button
+        type="button"
+        class="sidebar-logout-button"
+        id="sidebarReloadDataButton"
+        title="Unduh Ulang Data"
+        aria-label="Unduh Ulang Data"
+        onclick="App.reloadInitialData()"
+    >
 
-                    <img
-                        src="icons/logout.png"
-                        alt=""
-                        class="sidebar-logout-icon"
-                    >
+        <img
+            src="icons/refresh.png"
+            alt=""
+            class="sidebar-logout-icon"
+        >
 
-                    <span class="sidebar-menu-text">
-                        Logout
-                    </span>
+        <span class="sidebar-menu-text">
+            Reload Database
+        </span>
 
-                </button>
+    </button>
 
-            </div>
+
+    <button
+        type="button"
+        class="sidebar-logout-button"
+        id="sidebarLogoutButton"
+        title="Logout"
+        aria-label="Logout"
+    >
+
+        <img
+            src="icons/logout.png"
+            alt=""
+            class="sidebar-logout-icon"
+        >
+
+        <span class="sidebar-menu-text">
+            Logout
+        </span>
+
+    </button>
+
+</div>
+
 
         `;
 

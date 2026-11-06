@@ -94,31 +94,30 @@ const App = {
             // 4. Inisialisasi sinkronisasi background & antrian syncQueue
             Sync.init();
 
-         // 5. Jalankan Incoming Sync dan tunggu sampai selesai
-if (navigator.onLine) {
+            // 5. Jalankan Incoming Sync dan tunggu sampai selesai
+            if (navigator.onLine) {
 
-    try {
+                try {
 
-        Loading.update(
-            "Memeriksa dan memperbarui database...",
-            "Sinkronisasi Data"
-        );
+                    Loading.update(
+                        "Memeriksa dan memperbarui database...",
+                        "Sinkronisasi Data"
+                    );
 
-        await IncomingSync.process();
+                    await IncomingSync.process();
 
-    }
-    catch (error) {
+                }
+                catch (error) {
 
-        console.warn(
-            "Incoming Sync gagal:",
-            error.message ||
-            error
-        );
+                    console.warn(
+                        "Incoming Sync gagal:",
+                        error.message ||
+                        error
+                    );
 
-    }
+                }
 
-}
-
+            }
 
             Loading.update(
                 "Memeriksa sesi pengguna...",
@@ -164,6 +163,127 @@ if (navigator.onLine) {
                 );
 
             }
+
+        }
+        finally {
+
+            Loading.hide();
+
+        }
+
+    },
+
+
+    // ======================================
+    // RELOAD INITIAL DATA
+    // DOWNLOAD ULANG SELURUH DATA SERVER
+    // ======================================
+
+    async reloadInitialData() {
+
+        if (!navigator.onLine) {
+
+            Dialog.error(
+                "Hubungkan perangkat ke internet untuk mengunduh ulang data."
+            );
+
+            return;
+
+        }
+
+        const confirmed =
+            await Dialog.confirm(
+                "Seluruh data lokal akan diganti dengan data terbaru dari server. Lanjutkan?",
+                {
+                    title: "Unduh Ulang Data",
+                    confirmText: "Ya, Unduh Ulang",
+                    cancelText: "Batal",
+                    variant: "warning"
+                }
+            );
+
+        if (!confirmed) {
+            return;
+        }
+
+        Loading.show(
+            "Mengunduh ulang seluruh data aplikasi...",
+            "Unduh Ulang Data"
+        );
+
+        try {
+
+            // 1. Download User
+            Loading.update(
+                "Mengunduh data pengguna...",
+                "Unduh Ulang Data"
+            );
+
+            await DownloadUsers.download();
+
+
+            // 2. Download konfigurasi toko dan bootstrap data
+            Loading.update(
+                "Memuat konfigurasi toko...",
+                "Unduh Ulang Data"
+            );
+
+            await StoreConfig.load();
+
+
+            // 3. Download ulang seluruh database
+            Loading.update(
+                "Mengunduh dan mengganti seluruh data aplikasi...",
+                "Unduh Ulang Data"
+            );
+
+            const result =
+                await Download.bootstrap();
+
+            if (!result || !result.success) {
+
+                throw new Error(
+                    result?.message ||
+                    "Gagal mengunduh ulang data aplikasi."
+                );
+
+            }
+
+
+            // 4. Periksa perubahan terbaru dari server
+            Loading.update(
+                "Memeriksa pembaruan data...",
+                "Sinkronisasi Data"
+            );
+
+            await IncomingSync.process();
+
+
+            Dialog.success(
+                "Seluruh data aplikasi berhasil diunduh ulang."
+            );
+
+            // Perbarui halaman yang sedang dibuka
+            if (this.currentPage) {
+
+                this.loadPage(
+                    this.currentPage
+                );
+
+            }
+
+        }
+        catch (error) {
+
+            console.error(
+                "RELOAD INITIAL DATA ERROR:",
+                error
+            );
+
+            Dialog.error(
+                error.message ||
+                "Gagal mengunduh ulang data aplikasi."
+            );
 
         }
         finally {
