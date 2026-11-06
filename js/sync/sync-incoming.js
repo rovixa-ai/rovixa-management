@@ -139,6 +139,7 @@ const IncomingSync = {
                 !Array.isArray(data.detailPembelian) ||
                 !Array.isArray(data.pembayaranPembelian) ||
                 !Array.isArray(data.expense) ||
+                !Array.isArray(data.stokAdjustment) ||
                 !data.lastSync
             ) {
                 throw new Error(
@@ -241,6 +242,8 @@ const IncomingSync = {
             this.applyPembelianChanges(data),
 
             this.applyExpenseChanges(data),
+
+            this.applyStokAdjustmentChanges(data),
 
             this.applyStoreConfigChanges(data)
 
@@ -1190,6 +1193,85 @@ const IncomingSync = {
         }
 
     },
+
+
+    /* ======================================
+   APPLY STOK ADJUSTMENT CHANGES
+   SIMPAN RIWAYAT TANPA MENGUBAH STOK
+====================================== */
+
+async applyStokAdjustmentChanges(data) {
+
+    const adjustments =
+        Array.isArray(data.stokAdjustment)
+            ? data.stokAdjustment
+            : [];
+
+    if (adjustments.length === 0) {
+        return;
+    }
+
+    const adjustmentRows = [];
+
+    for (const item of adjustments) {
+
+        if (
+            !item ||
+            !item.id ||
+            !item.kode
+        ) {
+            continue;
+        }
+
+        adjustmentRows.push({
+
+            id:
+                String(item.id),
+
+            kode:
+                String(item.kode),
+
+            jenis:
+                String(item.jenis || ""),
+
+            jumlah:
+                Number(item.jumlah) || 0,
+
+            stokSebelum:
+                Number(item.stokSebelum) || 0,
+
+            stokSesudah:
+                Number(item.stokSesudah) || 0,
+
+            alasan:
+                String(item.alasan || ""),
+
+            catatan:
+                String(item.catatan || ""),
+
+            createdAt:
+                item.createdAt || "",
+
+            syncStatus:
+                "synced",
+
+            syncedAt:
+                item.syncedAt || ""
+
+        });
+
+    }
+
+    if (adjustmentRows.length > 0) {
+
+        await DB.bulkPut(
+            "stokAdjustment",
+            adjustmentRows
+        );
+
+    }
+
+},
 
 
     /* ======================================
