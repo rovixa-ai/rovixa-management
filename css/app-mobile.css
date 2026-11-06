@@ -367,6 +367,83 @@
         white-space: nowrap;
     }
 
+
+    /* ==================================
+   REFRESH DATA BUTTON
+================================== */
+
+.mobile-header-refresh {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 36px;
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+
+    margin: 0;
+    
+    box-sizing: border-box;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #ecfdf5 100%
+    );
+
+    border: 1px solid rgba(16, 185, 129, 0.14);
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 2px 5px rgba(15, 23, 42, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+}
+
+.mobile-header-refresh img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.mobile-header-refresh:hover {
+    background: linear-gradient(
+        145deg,
+        #ecfdf5,
+        #d1fae5
+    );
+
+    border-color: rgba(16, 185, 129, 0.30);
+
+    box-shadow:
+        0 4px 10px rgba(16, 185, 129, 0.10);
+}
+
+.mobile-header-refresh:active {
+    transform: scale(0.92);
+    box-shadow: none;
+}
+
+.mobile-header-refresh:focus-visible {
+    outline: 2px solid #10b981;
+    outline-offset: 2px;
+}
+
     /* ==================================
        LOGOUT BUTTON
     ================================== */

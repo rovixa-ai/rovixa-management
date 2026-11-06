@@ -84,6 +84,20 @@ const AppMobileRender = {
 
                     <button
                         type="button"
+                        class="mobile-header-refresh"
+                        id="mobileHeaderRefresh"
+                        title="Unduh Ulang Data"
+                        aria-label="Unduh Ulang Data"
+                        onclick="App.reloadInitialData()"
+                    >
+                        <img
+                            src="icons/refresh.png"
+                            alt=""
+                        >
+                    </button>
+
+                    <button
+                        type="button"
                         class="mobile-header-logout"
                         id="mobileHeaderLogout"
                         title="Logout"
