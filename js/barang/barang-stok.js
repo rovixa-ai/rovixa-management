@@ -492,11 +492,6 @@ Object.assign(
                     );
 
 
-                
-
-                await Sync.process();
-
-
                Dialog.alert(
                     "Penyesuaian stok berhasil disimpan."
                 );

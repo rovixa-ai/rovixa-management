@@ -350,8 +350,10 @@ const StoreUserSave = {
 
 
                 response =
-                    await API.saveUser(
-                        data
+                    await Loading.run(
+                        () => API.saveUser(data),
+                        "Menyimpan data kasir...",
+                        "Menyimpan Kasir"
                     );
 
             }
@@ -378,8 +380,10 @@ const StoreUserSave = {
 
 
                 response =
-                    await API.updateUser(
-                        data
+                    await Loading.run(
+                        () => API.updateUser(data),
+                        "Memperbarui data kasir...",
+                        "Memperbarui Kasir"
                     );
 
             }
@@ -498,8 +502,10 @@ const StoreUserSave = {
 
 
             const response =
-                await API.deleteUser(
-                    user.id
+                await Loading.run(
+                    () => API.deleteUser(user.id),
+                    "Menonaktifkan kasir...",
+                    "Menonaktifkan Kasir"
                 );
 
 

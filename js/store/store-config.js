@@ -772,10 +772,11 @@ const StoreConfig = {
             // ==============================
 
             const response =
-                await API.saveStoreConfig(
-                    data
+                await Loading.run(
+                    () => API.saveStoreConfig(data),
+                    "Menyimpan konfigurasi toko...",
+                    "Menyimpan Konfigurasi"
                 );
-
 
             if (
                 !response ||
