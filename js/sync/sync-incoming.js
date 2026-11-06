@@ -226,22 +226,23 @@ const IncomingSync = {
        APPLY SERVER CHANGES
        PARALLEL MODULE PROCESSING
     ====================================== */
+async applyChanges(data) {
 
-    async applyChanges(data) {
+    await Promise.all([
 
-        await Promise.all([
+        this.applyMasterChanges(data),
 
-            this.applyMasterChanges(data),
+        this.applyPenjualanChanges(data),
 
-            this.applyPenjualanChanges(data),
+        this.applyPembelianChanges(data),
 
-            this.applyPembelianChanges(data),
+        this.applyExpenseChanges(data),
 
-            this.applyExpenseChanges(data)
+        this.applyStoreConfigChanges(data)
 
-        ]);
+    ]);
 
-    },
+},
 
 
     /* ======================================
@@ -389,6 +390,27 @@ const IncomingSync = {
         }
 
     },
+
+
+    /* ======================================
+   APPLY STORE CONFIG CHANGES
+====================================== */
+
+async applyStoreConfigChanges(data) {
+
+    if (
+        !data.storeConfig ||
+        typeof data.storeConfig !== "object" ||
+        Array.isArray(data.storeConfig)
+    ) {
+        return;
+    }
+
+    await StoreConfig.saveLocal(
+        data.storeConfig
+    );
+
+},
 
 
     /* ======================================
