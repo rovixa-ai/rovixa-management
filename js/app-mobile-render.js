@@ -12,7 +12,7 @@ const AppMobileRender = {
 
         const storeName =
             StoreConfig.getStoreName() ||
-            "Treehouse POS";
+            "Rovixa Pos";
 
         const logoUrl =
             StoreConfig.getLogoImageUrl(
